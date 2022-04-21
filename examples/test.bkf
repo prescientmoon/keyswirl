@@ -1,0 +1,19 @@
+"template" yo: a  a b c d e f g
+
+template yoooo: 
+  ayo yoa
+    a b c d e f g
+
+alias k = "keyyyy" aaa
+alias a = yo
+alias p = (p a bc) d fe "some kehy" (lol a "breh  breh" b) "bruh"
+alias something = something "yep"
+
+layer combos:
+| "s" "d" "c" _ c => a b c
+| a b *c => a b c
+| "yo" *_ => a b c
+
+layer qwerty using yoooo:
+  something w e r tsdlfksj sdf "btrh" _ 
+    _ (some-macro a b c)

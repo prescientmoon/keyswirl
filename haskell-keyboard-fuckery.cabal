@@ -25,16 +25,32 @@ library
     exposed-modules:  MyLib
 
     -- Modules included in this library but not exported.
-    -- other-modules:
+    other-modules:
+      HKF.Ast
+      HKF.Parser
+
+    mixins:  
+      base hiding (Prelude),
+      relude (Relude as Prelude),
+      relude
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:    base ^>=4.14.3.0
+    build-depends:    
+      base ^>=4.14.3.0,
+      relude ^>= 1.0.0.0,
+      text,
+      megaparsec
     hs-source-dirs:   src
     default-language: Haskell2010
 
 executable haskell-keyboard-fuckery
     main-is:          Main.hs
+
+    mixins:  
+      base hiding (Prelude),
+      relude (Relude as Prelude),
+      relude
 
     -- Modules included in this executable, other than Main.
     -- other-modules:
@@ -43,7 +59,7 @@ executable haskell-keyboard-fuckery
     -- other-extensions:
     build-depends:
         base ^>=4.14.3.0,
+        relude ^>= 1.0.0.0,
         haskell-keyboard-fuckery
 
     hs-source-dirs:   app
-    default-language: Haskell2010
