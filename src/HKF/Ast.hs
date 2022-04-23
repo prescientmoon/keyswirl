@@ -45,11 +45,26 @@ data Layer
   | StaticLayer StaticLayer
   deriving (Show)
 
-data ToplevelEntry
+data Input
+  = InputByName T.Text
+  | InputByPath T.Text
+  deriving (Show)
+
+data ToplevelDeclaration
   = Layer Layer
   | LayerTemplate LayerTemplate
   | Alias Expression -- argument support perhaps?
   deriving (Show)
 
-newtype Config = MkConfig [(T.Text, ToplevelEntry)]
+data UnnamedConfigEntry
+  = Input Input
+  | Output T.Text
+  deriving (Show)
+
+data ConfigEntry
+  = NamedConfigEntry T.Text ToplevelDeclaration
+  | UnnamedConfigEntry UnnamedConfigEntry
+  deriving (Show)
+
+newtype Config = MkConfig [ConfigEntry]
   deriving (Show)

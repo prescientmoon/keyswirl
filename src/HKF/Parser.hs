@@ -89,43 +89,65 @@ patternMatchBranch = L.lineFold scn \sc' -> do
   scn
   pure (A.MkPatternMatchBranch keycodes vars rest, e)
 
-toplevel :: Parser (T.Text, A.ToplevelEntry)
-toplevel = L.nonIndented scn (tlTemplate <|> tlAlias <|> tLayer)
+toplevel :: Parser A.ConfigEntry
+toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> tLayer)
   where
-    entryWithContinuation ::
+    namedDeclarationWithContinuation ::
       Parser a ->
-      (Parser () -> Parser (Parser A.ToplevelEntry)) ->
-      Parser (T.Text, A.ToplevelEntry)
-    entryWithContinuation kind parser = do
+      (Parser () -> Parser (Parser A.ToplevelDeclaration)) ->
+      Parser A.ConfigEntry
+    namedDeclarationWithContinuation kind parser = do
       (name, continuation) <- L.lineFold scn \sc' -> do
         L.lexeme sc' kind <?> "declaration kind"
         name <- L.lexeme (try sc') parseName_ <?> "declaration name"
         continuation <- parser sc'
         scn
         pure (name, continuation)
-      result <- continuation
-      pure (name, result)
+      A.NamedConfigEntry name <$> continuation
 
-    entry ::
+    namedDeclaration ::
       Parser a ->
-      (Parser () -> Parser A.ToplevelEntry) ->
-      Parser (T.Text, A.ToplevelEntry)
-    entry kind parser =
-      entryWithContinuation
+      (Parser () -> Parser A.ToplevelDeclaration) ->
+      Parser A.ConfigEntry
+    namedDeclaration kind parser =
+      namedDeclarationWithContinuation
         kind
         (fmap pure . parser)
 
-    tlAlias = entry "alias" \sc' -> do
+    unnamedDeclaration ::
+      Parser a ->
+      (Parser () -> Parser A.UnnamedConfigEntry) ->
+      Parser A.ConfigEntry
+    unnamedDeclaration kind parser =
+      A.UnnamedConfigEntry <$> L.lineFold scn \sc' -> do
+        L.lexeme sc' kind <?> "declaration kind"
+        parser sc' <* scn
+
+    tlAlias = namedDeclaration "alias" \sc' -> do
       L.symbol sc' "="
       r <- expression sc'
       pure $ A.Alias r
 
-    tlTemplate = entry "template" \sc' -> do
+    tlTemplate = namedDeclaration "template" \sc' -> do
       L.symbol sc' ":"
       names <- parseName_ `sepBy1` try sc'
       pure $ A.LayerTemplate $ A.MkLayerTemplate names
 
-    tLayer = entryWithContinuation "layer" \sc' -> do
+    tOutput = unnamedDeclaration "output" \sc' -> do
+      value <- stringLiteral sc'
+      pure $ A.Output value
+
+    tInput = unnamedDeclaration "input" \sc' -> do
+      let sym = L.symbol sc'
+      let inputByName =
+            sym "name" $> A.InputByName
+      let inputByPath =
+            sym "path" $> A.InputByPath
+      kind <- (inputByName <|> inputByPath) <?> "input kind"
+      value <- stringLiteral sc'
+      pure (A.Input $ kind value)
+
+    tLayer = namedDeclarationWithContinuation "layer" \sc' -> do
       static <-
         (L.symbol sc' "using" $> True)
           <|> (":" $> False)
