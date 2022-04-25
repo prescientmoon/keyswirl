@@ -16,6 +16,13 @@ import Prelude hiding (many, some)
 
 type Parser = Parsec Void T.Text
 
+spanned :: Parser a -> Parser (A.Spanned a)
+spanned p = do
+  start <- getSourcePos
+  result <- p
+  end <- getSourcePos
+  pure $ A.Spanned (A.Span start end) result
+
 lineComment :: Parser ()
 lineComment = L.skipLineComment "--"
 
@@ -31,8 +38,17 @@ sc =
   where
     isSpace c = c == ' ' || c == '\t'
 
+customParens :: T.Text -> T.Text -> Parser () -> Parser a -> Parser a
+customParens l r sc' = between (L.symbol sc' l) (string r)
+
 parens :: Parser () -> Parser a -> Parser a
-parens sc' = between (L.symbol sc' "(") ")"
+parens = customParens "(" ")"
+
+squareBraces :: Parser () -> Parser a -> Parser a
+squareBraces = customParens "[" "]"
+
+curlyBraces :: Parser () -> Parser a -> Parser a
+curlyBraces = customParens "{" "}"
 
 stringLiteral :: Parser () -> Parser T.Text
 stringLiteral sc' = go <?> "string literal"
@@ -55,19 +71,21 @@ parseName = lexeme parseName_
 
 expression :: Parser () -> Parser A.Expression
 expression sc' = do
-  f <- atom sc' <?> "function"
+  f <- atom sc'
   a <- many ((try sc' *> atom sc') <?> "function argument")
-  pure case (a, f) of
-    ([], _) -> f
-    (_, A.Call f ia) -> A.Call f $ ia ++ a
-    _ -> A.Call f a
+  case (a, f) of
+    ([], _) -> pure f
+    (_, A.Spanned _ (A.Call f ia)) -> spanned $ pure $ A.Call f $ ia ++ a
+    _ -> spanned $ pure $ A.Call f a
 
 atom :: Parser () -> Parser A.Expression
-atom sc' = parseKey <|> parseParenthesis <|> parseVar
+atom sc' = key <|> parseParenthesis <|> var <|> chord <|> sequence
   where
-    parseKey = A.Key <$> stringLiteral sc'
-    parseVar = A.Variable <$> (parseName_ <?> "variable")
+    key = spanned $ A.Key <$> stringLiteral sc'
+    var = spanned $ A.Variable <$> (parseName_ <?> "variable")
     parseParenthesis = parens sc' (expression sc')
+    chord = spanned $ A.Chord <$> curlyBraces sc' (sepBy (expression sc') $ lm ",")
+    sequence = spanned $ A.Sequence <$> squareBraces sc' (sepBy (expression sc') $ lm ",")
 
     lm = L.lexeme sc'
 
@@ -99,11 +117,12 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
     namedDeclarationWithContinuation kind parser = do
       (name, continuation) <- L.lineFold scn \sc' -> do
         L.lexeme sc' kind <?> "declaration kind"
-        name <- L.lexeme (try sc') parseName_ <?> "declaration name"
-        continuation <- parser sc'
+        name <- spanned (L.lexeme (try sc') parseName_ <?> "declaration name")
+        continuation <- spanned (parser sc')
         scn
         pure (name, continuation)
-      A.NamedConfigEntry name <$> continuation
+      result <- spanned (A.unspan continuation)
+      pure $ A.NamedConfigEntry name (A.Spanned (A.spanOf result <> A.spanOf continuation) $ A.unspan result)
 
     namedDeclaration ::
       Parser a ->
@@ -130,7 +149,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
 
     tlTemplate = namedDeclaration "template" \sc' -> do
       L.symbol sc' ":"
-      names <- parseName_ `sepBy1` try sc'
+      names <- spanned parseName_ `sepBy1` try sc'
       pure $ A.LayerTemplate $ A.MkLayerTemplate names
 
     tOutput = unnamedDeclaration "output" \sc' -> do
@@ -153,7 +172,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
           <|> (":" $> False)
       if static
         then do
-          templateName <- parseName_
+          templateName <- spanned parseName_
           L.symbol sc' ":"
           contents <-
             (wildcard <|> A.ExpressionEntry <$> atom sc')
@@ -169,4 +188,4 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
     wildcard = A.WildcardEntry <$ "_"
 
 parseConfig :: Parser A.Config
-parseConfig = A.MkConfig <$> some toplevel
+parseConfig = A.MkConfig <$> some (spanned toplevel)

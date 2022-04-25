@@ -1,15 +1,34 @@
 module HKF.Ast where
 
 import qualified Data.Text as T
+import Text.Megaparsec (SourcePos)
+import qualified Text.Show
 
-data Expression
+data Span = Span SourcePos SourcePos
+  deriving (Show)
+
+instance Semigroup Span where
+  (<>) (Span f t) (Span f' t') = Span (min f f') (max t t')
+
+data Spanned a = Spanned Span a
+
+instance Show a => Show (Spanned a) where
+  show (Spanned _ a) = show a
+
+type Expression = Spanned RawExpression
+
+data RawExpression
   = Key T.Text
   | Call Expression [Expression]
   | Variable T.Text
+  | -- Array of chords
+    Sequence [Expression]
+  | -- Array of keys, more or less
+    Chord [Expression]
   deriving (Show)
 
 newtype LayerTemplate = MkLayerTemplate
-  { templateKeycodes :: [T.Text]
+  { templateKeycodes :: [Spanned T.Text]
   }
   deriving (Show)
 
@@ -19,7 +38,7 @@ data StaticLayerEntry
   deriving (Show)
 
 data StaticLayer = MkStaticLayer
-  { staticLayerTemplate :: T.Text,
+  { staticLayerTemplate :: Spanned T.Text,
     staticLayerContents :: [StaticLayerEntry]
   }
   deriving (Show)
@@ -62,9 +81,16 @@ data UnnamedConfigEntry
   deriving (Show)
 
 data ConfigEntry
-  = NamedConfigEntry T.Text ToplevelDeclaration
+  = NamedConfigEntry (Spanned T.Text) (Spanned ToplevelDeclaration)
   | UnnamedConfigEntry UnnamedConfigEntry
   deriving (Show)
 
-newtype Config = MkConfig [ConfigEntry]
+newtype Config = MkConfig [Spanned ConfigEntry]
   deriving (Show)
+
+---------- Helpers
+unspan :: Spanned a -> a
+unspan (Spanned _ a) = a
+
+spanOf :: Spanned a -> Span
+spanOf (Spanned s _) = s

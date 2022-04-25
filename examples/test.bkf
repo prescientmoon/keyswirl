@@ -18,6 +18,6 @@ layer combos:
 | a b *c => a b c
 | "yo" *_ => a b c
 
-layer qwerty using yoooo:
-  something w e r tsdlfksj sdf "btrh" _ 
-    _ (some-macro a b c)
+layer qwerty using yoooo: _ _ _ _ _ {"a", ["breh"], "b"} _ _ "yo"
+
+alias yobreh = {"something", a, b, c, d} ["something else", [nested, {someChord, "breh"}, "brek2"], "breh2" arg]

@@ -40,6 +40,7 @@ library
     build-depends:    
       base ^>=4.14.3.0,
       relude ^>= 1.0.0.0,
+      mtl, 
       text,
       megaparsec,
       validation
