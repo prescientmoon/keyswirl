@@ -18,12 +18,12 @@ instance Show a => Show (Spanned a) where
 type Expression = Spanned RawExpression
 
 data RawExpression
-  = Key T.Text
+  = Key (Spanned T.Text)
   | Call Expression [Expression]
-  | Variable T.Text
-  | -- Array of chords
+  | Variable (Spanned T.Text)
+  | -- Array of keys pressed and released individually in order
     Sequence [Expression]
-  | -- Array of keys, more or less
+  | -- Array of keys first all pressed down and then all released
     Chord [Expression]
   deriving (Show)
 

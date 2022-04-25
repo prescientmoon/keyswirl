@@ -1,4 +1,4 @@
-template yo: a  a b c d e f g
+template yo: a r b c d e f g
 
 template yoooo: 
   ayo yoa
@@ -6,18 +6,20 @@ template yoooo:
 
 input name "yo"
 input path "yooooon"
+
 output "some output name"
 
-alias k = "keyyyy" aaa
-alias a = yo
-alias p = (p a bc) d fe "some kehy" (lol a "breh  breh" b) "bruh"
-alias something = something "yep"
+alias something = {"a", "b", "c"}
+-- alias k = "keyyyy" aaa
+-- alias a = yo
+-- alias p = (p a bc) d fe "some kehy" (lol a "breh  breh" b) "bruh"
+-- alias something = something "yep"
 
 layer combos:
 | "s" "d" "c" _ c => a b c
 | a b *c => a b c
 | "yo" *_ => a b c
 
-layer qwerty using yoooo: _ _ _ _ _ {"a", ["breh"], "b"} _ _ "yo"
+layer qwerty using yoooo: _ _ _ [] _ {"a", oo, ["breh"], "b"} _ _ "yo"
 
-alias yobreh = {"something", a, b, c, d} ["something else", [nested, {someChord, "breh"}, "brek2"], "breh2" arg]
+alias yobreh = {"something", something} ["something else", [{someChord, "breh"}, "brek2"], "breh2" arg]

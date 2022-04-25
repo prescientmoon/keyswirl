@@ -3,6 +3,7 @@
 
 module MyLib (someFunc) where
 
+import Control.Monad.Writer (execWriter)
 import qualified Data.Text as T
 import HKF.Ast
 import HKF.Check
@@ -18,13 +19,15 @@ someFunc = do
   case parseMaybe parser contents of
     Nothing -> pure ()
     Just (MkConfig config) ->
-      T.putStr $
-        show $
-          checkDeclarations $
-            MkContext
-              { scope = flip mapMaybe config \case
-                  Spanned _ (NamedConfigEntry name d) ->
-                    Just (name, d)
-                  _ -> Nothing,
-                types = mempty
-              }
+      let declarations = flip mapMaybe config \case
+            Spanned _ (NamedConfigEntry name d) ->
+              Just (name, d)
+            _ -> Nothing
+          errors =
+            execWriter $
+              checkConfig declarations $
+                MkContext
+                  { scope = mempty,
+                    types = mempty
+                  }
+       in for_ errors (T.putStrLn . show)

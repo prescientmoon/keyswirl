@@ -81,8 +81,8 @@ expression sc' = do
 atom :: Parser () -> Parser A.Expression
 atom sc' = key <|> parseParenthesis <|> var <|> chord <|> sequence
   where
-    key = spanned $ A.Key <$> stringLiteral sc'
-    var = spanned $ A.Variable <$> (parseName_ <?> "variable")
+    key = spanned $ A.Key <$> spanned (stringLiteral sc')
+    var = spanned $ A.Variable <$> (spanned parseName_ <?> "variable")
     parseParenthesis = parens sc' (expression sc')
     chord = spanned $ A.Chord <$> curlyBraces sc' (sepBy (expression sc') $ lm ",")
     sequence = spanned $ A.Sequence <$> squareBraces sc' (sepBy (expression sc') $ lm ",")
