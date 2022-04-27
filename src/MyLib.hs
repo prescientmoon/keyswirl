@@ -1,14 +1,13 @@
-{-# LANGUAGE BlockArguments #-}
-{-# LANGUAGE LambdaCase #-}
-
 module MyLib (someFunc) where
 
-import Control.Monad.Writer (execWriter)
+import Control.Monad.Writer (execWriter, runWriter)
+import qualified Data.HashMap.Lazy as H
 import qualified Data.Text as T
+import qualified Data.Text.IO as T
 import HKF.Ast
 import HKF.Check
+import HKF.Error (errorToText)
 import HKF.Parser (parseConfig)
-import qualified Relude.Lifted as T
 import Text.Megaparsec (MonadParsec (eof), parseMaybe, parseTest)
 
 someFunc :: IO ()
@@ -23,11 +22,17 @@ someFunc = do
             Spanned _ (NamedConfigEntry name d) ->
               Just (name, d)
             _ -> Nothing
-          errors =
-            execWriter $
+          (ctx, errors) =
+            runWriter $
               checkConfig declarations $
                 MkContext
                   { scope = mempty,
                     types = mempty
                   }
-       in for_ errors (T.putStrLn . show)
+       in do
+            let splitContent = lines contents
+            T.putStrLn "========== Errors:"
+            for_ errors (T.putStrLn . errorToText contents splitContent)
+            T.putStrLn "========== Context:"
+            for_ (H.toList $ types ctx) \(k, v) ->
+              T.putStr $ k <> ": " <> show v <> "\n"

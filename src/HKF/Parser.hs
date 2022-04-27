@@ -1,7 +1,3 @@
-{-# LANGUAGE BlockArguments #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TupleSections #-}
-
 module HKF.Parser where
 
 import qualified Data.Text as T
@@ -19,9 +15,16 @@ type Parser = Parsec Void T.Text
 spanned :: Parser a -> Parser (A.Spanned a)
 spanned p = do
   start <- getSourcePos
+  startRaw <- getOffset
   result <- p
   end <- getSourcePos
-  pure $ A.Spanned (A.Span start end) result
+  endRaw <- getOffset
+  pure $ A.Spanned (A.Span (start, end) (startRaw, endRaw)) result
+
+extendSpan :: A.Span -> Parser (A.Spanned a) -> Parser (A.Spanned a)
+extendSpan extra parser = do
+  A.Spanned span result <- parser
+  pure $ A.Spanned (span <> extra) result
 
 lineComment :: Parser ()
 lineComment = L.skipLineComment "--"
@@ -112,17 +115,16 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
   where
     namedDeclarationWithContinuation ::
       Parser a ->
-      (Parser () -> Parser (Parser A.ToplevelDeclaration)) ->
+      (Parser () -> Parser (Parser (A.Spanned A.ToplevelDeclaration))) ->
       Parser A.ConfigEntry
     namedDeclarationWithContinuation kind parser = do
       (name, continuation) <- L.lineFold scn \sc' -> do
         L.lexeme sc' kind <?> "declaration kind"
         name <- spanned (L.lexeme (try sc') parseName_ <?> "declaration name")
-        continuation <- spanned (parser sc')
+        continuation <- parser sc'
         scn
         pure (name, continuation)
-      result <- spanned (A.unspan continuation)
-      pure $ A.NamedConfigEntry name (A.Spanned (A.spanOf result <> A.spanOf continuation) $ A.unspan result)
+      A.NamedConfigEntry name <$> continuation
 
     namedDeclaration ::
       Parser a ->
@@ -131,7 +133,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
     namedDeclaration kind parser =
       namedDeclarationWithContinuation
         kind
-        (fmap pure . parser)
+        (fmap pure . spanned . parser)
 
     unnamedDeclaration ::
       Parser a ->
@@ -149,7 +151,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
 
     tlTemplate = namedDeclaration "template" \sc' -> do
       L.symbol sc' ":"
-      names <- spanned parseName_ `sepBy1` try sc'
+      names <- spanned (spanned parseName_ `sepBy1` try sc')
       pure $ A.LayerTemplate $ A.MkLayerTemplate names
 
     tOutput = unnamedDeclaration "output" \sc' -> do
@@ -167,23 +169,23 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
       pure (A.Input $ kind value)
 
     tLayer = namedDeclarationWithContinuation "layer" \sc' -> do
-      static <-
-        (L.symbol sc' "using" $> True)
-          <|> (":" $> False)
-      if static
-        then do
-          templateName <- spanned parseName_
-          L.symbol sc' ":"
-          contents <-
-            (wildcard <|> A.ExpressionEntry <$> atom sc')
-              `sepBy1` try sc'
-          pure $
+      A.Spanned startingSpan static <-
+        spanned $
+          (L.symbol sc' "using" $> True)
+            <|> (":" $> False)
+      extendSpan startingSpan
+        <$> if static
+          then (pure <$> spanned) do
+            templateName <- spanned parseName_
+            L.symbol sc' ":"
+            let entry = wildcard <|> A.ExpressionEntry <$> atom sc'
+            contents <- spanned (entry `sepBy1` try sc')
             pure $
               A.Layer $
                 A.StaticLayer $ A.MkStaticLayer templateName contents
-        else pure do
-          branches <- some $ L.nonIndented scn patternMatchBranch
-          pure $ A.Layer $ A.ComputeLayer $ A.MkComputeLayer branches
+          else pure $ spanned do
+            branches <- some $ L.nonIndented scn patternMatchBranch
+            pure $ A.Layer $ A.ComputeLayer $ A.MkComputeLayer branches
 
     wildcard = A.WildcardEntry <$ "_"
 

@@ -1,5 +1,4 @@
-template yo: a r b c d e f g
-
+--template yo: a r b c d e f g a
 template yoooo: 
   ayo yoa
     a b c d e f g
@@ -21,5 +20,11 @@ layer combos:
 | "yo" *_ => a b c
 
 layer qwerty using yoooo: _ _ _ [] _ {"a", oo, ["breh"], "b"} _ _ "yo"
+--layer qwerty using yoooo: a "b" c
 
-alias yobreh = {"something", something} ["something else", [{someChord, "breh"}, "brek2"], "breh2" arg]
+layer test using breh: "wrong"
+--layer test using qwerty: abc
+
+alias wrongArgument = qwerty qwerty
+alias layerCallTest = qwerty "abc"
+alias yobreh = {"something", something} ["something else", [{"breh"}, "brek2"], "breh2"]

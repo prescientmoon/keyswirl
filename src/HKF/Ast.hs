@@ -4,13 +4,14 @@ import qualified Data.Text as T
 import Text.Megaparsec (SourcePos)
 import qualified Text.Show
 
-data Span = Span SourcePos SourcePos
+data Span = Span (SourcePos, SourcePos) (Int, Int)
   deriving (Show)
 
 instance Semigroup Span where
   (<>) (Span f t) (Span f' t') = Span (min f f') (max t t')
 
 data Spanned a = Spanned Span a
+  deriving (Functor)
 
 instance Show a => Show (Spanned a) where
   show (Spanned _ a) = show a
@@ -28,7 +29,7 @@ data RawExpression
   deriving (Show)
 
 newtype LayerTemplate = MkLayerTemplate
-  { templateKeycodes :: [Spanned T.Text]
+  { templateKeycodes :: Spanned [Spanned T.Text]
   }
   deriving (Show)
 
@@ -39,7 +40,7 @@ data StaticLayerEntry
 
 data StaticLayer = MkStaticLayer
   { staticLayerTemplate :: Spanned T.Text,
-    staticLayerContents :: [StaticLayerEntry]
+    staticLayerContents :: Spanned [StaticLayerEntry]
   }
   deriving (Show)
 

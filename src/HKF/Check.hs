@@ -1,8 +1,3 @@
-{-# LANGUAGE BlockArguments #-}
-{-# LANGUAGE DeriveFunctor #-}
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE OverloadedStrings #-}
-
 module HKF.Check where
 
 import Control.Monad.Writer
@@ -33,12 +28,7 @@ data Context = MkContext
 type Checked = Writer [CheckError]
 
 data TypeExpectationReason
-  = MustSatisfyCall
-      { mscFunction :: A.Expression,
-        mscArgument :: A.Expression,
-        mscArgumentType :: EType
-      }
-  | MustSatisfyChord
+  = MustSatisfyChord
       { mscChord :: A.Expression,
         mscTerm :: A.Expression
       }
@@ -63,18 +53,11 @@ data CheckError
         contradictions :: [(EType, EType)],
         expectedBecause :: TypeExpectationReason
       }
-  | WrongDeclarationType
-      { expectedType :: EType,
-        actualType :: EType,
-        source :: Spanned A.ToplevelDeclaration,
-        contradictions :: [(EType, EType)],
-        expectedBecause :: TypeExpectationReason
-      }
   | WrongArgument
       { waFunction :: A.Expression,
         waArgument :: A.Expression,
-        waFunctionType :: EType,
-        waArgumentType :: EType,
+        waExpected :: EType,
+        waActual :: EType,
         waContradictions :: [(EType, EType)]
       }
   | NotCallable
@@ -86,9 +69,9 @@ data CheckError
   | VarNotInScope
       { vnsSource :: Spanned T.Text
       }
-  | AlreadyInScope T.Text
-  | WrongTemplateLength (Spanned A.StaticLayer) (Spanned T.Text) Natural Natural
-  | DuplicateTemplateKeycode (Spanned A.LayerTemplate) T.Text
+  | AlreadyInScope (Spanned T.Text)
+  | WrongTemplateLength (Spanned [A.StaticLayerEntry]) (Spanned T.Text) Natural Natural
+  | DuplicateTemplateKeycode (Spanned [Spanned Text]) Text
   | InvalidKeycode (Spanned T.Text)
   deriving (Show)
 
@@ -100,11 +83,18 @@ lookupTypeScope :: T.Text -> Context -> Maybe EType
 lookupTypeScope name ctx = lookup name (types ctx)
 
 lookupTyped :: Spanned T.Text -> (EType, TypeExpectationReason) -> Context -> Checked (Maybe (Spanned A.ToplevelDeclaration))
-lookupTyped spannedName@(Spanned _ name) (expected, reason) ctx = case (lookupScope name ctx, lookupTypeScope name ctx) of
+lookupTyped spannedName@(Spanned span name) (expected, reason) ctx = case (lookupScope name ctx, lookupTypeScope name ctx) of
   (Just decl, Just ty) -> do
     let contradictions = subtype ty expected
     unless (L.null contradictions) do
-      tell [WrongDeclarationType expected ty decl contradictions reason]
+      tell
+        [ WrongType
+            expected
+            ty
+            (Spanned span $ A.Variable spannedName)
+            contradictions
+            reason
+        ]
     pure $ Just decl
   _ -> do
     tell [VarNotInScope spannedName]
@@ -126,6 +116,7 @@ checkForDuplicates mkE arr = do
 -- Ensures the type of a is less general than the type of b
 subtype :: EType -> EType -> [(EType, EType)]
 subtype left right = case (left, right) of
+  (TTemplate, TTemplate) -> trivial
   (TKeycode, TKeycode) -> trivial
   (TKeycode, TChord) -> trivial
   (TChord, TChord) -> trivial
@@ -181,7 +172,7 @@ inferType spanned@(Spanned span e) ctx = case e of
         TArrow from to -> do
           let contradictions = subtype aType from
           unless (L.null contradictions) do
-            let error = WrongArgument func arg fType aType contradictions
+            let error = WrongArgument func arg to aType contradictions
             tell [error]
           pure to
         somethingElse -> do
@@ -216,13 +207,13 @@ checkLayerTemplate this@(Spanned _ template) ctx = noDuplicates *> keycodeCheck
   where
     keycodeCheck =
       for_
-        (A.templateKeycodes template)
+        (unspan $ A.templateKeycodes template)
         checkKeycode
 
     noDuplicates =
       checkForDuplicates
-        (DuplicateTemplateKeycode this)
-        (unspan <$> A.templateKeycodes template)
+        (DuplicateTemplateKeycode $ A.templateKeycodes template)
+        (fmap unspan $ unspan $ A.templateKeycodes template)
 
 checkStaticLayer ::
   Spanned A.StaticLayer ->
@@ -231,7 +222,7 @@ checkStaticLayer ::
 checkStaticLayer this@(Spanned _ layer) ctx = lengthCheck *> expressionCheck
   where
     expressionCheck = for_
-      (A.staticLayerContents layer)
+      (unspan $ A.staticLayerContents layer)
       \case
         A.WildcardEntry -> pure ()
         A.ExpressionEntry expr -> checkExpression expr (TSequence, StaticLayerMember expr) ctx
@@ -244,21 +235,21 @@ checkStaticLayer this@(Spanned _ layer) ctx = lengthCheck *> expressionCheck
           unless (templateLength == layerLength) do
             tell
               [ WrongTemplateLength
-                  this
+                  (A.staticLayerContents layer)
                   templateName
                   (intToNatural templateLength)
                   (intToNatural layerLength)
               ]
           where
-            templateLength = length (A.templateKeycodes template)
-            layerLength = length (A.staticLayerContents layer)
+            templateLength = length (unspan $ A.templateKeycodes template)
+            layerLength = length (unspan $ A.staticLayerContents layer)
         _ -> pure ()
 
 checkConfig ::
   [(Spanned T.Text, Spanned A.ToplevelDeclaration)] ->
   Context ->
-  Checked ()
-checkConfig t ctx = foldM_ (flip checkDeclaration) ctx t
+  Checked Context
+checkConfig t ctx = foldM (flip checkDeclaration) ctx t
 
 checkDeclaration ::
   (Spanned T.Text, Spanned A.ToplevelDeclaration) ->
@@ -267,6 +258,7 @@ checkDeclaration ::
 checkDeclaration (name, decl) ctx = do
   let span = spanOf decl
   let tLayer = TArrow TChord TSequence
+
   ty <- case unspan decl of
     A.LayerTemplate template -> do
       checkLayerTemplate (Spanned span template) ctx
@@ -283,8 +275,3 @@ checkDeclaration (name, decl) ctx = do
       { scope = insert (unspan name) decl (scope ctx),
         types = insert (unspan name) ty (types ctx)
       }
-
---         Spanned span (A.Layer (A.StaticLayer layer)) ->
---           first (map $ StaticLayerError . Spanned span) $
---             checkStaticLayer layer ctx
---         _ -> pure ()

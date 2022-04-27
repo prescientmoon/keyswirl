@@ -29,6 +29,7 @@ library
       HKF.Ast
       HKF.Parser
       HKF.Check
+      HKF.Error
 
     mixins:  
       base hiding (Prelude),
@@ -43,10 +44,17 @@ library
       mtl, 
       text,
       megaparsec,
+      prettyprinter,
+      prettyprinter-ansi-terminal,
       validation
 
     hs-source-dirs:   src
     default-language: Haskell2010
+    default-extensions: 
+      BlockArguments,
+      DeriveFunctor,
+      LambdaCase,
+      OverloadedStrings
 
 executable haskell-keyboard-fuckery
     main-is:          Main.hs
