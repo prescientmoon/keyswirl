@@ -1,0 +1,4 @@
+packages: ./haskell-keyboard-fuckery.cabal
+
+package diagnose
+  flags: +megaparsec-compat

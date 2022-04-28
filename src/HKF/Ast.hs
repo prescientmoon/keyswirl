@@ -1,14 +1,12 @@
 module HKF.Ast where
 
 import qualified Data.Text as T
+import Error.Diagnose (Position (Position))
+import Error.Diagnose.Position (Position)
 import Text.Megaparsec (SourcePos)
 import qualified Text.Show
 
-data Span = Span (SourcePos, SourcePos) (Int, Int)
-  deriving (Show)
-
-instance Semigroup Span where
-  (<>) (Span f t) (Span f' t') = Span (min f f') (max t t')
+type Span = Position
 
 data Spanned a = Spanned Span a
   deriving (Functor)
@@ -95,3 +93,24 @@ unspan (Spanned _ a) = a
 
 spanOf :: Spanned a -> Span
 spanOf (Spanned s _) = s
+
+span :: (Int, Int) -> (Int, Int) -> FilePath -> Span
+span = Position
+
+mergeSpans :: Span -> Span -> Maybe Span
+mergeSpans (Position s e f) (Position s' e' f')
+  | f == f' =
+    Just $
+      Position
+        (mergeSourcePositions min s s')
+        (mergeSourcePositions max e e')
+        f
+  | otherwise = Nothing
+  where
+    mergeSourcePositions :: (Int -> Int -> Int) -> (Int, Int) -> (Int, Int) -> (Int, Int)
+    mergeSourcePositions f (l0, c0) (l1, c1)
+      | l0 == l1 = (l0, f c0 c1)
+      | otherwise =
+        if f l0 l1 == l0
+          then (l0, c0)
+          else (l1, c1)

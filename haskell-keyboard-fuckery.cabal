@@ -41,12 +41,14 @@ library
     build-depends:    
       base ^>=4.14.3.0,
       relude ^>= 1.0.0.0,
+      diagnose,
       mtl, 
       text,
       megaparsec,
       prettyprinter,
       prettyprinter-ansi-terminal,
       validation
+
 
     hs-source-dirs:   src
     default-language: Haskell2010

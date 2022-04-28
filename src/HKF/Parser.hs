@@ -14,17 +14,18 @@ type Parser = Parsec Void T.Text
 
 spanned :: Parser a -> Parser (A.Spanned a)
 spanned p = do
-  start <- getSourcePos
-  startRaw <- getOffset
+  (SourcePos filename l0 c0) <- getSourcePos
   result <- p
-  end <- getSourcePos
-  endRaw <- getOffset
-  pure $ A.Spanned (A.Span (start, end) (startRaw, endRaw)) result
+  (SourcePos _ l1 c1) <- getSourcePos
+  pure $ A.Spanned (A.span (both unPos (l0, c0)) (both unPos (l1, c1)) filename) result
+  where
+    both :: (a -> b) -> (a, a) -> (b, b)
+    both f (x, y) = (f x, f y)
 
 extendSpan :: A.Span -> Parser (A.Spanned a) -> Parser (A.Spanned a)
 extendSpan extra parser = do
   A.Spanned span result <- parser
-  pure $ A.Spanned (span <> extra) result
+  pure $ A.Spanned (fromMaybe span (A.mergeSpans span extra)) result
 
 lineComment :: Parser ()
 lineComment = L.skipLineComment "--"

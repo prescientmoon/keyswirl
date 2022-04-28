@@ -21,7 +21,8 @@ data EType
 
 data Context = MkContext
   { scope :: HashMap T.Text (Spanned A.ToplevelDeclaration),
-    types :: HashMap T.Text EType
+    types :: HashMap T.Text EType,
+    generalLocation :: Maybe (Spanned CheckErrorGeneralLocation)
   }
   deriving (Show)
 
@@ -45,7 +46,19 @@ data TypeExpectationReason
       }
   deriving (Show)
 
-data CheckError
+data CheckError = MkCheckError
+  { ceGeneralLocation :: Maybe (Spanned CheckErrorGeneralLocation),
+    ceDetails :: CheckErrorDetails
+  }
+  deriving (Show)
+
+data CheckErrorGeneralLocation
+  = WhileCheckingStaticLayer
+  | WhileCheckingLayerTemplate
+  | WhileCheckingAlias
+  deriving (Show)
+
+data CheckErrorDetails
   = WrongType
       { expectedType :: EType,
         actualType :: EType,
@@ -71,11 +84,21 @@ data CheckError
       }
   | AlreadyInScope (Spanned T.Text)
   | WrongTemplateLength (Spanned [A.StaticLayerEntry]) (Spanned T.Text) Natural Natural
-  | DuplicateTemplateKeycode (Spanned [Spanned Text]) Text
+  | DuplicateTemplateKeycode
+      { dtkTemplate :: Spanned [Spanned Text],
+        dtkInstances :: NonEmpty (Spanned Text),
+        dtkKeycode :: Text
+      }
   | InvalidKeycode (Spanned T.Text)
   deriving (Show)
 
 ---------- Helpers
+tcError :: CheckError -> Checked ()
+tcError = tell . pure
+
+ctxTcError :: Context -> CheckErrorDetails -> Checked ()
+ctxTcError ctx = tcError . MkCheckError (generalLocation ctx)
+
 lookupScope :: T.Text -> Context -> Maybe (Spanned A.ToplevelDeclaration)
 lookupScope name ctx = lookup name (scope ctx)
 
@@ -87,17 +110,17 @@ lookupTyped spannedName@(Spanned span name) (expected, reason) ctx = case (looku
   (Just decl, Just ty) -> do
     let contradictions = subtype ty expected
     unless (L.null contradictions) do
-      tell
-        [ WrongType
-            expected
-            ty
-            (Spanned span $ A.Variable spannedName)
-            contradictions
-            reason
-        ]
+      ctxTcError ctx $
+        WrongType
+          expected
+          ty
+          (Spanned span $ A.Variable spannedName)
+          contradictions
+          reason
+
     pure $ Just decl
   _ -> do
-    tell [VarNotInScope spannedName]
+    ctxTcError ctx $ VarNotInScope spannedName
     pure Nothing
 
 validKeyCode :: T.Text -> Bool
@@ -106,12 +129,20 @@ validKeyCode _ = True
 
 ---------- Validators
 -- Validates a list and errors out on every duplicate found
-checkForDuplicates :: Eq a => (a -> CheckError) -> [a] -> Checked ()
-checkForDuplicates mkE arr = do
+checkForDuplicates :: (a -> a -> Bool) -> (NonEmpty a -> CheckError) -> [a] -> Checked ()
+checkForDuplicates eq mkE arr = do
   unless (L.null duplicates) do
-    tell (mkE <$> duplicates)
+    for_ duplicates \d -> case nonEmpty d of
+      Nothing -> pure ()
+      Just d -> tcError (mkE d)
   where
-    duplicates = L.nub [a | a <- arr, length [b | b <- arr, a == b] > 1]
+    duplicates = L.nubBy arraysEq [d | a <- arr, let d = [b | b <- arr, eq a b], length d > 1]
+    arraysEq [] [] = True
+    arraysEq (a : _) (b : _) = eq a b
+    arraysEq _ _ = False
+
+checkForSpannedDuplicates :: Eq a => (NonEmpty (Spanned a) -> CheckError) -> [Spanned a] -> Checked ()
+checkForSpannedDuplicates = checkForDuplicates (on (==) unspan)
 
 -- Ensures the type of a is less general than the type of b
 subtype :: EType -> EType -> [(EType, EType)]
@@ -136,11 +167,11 @@ subtype left right = case (left, right) of
 
 inferType :: A.Expression -> Context -> Checked EType
 inferType spanned@(Spanned span e) ctx = case e of
-  A.Key keycode -> checkKeycode keycode $> TKeycode
+  A.Key keycode -> checkKeycode keycode ctx $> TKeycode
   A.Variable spannedName -> case lookup (unspan spannedName) (types ctx) of
     Just ty -> pure ty
     Nothing -> do
-      tell [VarNotInScope spannedName]
+      ctxTcError ctx $ VarNotInScope spannedName
       pure TBroken
   A.Call f [] -> inferType f ctx
   A.Call f args -> do
@@ -151,7 +182,7 @@ inferType spanned@(Spanned span e) ctx = case e of
       go f fType [] = pure fType
       go f fType (h : t) = do
         oType <- inferSingleCall f fType h
-        go (Spanned (spanOf f <> spanOf h) $ A.Call f [h]) oType t
+        go (Spanned (fromMaybe (spanOf f) $ A.mergeSpans (spanOf f) (spanOf h)) $ A.Call f [h]) oType t
   A.Chord inner -> do
     forM_ inner \t ->
       checkExpression t (TChord, reason t) ctx
@@ -173,11 +204,11 @@ inferType spanned@(Spanned span e) ctx = case e of
           let contradictions = subtype aType from
           unless (L.null contradictions) do
             let error = WrongArgument func arg to aType contradictions
-            tell [error]
+            ctxTcError ctx error
           pure to
         somethingElse -> do
           let error = NotCallable func arg fType aType
-          tell [error]
+          ctxTcError ctx error
           pure TBroken
 
 checkExpression ::
@@ -191,12 +222,12 @@ checkExpression spanned@(Spanned span e) (expected, reason) ctx = case e of
     let contradictions = subtype inferred expected
     unless (L.null contradictions) do
       let error = WrongType expected inferred spanned contradictions reason
-      tell [error]
+      ctxTcError ctx error
 
-checkKeycode :: Spanned T.Text -> Checked ()
-checkKeycode keycode =
+checkKeycode :: Spanned T.Text -> Context -> Checked ()
+checkKeycode keycode ctx =
   unless (validKeyCode (unspan keycode)) do
-    tell [InvalidKeycode keycode]
+    ctxTcError ctx $ InvalidKeycode keycode
 
 -- Runs all the checks on a given template
 checkLayerTemplate ::
@@ -208,12 +239,19 @@ checkLayerTemplate this@(Spanned _ template) ctx = noDuplicates *> keycodeCheck
     keycodeCheck =
       for_
         (unspan $ A.templateKeycodes template)
-        checkKeycode
+        (`checkKeycode` ctx)
 
     noDuplicates =
-      checkForDuplicates
-        (DuplicateTemplateKeycode $ A.templateKeycodes template)
-        (fmap unspan $ unspan $ A.templateKeycodes template)
+      checkForSpannedDuplicates
+        mkError
+        (unspan $ A.templateKeycodes template)
+      where
+        mkError duplicates =
+          MkCheckError (generalLocation ctx) $
+            DuplicateTemplateKeycode
+              (A.templateKeycodes template)
+              duplicates
+              (unspan $ head duplicates)
 
 checkStaticLayer ::
   Spanned A.StaticLayer ->
@@ -233,13 +271,13 @@ checkStaticLayer this@(Spanned _ layer) ctx = lengthCheck *> expressionCheck
       case res of
         Just (Spanned _ (A.LayerTemplate template)) ->
           unless (templateLength == layerLength) do
-            tell
-              [ WrongTemplateLength
-                  (A.staticLayerContents layer)
-                  templateName
-                  (intToNatural templateLength)
-                  (intToNatural layerLength)
-              ]
+            ctxTcError
+              ctx
+              $ WrongTemplateLength
+                (A.staticLayerContents layer)
+                templateName
+                (intToNatural templateLength)
+                (intToNatural layerLength)
           where
             templateLength = length (unspan $ A.templateKeycodes template)
             layerLength = length (unspan $ A.staticLayerContents layer)
@@ -258,20 +296,22 @@ checkDeclaration ::
 checkDeclaration (name, decl) ctx = do
   let span = spanOf decl
   let tLayer = TArrow TChord TSequence
+  let withLocation loc = ctx {generalLocation = Just (Spanned (spanOf name) loc)}
 
   ty <- case unspan decl of
     A.LayerTemplate template -> do
-      checkLayerTemplate (Spanned span template) ctx
+      checkLayerTemplate (Spanned span template) $ withLocation WhileCheckingLayerTemplate
       pure TTemplate
     A.Layer (A.StaticLayer layer) -> do
-      checkStaticLayer (Spanned span layer) ctx
+      checkStaticLayer (Spanned span layer) $ withLocation WhileCheckingStaticLayer
       pure tLayer
     A.Alias expr -> do
-      inferType expr ctx
+      inferType expr $ withLocation WhileCheckingAlias
     _ -> pure TBroken
 
   pure $
     MkContext
       { scope = insert (unspan name) decl (scope ctx),
-        types = insert (unspan name) ty (types ctx)
+        types = insert (unspan name) ty (types ctx),
+        generalLocation = Nothing
       }
