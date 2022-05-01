@@ -1,5 +1,6 @@
 module HKF.Parser where
 
+import Data.Char (isAlphaNum)
 import qualified Data.Text as T
 import Data.Void
 import GHC.IO (throwIO)
@@ -66,7 +67,7 @@ lexeme = L.lexeme sc
 
 parseName_ :: Parser Text
 parseName_ = takeWhile1P (Just "name") \c ->
-  isAlpha c
+  isAlphaNum c
     || c == '-'
     || c == '_'
 
@@ -99,17 +100,19 @@ parseBinder = (wildcard <|> named) <?> "binder"
     named = (A.Named <$> parseName_) <?> "named binder"
     wildcard = ("_" $> A.Wildcard) <?> "wildcard"
 
-patternMatchBranch :: Parser (A.PatternMatchBranch, A.Expression)
+patternMatchBranch :: Parser (A.Spanned A.PatternMatchBranch, A.Expression)
 patternMatchBranch = L.lineFold scn \sc' -> do
   let lm = L.lexeme sc'
   L.symbol sc' "|"
-  keycodes <- many (lm $ stringLiteral sc')
-  vars <- many (lm parseBinder)
-  rest <- optional (lm ("*" *> parseBinder) <?> "rest binder")
+  A.Spanned span (keycodes, vars, rest) <- spanned do
+    keycodes <- many (lm $ spanned $ stringLiteral sc')
+    vars <- many (lm $ spanned parseBinder)
+    rest <- optional (lm ("*" *> spanned parseBinder) <?> "rest binder")
+    pure (keycodes, vars, rest)
   L.symbol sc' "=>"
   e <- expression sc'
   scn
-  pure (A.MkPatternMatchBranch keycodes vars rest, e)
+  pure (A.Spanned span $ A.MkPatternMatchBranch keycodes vars rest, e)
 
 toplevel :: Parser A.ConfigEntry
 toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> tLayer)

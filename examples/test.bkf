@@ -1,7 +1,8 @@
 template yo: a r b c d e f g a a  ayo a
 template yoooo: 
-  ayo yoa
-    a b c d e f g
+  ayo yoa  
+    a b 
+      c d e f g
 
 input name "yo"
 input path "yooooon"
@@ -15,17 +16,34 @@ alias something = {"a", "b", "c"}
 -- alias something = something "yep"
 
 layer combos:
-| "s" "d" "c" _ c => a b c
-| a b *c => a b c
-| "yo" *_ => a b c
+| "s" "d" "c" _ c => c c c
+| a b *c => a {b, c} 
+| "yo" *_ => {}
 
-layer qwerty using yoooo: _ _ _ [] _ {"a", oo, ["breh"], "b"} _ _ "yo"
-layer qwertyy using yoooo: a "b" c
+layer qwerty using yoooo: _ _ _ [] _ {"a",  ["breh"], "b"} _ _ "yo"
+-- layer qwertyy using yoooo: "a" "b" "c"
 
-layer test using breh: "wrong"
+-- alias bruh = "breh"
+
+--layer test using breh: "wrong"
+
+alias CS- = {"ctrl", "shift"}
+
+layer fancy:
+| "s" "d" "f" *r => {"leftctrl", "leftshift", r}
+| "j" "k" "l" *r => {"rightctrl", "rightshift", r}
+| "s" "d" *r => {"leftshift", r}
+| "k" "l" *r => {"rightshift", r}
+| "s" "f" *r => {"leftctrl", r}
+| "j" "l" *r => {"rightctrl", r}
+| "q" "e" => "esc"
+| "g" "h" => "backspace"
+
+template numbers: 1 2 3 4 5 6 7 8 9 0 
+-- layer numbersToChars using numbers: "a" "b" "c" "d" _ {"b", "r"} _ (fancy ["s", "d"]) _ _
 
 --layer test using qwerty: abc
 
-alias wrongArgument = qwerty qwerty
+-- alias wrongArgument = qwerty qwerty
 alias layerCallTest = qwerty "abc"
-alias yobreh = {"something", something} ["something else", [{"breh"}, "brek2"], "breh2"]
+-- alias yobreh = {"something", somrething} ["something else", [{"breh"}, "brek2"], "breh2"]

@@ -1,13 +1,16 @@
 module HKF.Check where
 
-import Control.Monad.Writer
+import Control.Monad.Writer as W
 import Data.Bifunctor
 import qualified Data.List as L
+import qualified Data.Text as T
+import Data.Text.Metrics (damerauLevenshtein)
 import Data.Validation
 import GHC.Num (intToNatural)
 import HKF.Ast (Spanned (..), StaticLayerEntry (ExpressionEntry), spanOf, unspan)
 import qualified HKF.Ast as A
 import Relude.Extra (DynamicMap (insert), StaticMap (lookup, member))
+import Relude.Extra.Map (keys)
 import qualified Relude.String.Reexport as T
 
 data EType
@@ -20,8 +23,9 @@ data EType
   deriving (Show)
 
 data Context = MkContext
-  { scope :: HashMap T.Text (Spanned A.ToplevelDeclaration),
-    types :: HashMap T.Text EType,
+  { scope :: HashMap Text (Spanned A.ToplevelDeclaration),
+    types :: HashMap Text EType,
+    nameSpans :: HashMap Text A.Span,
     generalLocation :: Maybe (Spanned CheckErrorGeneralLocation)
   }
   deriving (Show)
@@ -42,7 +46,10 @@ data TypeExpectationReason
       }
   | StaticLayersRequireTemplate
       { slrtLayer :: Spanned A.StaticLayer,
-        slrtTemplateName :: Spanned T.Text
+        slrtTemplateName :: Spanned Text
+      }
+  | ComputeLayerMember
+      { clmExpression :: A.Expression
       }
   deriving (Show)
 
@@ -53,9 +60,10 @@ data CheckError = MkCheckError
   deriving (Show)
 
 data CheckErrorGeneralLocation
-  = WhileCheckingStaticLayer
-  | WhileCheckingLayerTemplate
-  | WhileCheckingAlias
+  = WhileCheckingStaticLayer Text
+  | WhileCheckingComputeLayer Text
+  | WhileCheckingLayerTemplate Text
+  | WhileCheckingAlias Text
   deriving (Show)
 
 data CheckErrorDetails
@@ -80,32 +88,57 @@ data CheckErrorDetails
         typeofArgument :: EType
       }
   | VarNotInScope
-      { vnsSource :: Spanned T.Text
+      { vnsSource :: Spanned Text,
+        similar :: [Spanned Text],
+        definedLater :: Maybe (Spanned Text)
       }
-  | AlreadyInScope (Spanned T.Text)
-  | WrongTemplateLength (Spanned [A.StaticLayerEntry]) (Spanned T.Text) Natural Natural
+  | WrongTemplateLength (Spanned [A.StaticLayerEntry]) (Spanned [Spanned Text]) (Spanned Text) Natural Natural
   | DuplicateTemplateKeycode
       { dtkTemplate :: Spanned [Spanned Text],
         dtkInstances :: NonEmpty (Spanned Text),
         dtkKeycode :: Text
       }
-  | InvalidKeycode (Spanned T.Text)
+  | DuplicatePatternBinder
+      { dpbBranch :: Spanned A.PatternMatchBranch,
+        dpbInstances :: NonEmpty (Spanned Text),
+        dpbName :: Text
+      }
+  | DuplicatePatternKeycode
+      { dpkBranch :: Spanned A.PatternMatchBranch,
+        dpkInstances :: NonEmpty (Spanned Text),
+        dpkKeycode :: Text
+      }
+  | InvalidKeycode (Spanned Text)
   deriving (Show)
 
 ---------- Helpers
+mapDetails :: (CheckErrorDetails -> CheckErrorDetails) -> CheckError -> CheckError
+mapDetails f (MkCheckError loc details) = MkCheckError loc (f details)
+
 tcError :: CheckError -> Checked ()
 tcError = tell . pure
 
 ctxTcError :: Context -> CheckErrorDetails -> Checked ()
 ctxTcError ctx = tcError . MkCheckError (generalLocation ctx)
 
-lookupScope :: T.Text -> Context -> Maybe (Spanned A.ToplevelDeclaration)
+lookupScope :: Text -> Context -> Maybe (Spanned A.ToplevelDeclaration)
 lookupScope name ctx = lookup name (scope ctx)
 
-lookupTypeScope :: T.Text -> Context -> Maybe EType
+lookupTypeScope :: Text -> Context -> Maybe EType
 lookupTypeScope name ctx = lookup name (types ctx)
 
-lookupTyped :: Spanned T.Text -> (EType, TypeExpectationReason) -> Context -> Checked (Maybe (Spanned A.ToplevelDeclaration))
+-- TODO: quide this by the type
+similarInScope :: Text -> Context -> [Spanned Text]
+similarInScope name ctx
+  | T.length name < 3 = []
+  | otherwise = mapMaybe fetchSpan $ take 3 $ fmap fst $ sortBy (on compare snd) $ mapMaybe similarity $ keys (types ctx)
+  where
+    similarity t = if result < 3 then Just (t, result) else Nothing
+      where
+        result = damerauLevenshtein name t
+    fetchSpan t = lookup t (nameSpans ctx) <&> \span -> Spanned span t
+
+lookupTyped :: Spanned Text -> (EType, TypeExpectationReason) -> Context -> Checked (Maybe (Spanned A.ToplevelDeclaration))
 lookupTyped spannedName@(Spanned span name) (expected, reason) ctx = case (lookupScope name ctx, lookupTypeScope name ctx) of
   (Just decl, Just ty) -> do
     let contradictions = subtype ty expected
@@ -120,10 +153,10 @@ lookupTyped spannedName@(Spanned span name) (expected, reason) ctx = case (looku
 
     pure $ Just decl
   _ -> do
-    ctxTcError ctx $ VarNotInScope spannedName
+    ctxTcError ctx $ VarNotInScope spannedName (similarInScope name ctx) Nothing
     pure Nothing
 
-validKeyCode :: T.Text -> Bool
+validKeyCode :: Text -> Bool
 validKeyCode "wrong" = False
 validKeyCode _ = True
 
@@ -171,7 +204,7 @@ inferType spanned@(Spanned span e) ctx = case e of
   A.Variable spannedName -> case lookup (unspan spannedName) (types ctx) of
     Just ty -> pure ty
     Nothing -> do
-      ctxTcError ctx $ VarNotInScope spannedName
+      ctxTcError ctx $ VarNotInScope spannedName (similarInScope (unspan spannedName) ctx) Nothing
       pure TBroken
   A.Call f [] -> inferType f ctx
   A.Call f args -> do
@@ -224,7 +257,67 @@ checkExpression spanned@(Spanned span e) (expected, reason) ctx = case e of
       let error = WrongType expected inferred spanned contradictions reason
       ctxTcError ctx error
 
-checkKeycode :: Spanned T.Text -> Context -> Checked ()
+extendContext :: (Spanned Text, EType) -> Context -> Context
+extendContext (Spanned span name, ty) ctx =
+  ctx
+    { types = insert name ty (types ctx),
+      nameSpans = insert name span (nameSpans ctx)
+    }
+
+checkPatternMatchBranch ::
+  (Spanned A.PatternMatchBranch, A.Expression) ->
+  Context ->
+  Checked ()
+checkPatternMatchBranch (this@(Spanned _ branch), inner) ctx = do
+  keycodeValidityCheck
+  keycodeDuplicateCheck
+  binderDuplicateCheck
+
+  let ctx' = foldr (withBinder TKeycode) withRest (A.pmVars branch)
+  checkExpression inner (TSequence, reason) ctx'
+  where
+    reason = ComputeLayerMember inner
+
+    withRest = case A.pmRest branch of
+      Nothing -> ctx
+      Just binder -> withBinder TChord binder ctx
+
+    withBinder :: EType -> Spanned A.Binder -> Context -> Context
+    withBinder ty (Spanned span (A.Named name)) ctx =
+      extendContext (Spanned span name, ty) ctx
+    withBinder ty _ ctx = ctx
+
+    keycodeValidityCheck = for_ (A.pmKeycodes branch) (`checkKeycode` ctx)
+
+    keycodeDuplicateCheck = checkForSpannedDuplicates mkError keycodes
+      where
+        keycodes = A.pmKeycodes branch
+        mkError instances =
+          MkCheckError (generalLocation ctx) $
+            DuplicatePatternKeycode
+              this
+              instances
+              (unspan $ head instances)
+
+    binderDuplicateCheck = checkForSpannedDuplicates mkError binders
+      where
+        binders =
+          mapMaybe
+            (traverse A.binderText)
+            $ A.pmVars branch
+              <> maybeToList (A.pmRest branch)
+
+        mkError instances =
+          MkCheckError (generalLocation ctx) $
+            DuplicatePatternBinder
+              this
+              instances
+              (unspan $ head instances)
+
+checkComputeLayer :: Spanned A.ComputeLayer -> Context -> Checked ()
+checkComputeLayer (Spanned _ layer) ctx = for_ (A.branches layer) (`checkPatternMatchBranch` ctx)
+
+checkKeycode :: Spanned Text -> Context -> Checked ()
 checkKeycode keycode ctx =
   unless (validKeyCode (unspan keycode)) do
     ctxTcError ctx $ InvalidKeycode keycode
@@ -275,6 +368,7 @@ checkStaticLayer this@(Spanned _ layer) ctx = lengthCheck *> expressionCheck
               ctx
               $ WrongTemplateLength
                 (A.staticLayerContents layer)
+                (A.templateKeycodes template)
                 templateName
                 (intToNatural templateLength)
                 (intToNatural layerLength)
@@ -284,19 +378,23 @@ checkStaticLayer this@(Spanned _ layer) ctx = lengthCheck *> expressionCheck
         _ -> pure ()
 
 checkConfig ::
-  [(Spanned T.Text, Spanned A.ToplevelDeclaration)] ->
+  [(Spanned Text, Spanned A.ToplevelDeclaration)] ->
   Context ->
   Checked Context
-checkConfig t ctx = foldM (flip checkDeclaration) ctx t
+checkConfig t ctx = go t (pure ctx)
+  where
+    go [] ctx = ctx
+    go (h : t) ctx = go t $ checkDeclaration h ctx
 
 checkDeclaration ::
-  (Spanned T.Text, Spanned A.ToplevelDeclaration) ->
-  Context ->
+  (Spanned Text, Spanned A.ToplevelDeclaration) ->
+  Checked Context ->
   Checked Context
-checkDeclaration (name, decl) ctx = do
+checkDeclaration (name, decl) continuation = do
+  ctx <- censor (fmap $ attemptFixingVNSErrors name) continuation
   let span = spanOf decl
   let tLayer = TArrow TChord TSequence
-  let withLocation loc = ctx {generalLocation = Just (Spanned (spanOf name) loc)}
+  let withLocation loc = ctx {generalLocation = Just $ Spanned (spanOf name) (loc $ unspan name)}
 
   ty <- case unspan decl of
     A.LayerTemplate template -> do
@@ -305,13 +403,20 @@ checkDeclaration (name, decl) ctx = do
     A.Layer (A.StaticLayer layer) -> do
       checkStaticLayer (Spanned span layer) $ withLocation WhileCheckingStaticLayer
       pure tLayer
+    A.Layer (A.ComputeLayer layer) -> do
+      checkComputeLayer (Spanned span layer) $ withLocation WhileCheckingComputeLayer
+      pure tLayer
     A.Alias expr -> do
       inferType expr $ withLocation WhileCheckingAlias
-    _ -> pure TBroken
 
   pure $
     MkContext
       { scope = insert (unspan name) decl (scope ctx),
         types = insert (unspan name) ty (types ctx),
+        nameSpans = insert (unspan name) (spanOf name) (nameSpans ctx),
         generalLocation = Nothing
       }
+  where
+    attemptFixingVNSErrors target = mapDetails \case
+      VarNotInScope name similar Nothing | unspan name == unspan target -> VarNotInScope name similar (Just target)
+      other -> other

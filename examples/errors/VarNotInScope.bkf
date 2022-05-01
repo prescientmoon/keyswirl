@@ -1,0 +1,20 @@
+-- The compiler will explain you might want to move this declaration down a bit
+alias bar = foo -- used before it's declared
+
+alias foo = ["a", "b", "c"]
+
+-- The compiler will point you to the name that's "close enough"
+alias bazz = goo -- oops, accidentally misstyped!
+
+alias random = nonsense -- not similar to anything we've declared
+
+layer withBinders:
+| "a" => a -- No variable named a in scope (perhaps I should add a hint about confusing keycodes with variables?)
+| something => somerthing -- Oops, misstyped again! (The compiler helps here as well)
+
+alias abcde = []
+alias abcdef = []
+alias abcdefg = []
+
+-- The compiler will list all 3 aliases declared above
+alias multipleSuggestions = abcdeg

@@ -8,7 +8,7 @@ import qualified Data.Text as T
 import Error.Diagnose (Report, def, err)
 import Error.Diagnose.Diagnostic (Diagnostic, addReport, printDiagnostic)
 import Error.Diagnose.Position (Position (Position))
-import Error.Diagnose.Report (Marker (This, Where))
+import Error.Diagnose.Report (Marker (Maybe, This, Where))
 import HKF.Ast
 import qualified HKF.Check as C
 import Prettyprinter (Pretty)
@@ -52,12 +52,13 @@ natural = annotate ANatural . pretty
 operator :: Text -> MyDoc
 operator = annotate AOperator . pretty
 
-keycode :: Text -> MyDoc
-keycode code =
-  annotate AKeycode $
-    qm <> pretty code <> qm
+quoted :: MyDoc -> MyDoc
+quoted a = surround a qm qm
   where
     qm = "\""
+
+keycode :: Text -> MyDoc
+keycode = annotate AKeycode . quoted . pretty
 
 withParenthesis :: MyDoc -> MyDoc
 withParenthesis = surround (punctuation "(") (punctuation ")")
@@ -65,6 +66,20 @@ withParenthesis = surround (punctuation "(") (punctuation ")")
 sometimesParenthesis :: Bool -> MyDoc -> MyDoc
 sometimesParenthesis True = withParenthesis
 sometimesParenthesis False = id
+
+duplicateMarkers :: Text -> NonEmpty (Spanned a) -> [DiagnosticAnnotation]
+duplicateMarkers what duplicates =
+  reverse $
+    zip [0 ..] (toList duplicates) <&> uncurry
+      \i (Spanned span _) -> (span, This $ hsep ["the", pretty (nth i), "occurence of this", pretty what])
+  where
+    nth :: Int -> Text
+    nth 0 = "first"
+    nth 1 = "second"
+    nth 2 = "third"
+    nth 3 = "fourth"
+    nth 4 = "fifth"
+    nth n = show n <> "th"
 
 prettyPrintType :: C.EType -> MyDoc
 prettyPrintType C.TBroken = operator "?"
@@ -85,12 +100,28 @@ prettyPrintCheckError ::
   (Maybe MyDoc -> MyDoc -> [DiagnosticAnnotation] -> [MyDoc] -> Report MyDoc) ->
   C.CheckErrorDetails ->
   Report MyDoc
-prettyPrintCheckError err (C.VarNotInScope (Spanned span name)) =
+prettyPrintCheckError err (C.VarNotInScope (Spanned span name) _ (Just (Spanned futureSpan _))) =
   err
     (Just "VarNotInScope")
-    "Variable not in scope"
-    [(span, This $ hsep ["Variable", var name, "is not in scope!"])]
-    [] -- TODO: did you mean hint
+    (hsep ["Variable", quoted (var name), "not in scope"])
+    [(span, This $ hsep ["Variable", quoted (var name), "hasn't been defined at this point"]), futureMarker]
+    [futureHint]
+  where
+    futureHint = hsep ["Try moving this declaration under the place", quoted (var name), "is defiend"]
+    futureMarker = (futureSpan, Maybe "The variable is defined here")
+prettyPrintCheckError err (C.VarNotInScope (Spanned span name) similar Nothing) =
+  err
+    (Just "VarNotInScope")
+    "Undefined variable"
+    ((span, This $ hsep ["Undefined variable", var name]) : similarityMarker)
+    similarityHint
+  where
+    similarityMarker = case similar of
+      [] -> []
+      (Spanned span target : _) -> pure (span, Maybe $ hsep ["Were you refering to this?"])
+    similarityHint = case similar of
+      [] -> []
+      _ -> [hsep ["You might be referring to one of the following:", hcat $ intersperse ", " (fmap (pretty . unspan) similar)]] -- TODO: did you mean hint
 prettyPrintCheckError err (C.InvalidKeycode (Spanned span code)) =
   err
     (Just "InvalidKeycode")
@@ -99,46 +130,64 @@ prettyPrintCheckError err (C.InvalidKeycode (Spanned span code)) =
     -- TODO: did you mean ...
     -- TODO: include list with all valid keycodes
     [hsep ["For a list of all the available keycodes, check ..."]]
+prettyPrintCheckError err (C.DuplicatePatternKeycode branch instances code) =
+  err
+    (Just "DuplicatePatternKeycode")
+    (hsep ["Keycode", keycode code, "appears more than once in a single layer branch"])
+    (duplicateMarkers "keycode" instances)
+    ["Try removing all but one of the highlighted occurences"]
+prettyPrintCheckError err (C.DuplicatePatternBinder branch binders name) =
+  err
+    (Just "DuplicatePatternBinder")
+    (hsep ["Name", quoted (var name), "is bound more than once in the same layer branch"])
+    (duplicateMarkers "binder" binders)
+    ["Try removing all but one of the highlighted occurences"]
 prettyPrintCheckError err (C.DuplicateTemplateKeycode (Spanned span _) duplicates code) =
   err
-    (Just "DuplicateKeycode")
+    (Just "DuplicateTemplateKeycode")
     (hsep ["Keycode", keycode code, "appears in template more than once"])
-    (reverse duplicateMarkers)
-    ["Try removing one of the highlighted occurences"]
+    (duplicateMarkers "keycode" duplicates)
+    ["Try removing all but one of the highlighted occurences"]
+prettyPrintCheckError err (C.WrongTemplateLength (Spanned span _) template templateName expected actual) =
+  err
+    (Just "WrongStaticLayerLength")
+    "The length of the static layer does not match the length of the template it uses"
+    [ (span, This $ hsep ["...but this layer only has", natural actual, "members"]),
+      (spanOf templateName, Where "This is the template being used"),
+      (spanOf template, This $ hsep ["This template has", natural expected, "elements"])
+    ]
+    [hint]
   where
-    duplicateMarkers =
-      zip [0 ..] (toList duplicates) <&> uncurry
-        \i (Spanned span d) -> (span, This $ hsep ["Here is the", pretty (nth i), "occurence of this keycode!"])
+    mainError =
+      sep
+        [ "Wrong static layer length!",
+          "I was expecting" <+> natural expected
+            <+> "expressions,",
+          "as specified by the"
+            <+> var (unspan templateName)
+            <+> "template,",
+          "but got"
+            <+> natural actual
+            <+> "expressions instead."
+        ]
+    hint =
+      if expected > actual
+        then hsep ["Try adding", natural (expected - actual), "more members to this layer"]
+        else hsep ["Try removing", natural (actual - expected), "members from this layer"]
+prettyPrintCheckError err (C.NotCallable func arg tyFunc tyArg) =
+  err
+    (Just "NotCallable")
+    "Expression cannot be called"
+    [ (spanOf arg, argError),
+      (spanOf func, funcError)
+    ]
+    [hint]
+  where
+    hint = "Try removing the argument from this expression"
+    funcError = This $ hsep ["but expressions of type", prettyPrintType tyFunc, "are not callable"]
+    argError = Where $ hsep ["You've tried calling an expression with an argument of type", prettyPrintType tyArg]
+prettyPrintCheckError err e = err Nothing "not implemented" [] [pretty (show e :: Text)]
 
-    nth :: Int -> Text
-    nth 0 = "first"
-    nth 1 = "second"
-    nth 2 = "third"
-    nth 3 = "fourth"
-    nth 4 = "fifth"
-    nth n = show n <> "th"
-prettyPrintCheckError glm _ = err Nothing "not implemented" [] []
-
--- prettyPrintCheckError (C.WrongTemplateLength (Spanned span _) templateName expected actual) =
---   Spanned span $
---     sep
---       [ "Wrong static layer length!",
---         "I was expecting" <+> natural expected
---           <+> "expressions,",
---         "as specified by the"
---           <+> var (unspan templateName)
---           <+> "template,",
---         "but got"
---           <+> natural actual
---           <+> "expressions instead."
---       ]
--- prettyPrintCheckError (C.AlreadyInScope (Spanned span name)) =
---   Spanned span $
---     hsep
---       [ "The name",
---         var name,
---         "is already in scope!"
---       ]
 -- prettyPrintCheckError (C.NotCallable func arg tyFunc tyArg) =
 --   Spanned (spanOf func) $
 --     sep
@@ -212,15 +261,16 @@ printErrors print =
   print
     -- renderStrict . showSpan
     -- . fmap (reAnnotate resolveAnnotation)
-    . foldl addReport def
-    . map \(C.MkCheckError generalLocation details) ->
+    . foldr (flip addReport) def
+    . fmap \(C.MkCheckError generalLocation details) ->
       let generalLocationMarker Nothing = []
           generalLocationMarker (Just (Spanned span location)) = [(span, Where message)]
             where
               message = case location of
-                C.WhileCheckingAlias -> "while checking this alias"
-                C.WhileCheckingStaticLayer -> "while checking this static layer"
-                C.WhileCheckingLayerTemplate -> "while checking this layer template"
+                C.WhileCheckingAlias _ -> "while checking this alias"
+                C.WhileCheckingStaticLayer _ -> "while checking this static layer"
+                C.WhileCheckingComputeLayer _ -> "while checking this compute layer"
+                C.WhileCheckingLayerTemplate _ -> "while checking this layer template"
 
           extraMarkers = generalLocationMarker generalLocation
           myErr code message markers = err code message (markers <> extraMarkers)

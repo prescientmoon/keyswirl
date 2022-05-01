@@ -15,14 +15,15 @@ import HKF.Error (printErrors)
 import HKF.Parser (parseConfig)
 import Text.Megaparsec (MonadParsec (eof), parseMaybe, parseTest, runParser)
 
-path :: [Char]
-path = "./examples/test.bkf"
-
 instance HasHints Void Text where
   hints = absurd
 
 someFunc :: IO ()
 someFunc = do
+  args <- getArgs
+  let path = case args of
+        h : _ -> h
+        [] -> "./examples/test.bkf"
   contents <- T.pack <$> readFile path
   let parser = parseConfig <* eof
   let withFile report = addFile report path (T.unpack contents)
@@ -41,12 +42,11 @@ someFunc = do
               checkConfig declarations $
                 MkContext
                   { scope = mempty,
-                    types = mempty
+                    types = mempty,
+                    nameSpans = mempty,
+                    generalLocation = Nothing
                   }
-       in do
-            let splitContent = lines contents
-            T.putStrLn "========== Errors:"
-            printErrors (printDiagnostic stderr True True 4 . withFile) errors
+       in printErrors (printDiagnostic stderr True True 4 . withFile) errors
 
 -- T.putStrLn "========== Context:"
 -- for_ (H.toList $ types ctx) \(k, v) ->

@@ -9,7 +9,7 @@ import qualified Text.Show
 type Span = Position
 
 data Spanned a = Spanned Span a
-  deriving (Functor)
+  deriving (Functor, Foldable, Traversable)
 
 instance Show a => Show (Spanned a) where
   show (Spanned _ a) = show a
@@ -46,14 +46,14 @@ data Binder = Named T.Text | Wildcard
   deriving (Show)
 
 data PatternMatchBranch = MkPatternMatchBranch
-  { pmKeycodes :: [T.Text],
-    pmVars :: [Binder],
-    pmRest :: Maybe Binder
+  { pmKeycodes :: [Spanned Text],
+    pmVars :: [Spanned Binder],
+    pmRest :: Maybe (Spanned Binder)
   }
   deriving (Show)
 
 newtype ComputeLayer = MkComputeLayer
-  { branches :: [(PatternMatchBranch, Expression)]
+  { branches :: [(Spanned PatternMatchBranch, Expression)]
   }
   deriving (Show)
 
@@ -96,6 +96,10 @@ spanOf (Spanned s _) = s
 
 span :: (Int, Int) -> (Int, Int) -> FilePath -> Span
 span = Position
+
+binderText :: Binder -> Maybe Text
+binderText Wildcard = Nothing
+binderText (Named name) = Just name
 
 mergeSpans :: Span -> Span -> Maybe Span
 mergeSpans (Position s e f) (Position s' e' f')

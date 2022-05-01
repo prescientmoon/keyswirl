@@ -1,0 +1,6 @@
+layer basicLayer:
+| => {}
+
+layer notCallableExample:
+| "a" "b" "c" r => r ["a", {"b", "c"}] -- first error
+| *other => (basicLayer other) "a" -- second error

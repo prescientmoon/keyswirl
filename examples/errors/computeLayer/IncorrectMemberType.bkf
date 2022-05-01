@@ -1,0 +1,5 @@
+layer foo:
+| *_ => []
+
+layer bar: 
+| *_ => foo -- layers don't have type sequence!
