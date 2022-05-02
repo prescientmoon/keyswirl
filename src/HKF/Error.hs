@@ -61,7 +61,7 @@ keycode :: Text -> MyDoc
 keycode = annotate AKeycode . quoted . pretty
 
 withParenthesis :: MyDoc -> MyDoc
-withParenthesis = surround (punctuation "(") (punctuation ")")
+withParenthesis a = surround a (punctuation "(") (punctuation ")")
 
 sometimesParenthesis :: Bool -> MyDoc -> MyDoc
 sometimesParenthesis True = withParenthesis
@@ -88,7 +88,7 @@ prettyPrintType TSequence = keyword "Sequence"
 prettyPrintType TChord = keyword "Chord"
 prettyPrintType TTemplate = keyword "LayerTemplate"
 prettyPrintType (TArrow from to) =
-  align $ sep [left, hsep [arrow, right]]
+  hsep [left, hsep [arrow, right]]
   where
     right = prettyPrintType to
     left = sometimesParenthesis (needsParens from) (prettyPrintType from)
@@ -195,8 +195,8 @@ prettyPrintCheckError err (C.WrongArgument func arg expected actual contradictio
     ]
     []
   where
-    funcError = This $ hsep ["...but this function expects arguments of type", prettyPrintType expected, "instead"]
-    argError = This $ hsep ["This expression has type", prettyPrintType actual]
+    funcError = This $ sep ["but this function expects arguments of type", indent $ prettyPrintType expected, "instead"]
+    argError = This $ sep ["This expression has type", indent $ prettyPrintType actual]
 -- prettyPrintCheckError err e = err Nothing "not implemented" [] [pretty (show e :: Text)]
 prettyPrintCheckError err (C.WrongType expected actual expr contradictions reason) =
   err

@@ -6,3 +6,5 @@ alias b = [foo] -- sequences must only contain sequences (or other lower types)
 alias c = {b} -- chords cannot contain sequences
 
 alias d: Layer = [] -- oops, the annotation disagrees!
+
+alias e = fun (g: Chord): Keycode => g -- The return type doesn't match the returned value

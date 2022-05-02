@@ -17,9 +17,11 @@ instance Show a => Show (Spanned a) where
 type Expression = Spanned RawExpression
 
 data RawExpression
-  = Key (Spanned T.Text)
+  = Key (Spanned Text)
   | Call Expression [Expression]
-  | Variable (Spanned T.Text)
+  | Variable (Spanned Text)
+  | -- Functions
+    Lambda (Spanned Text) (Spanned EType) Expression
   | -- Array of keys pressed and released individually in order
     Sequence [Expression]
   | -- Array of keys first all pressed down and then all released
@@ -112,6 +114,14 @@ span = Position
 binderText :: Binder -> Maybe Text
 binderText Wildcard = Nothing
 binderText (Named name) = Just name
+
+mergeManySpans :: [Span] -> Maybe Span
+mergeManySpans [] = Nothing
+mergeManySpans [x] = Just x
+mergeManySpans (h : t) = mergeManySpans t >>= mergeSpans h
+
+mergeSpans' :: Span -> Span -> Span
+mergeSpans' a b = fromMaybe a (mergeSpans a b)
 
 mergeSpans :: Span -> Span -> Maybe Span
 mergeSpans (Position s e f) (Position s' e' f')

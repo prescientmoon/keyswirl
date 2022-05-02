@@ -12,6 +12,9 @@ layer withBinders:
 | "a" => a -- No variable named a in scope (perhaps I should add a hint about confusing keycodes with variables?)
 | something => somerthing -- Oops, misstyped again! (The compiler helps here as well)
 
+alias withFunction (hello: Chord) = hallo -- Yet another misstype
+alias withLambda = fun (long: Chord) => logn -- aaaand another misstype
+
 alias abcde = []
 alias abcdef = []
 alias abcdefg = []

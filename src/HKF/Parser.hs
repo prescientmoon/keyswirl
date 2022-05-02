@@ -49,6 +49,9 @@ sc =
   where
     isSpace c = c == ' ' || c == '\t'
 
+slimArrow :: Parser () -> Parser Text
+slimArrow sc' = L.symbol sc' "->" <|> L.symbol sc' "→"
+
 customParens :: T.Text -> T.Text -> Parser () -> Parser a -> Parser a
 customParens l r sc' = between (L.symbol sc' l) (string r)
 
@@ -89,8 +92,33 @@ expression sc' = do
     (_, A.Spanned _ (A.Call f ia)) -> spanned $ pure $ A.Call f $ ia ++ a
     _ -> spanned $ pure $ A.Call f a
 
+parseLambdaHead :: Bool -> Parser () -> Parser (A.Expression -> A.Expression)
+parseLambdaHead required sc' = do
+  arguments <- (if required then some else many) $
+    spanned . lm $ parens sc' do
+      name <- lm $ spanned parseName_
+      L.symbol sc' ":"
+      ty <- lm $ spanned (etype sc')
+      pure (name, ty)
+  annotation <- optional do
+    L.symbol sc' ":"
+    lm $ spanned $ etype sc'
+  pure \inner ->
+    let annotated = case annotation of
+          Nothing -> inner
+          Just ty ->
+            A.Spanned
+              (A.mergeSpans' (A.spanOf inner) (A.spanOf ty))
+              $ A.Annotation ty inner
+        buildLambda (A.Spanned span (name, ty)) body =
+          A.Spanned (A.mergeSpans' span $ A.spanOf body) $
+            A.Lambda name ty body
+     in foldr buildLambda annotated arguments
+  where
+    lm = L.lexeme sc'
+
 atom :: Parser () -> Parser A.Expression
-atom sc' = key <|> parseParenthesis <|> var <|> chord <|> sequence
+atom sc' = key <|> parseParenthesis <|> lambda <|> var <|> chord <|> sequence
   where
     -- TODO: annotations
     key = spanned $ A.Key <$> spanned (stringLiteral sc')
@@ -98,6 +126,12 @@ atom sc' = key <|> parseParenthesis <|> var <|> chord <|> sequence
     parseParenthesis = parens sc' (expression sc')
     chord = spanned $ A.Chord <$> curlyBraces sc' (sepBy (expression sc') $ lm ",")
     sequence = spanned $ A.Sequence <$> squareBraces sc' (sepBy (expression sc') $ lm ",")
+    lambda = do
+      L.symbol sc' "fun" <|> L.symbol sc' "λ"
+      buildLambda <- parseLambdaHead True sc'
+      L.symbol sc' "=>"
+      inner <- expression sc'
+      pure $ buildLambda inner
 
     lm = L.lexeme sc'
 
@@ -124,10 +158,9 @@ patternMatchBranch = L.lineFold scn \sc' -> do
 etype :: Parser () -> Parser A.EType
 etype sc' = do
   first <- tAtom
-  other <- many (try (sc' *> arrow) *> tAtom)
+  other <- many (try (sc' *> slimArrow sc') *> tAtom)
   pure $ foldr1 A.TArrow (first : other)
   where
-    arrow = L.symbol sc' "->" <|> L.symbol sc' "→"
     tAtom = chord <|> template <|> sequence <|> layer <|> keycode <|> broken <|> parseParenthesis
     parseParenthesis = parens sc' (etype sc')
 
@@ -187,22 +220,10 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
           pure $ A.Assumption ty
 
     tlAlias = namedDeclaration "alias" \sc' -> do
-      let no = L.symbol sc' "=" $> False
-      let yes = L.symbol sc' ":" $> True
-      hasAnnotation <- yes <|> no
-      annotate <-
-        if hasAnnotation
-          then do
-            ty <- spanned (etype sc') <?> "type annotation"
-            let buildAnnotation = \e ->
-                  let espan = A.spanOf e
-                   in A.Spanned
-                        (fromMaybe espan $ A.mergeSpans espan $ A.spanOf ty)
-                        $ A.Annotation ty e
-            try sc' *> no $> buildAnnotation
-          else pure identity
+      buildLambda <- parseLambdaHead False sc'
+      L.symbol sc' "="
       r <- expression sc'
-      pure $ A.Alias $ annotate r
+      pure $ A.Alias $ buildLambda r
 
     tlTemplate = namedDeclaration "template" \sc' -> do
       L.symbol sc' ":"

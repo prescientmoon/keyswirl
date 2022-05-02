@@ -22,4 +22,5 @@ assume sticky: Sequence -> Sequence
 -- | Presses a sequence of keys and releases them once the next key has been released
 assume around_next: Sequence -> Sequence
 
-alias layer_next (l: Layer): Sequence = around_next with_layer
+-- | Version of around_next specialized for layers
+alias layer_next (l: Layer): Sequence = around_next (with_layer l)

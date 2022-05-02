@@ -228,6 +228,8 @@ inferType spanned@(Spanned span e) ctx = case e of
     let reason = AnnotationSaidSo spanned inner ty
     checkExpression inner (unspan ty, reason) ctx
     pure (unspan ty)
+  A.Lambda name ty body -> do
+    inferType body $ extendContext (name, unspan ty) ctx
   where
     inferSingleCall func fType arg = do
       aType <- inferType arg ctx
