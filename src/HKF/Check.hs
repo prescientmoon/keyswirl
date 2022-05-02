@@ -7,20 +7,11 @@ import qualified Data.Text as T
 import Data.Text.Metrics (damerauLevenshtein)
 import Data.Validation
 import GHC.Num (intToNatural)
-import HKF.Ast (Spanned (..), StaticLayerEntry (ExpressionEntry), spanOf, unspan)
+import HKF.Ast (EType (..), Spanned (..), StaticLayerEntry (ExpressionEntry), spanOf, unspan)
 import qualified HKF.Ast as A
 import Relude.Extra (DynamicMap (insert), StaticMap (lookup, member))
 import Relude.Extra.Map (keys)
 import qualified Relude.String.Reexport as T
-
-data EType
-  = TBroken -- eg: we can't infer a type because the underlying declaration errors out somewhere else
-  | TKeycode -- in a way, this is a chord with one element
-  | TChord -- in a way, this is a sequence with one element
-  | TSequence -- [Chord], more or less
-  | TTemplate -- type of templates
-  | TArrow EType EType
-  deriving (Show)
 
 data Context = MkContext
   { scope :: HashMap Text (Spanned A.ToplevelDeclaration),
@@ -50,6 +41,11 @@ data TypeExpectationReason
       }
   | ComputeLayerMember
       { clmExpression :: A.Expression
+      }
+  | AnnotationSaidSo
+      { assAnnotation :: A.Expression,
+        assInner :: A.Expression,
+        assType :: Spanned EType
       }
   deriving (Show)
 
@@ -228,6 +224,10 @@ inferType spanned@(Spanned span e) ctx = case e of
     pure TSequence
     where
       reason = MustSatisfySequence spanned
+  A.Annotation ty inner -> do
+    let reason = AnnotationSaidSo spanned inner ty
+    checkExpression inner (unspan ty, reason) ctx
+    pure (unspan ty)
   where
     inferSingleCall func fType arg = do
       aType <- inferType arg ctx
@@ -378,7 +378,7 @@ checkStaticLayer this@(Spanned _ layer) ctx = lengthCheck *> expressionCheck
         _ -> pure ()
 
 checkConfig ::
-  [(Spanned Text, Spanned A.ToplevelDeclaration)] ->
+  [Spanned (Spanned Text, Spanned A.ToplevelDeclaration)] ->
   Context ->
   Checked Context
 checkConfig t ctx = go t (pure ctx)
@@ -387,10 +387,10 @@ checkConfig t ctx = go t (pure ctx)
     go (h : t) ctx = go t $ checkDeclaration h ctx
 
 checkDeclaration ::
-  (Spanned Text, Spanned A.ToplevelDeclaration) ->
+  Spanned (Spanned Text, Spanned A.ToplevelDeclaration) ->
   Checked Context ->
   Checked Context
-checkDeclaration (name, decl) continuation = do
+checkDeclaration (Spanned wholeSpan (name, decl)) continuation = do
   ctx <- censor (fmap $ attemptFixingVNSErrors name) continuation
   let span = spanOf decl
   let tLayer = TArrow TChord TSequence
@@ -408,9 +408,10 @@ checkDeclaration (name, decl) continuation = do
       pure tLayer
     A.Alias expr -> do
       inferType expr $ withLocation WhileCheckingAlias
-
+    A.Assumption ty -> do
+      pure (unspan ty)
   pure $
-    MkContext
+    ctx
       { scope = insert (unspan name) decl (scope ctx),
         types = insert (unspan name) ty (types ctx),
         nameSpans = insert (unspan name) (spanOf name) (nameSpans ctx),

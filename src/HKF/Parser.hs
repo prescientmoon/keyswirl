@@ -1,6 +1,7 @@
 module HKF.Parser where
 
 import Data.Char (isAlphaNum)
+import Data.Foldable
 import qualified Data.Text as T
 import Data.Void
 import GHC.IO (throwIO)
@@ -11,7 +12,12 @@ import Text.Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as L
 import Prelude hiding (many, some)
 
-type Parser = Parsec Void T.Text
+newtype ParsingContext = MkParsingContext {danger :: Bool}
+
+type Parser = ParsecT Void Text (Reader ParsingContext)
+
+isUnsafe :: Parser Bool
+isUnsafe = asks danger
 
 spanned :: Parser a -> Parser (A.Spanned a)
 spanned p = do
@@ -86,6 +92,7 @@ expression sc' = do
 atom :: Parser () -> Parser A.Expression
 atom sc' = key <|> parseParenthesis <|> var <|> chord <|> sequence
   where
+    -- TODO: annotations
     key = spanned $ A.Key <$> spanned (stringLiteral sc')
     var = spanned $ A.Variable <$> (spanned parseName_ <?> "variable")
     parseParenthesis = parens sc' (expression sc')
@@ -114,26 +121,48 @@ patternMatchBranch = L.lineFold scn \sc' -> do
   scn
   pure (A.Spanned span $ A.MkPatternMatchBranch keycodes vars rest, e)
 
-toplevel :: Parser A.ConfigEntry
-toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> tLayer)
+etype :: Parser () -> Parser A.EType
+etype sc' = do
+  first <- tAtom
+  other <- many (try (sc' *> arrow) *> tAtom)
+  pure $ foldr1 A.TArrow (first : other)
+  where
+    arrow = L.symbol sc' "->" <|> L.symbol sc' "→"
+    tAtom = chord <|> template <|> sequence <|> layer <|> keycode <|> broken <|> parseParenthesis
+    parseParenthesis = parens sc' (etype sc')
+
+    broken = do
+      unsafe <- isUnsafe
+      if unsafe then tconst "Broken" A.TBroken else empty
+    chord = tconst "Chord" A.TChord
+    layer = tconst "Layer" (A.TArrow A.TChord A.TSequence)
+    sequence = tconst "Sequence" A.TSequence
+    keycode = tconst "Keycode" A.TKeycode
+    template = tconst "LayerTemplate" A.TTemplate
+
+    tconst name value = string name $> value
+
+toplevel :: Parser (A.Spanned A.ConfigEntry)
+toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> tlLayer <|> tlAssumption)
   where
     namedDeclarationWithContinuation ::
       Parser a ->
       (Parser () -> Parser (Parser (A.Spanned A.ToplevelDeclaration))) ->
-      Parser A.ConfigEntry
+      Parser (A.Spanned A.ConfigEntry)
     namedDeclarationWithContinuation kind parser = do
-      (name, continuation) <- L.lineFold scn \sc' -> do
-        L.lexeme sc' kind <?> "declaration kind"
-        name <- spanned (L.lexeme (try sc') parseName_ <?> "declaration name")
-        continuation <- parser sc'
-        scn
-        pure (name, continuation)
-      A.NamedConfigEntry name <$> continuation
+      A.Spanned span (name, continuation) <- L.lineFold scn \sc' -> do
+        let withSpan = do
+              L.lexeme sc' kind <?> "declaration kind"
+              name <- spanned (L.lexeme (try sc') parseName_ <?> "declaration name")
+              continuation <- parser sc'
+              pure (name, continuation)
+        spanned withSpan <* scn
+      A.Spanned span . A.NamedConfigEntry name <$> continuation
 
     namedDeclaration ::
       Parser a ->
       (Parser () -> Parser A.ToplevelDeclaration) ->
-      Parser A.ConfigEntry
+      Parser (A.Spanned A.ConfigEntry)
     namedDeclaration kind parser =
       namedDeclarationWithContinuation
         kind
@@ -142,16 +171,38 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
     unnamedDeclaration ::
       Parser a ->
       (Parser () -> Parser A.UnnamedConfigEntry) ->
-      Parser A.ConfigEntry
+      Parser (A.Spanned A.ConfigEntry)
     unnamedDeclaration kind parser =
-      A.UnnamedConfigEntry <$> L.lineFold scn \sc' -> do
-        L.lexeme sc' kind <?> "declaration kind"
-        parser sc' <* scn
+      fmap A.UnnamedConfigEntry <$> L.lineFold scn \sc' -> do
+        let parseKind = L.lexeme sc' kind <?> "declaration kind"
+        spanned (parseKind *> parser sc') <* scn
+
+    tlAssumption = do
+      unsafe <- isUnsafe
+      if not unsafe
+        then empty
+        else namedDeclaration "assume" \sc' -> do
+          L.symbol sc' ":"
+          ty <- spanned $ etype sc'
+          pure $ A.Assumption ty
 
     tlAlias = namedDeclaration "alias" \sc' -> do
-      L.symbol sc' "="
+      let no = L.symbol sc' "=" $> False
+      let yes = L.symbol sc' ":" $> True
+      hasAnnotation <- yes <|> no
+      annotate <-
+        if hasAnnotation
+          then do
+            ty <- spanned (etype sc') <?> "type annotation"
+            let buildAnnotation = \e ->
+                  let espan = A.spanOf e
+                   in A.Spanned
+                        (fromMaybe espan $ A.mergeSpans espan $ A.spanOf ty)
+                        $ A.Annotation ty e
+            try sc' *> no $> buildAnnotation
+          else pure identity
       r <- expression sc'
-      pure $ A.Alias r
+      pure $ A.Alias $ annotate r
 
     tlTemplate = namedDeclaration "template" \sc' -> do
       L.symbol sc' ":"
@@ -172,7 +223,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
       value <- stringLiteral sc'
       pure (A.Input $ kind value)
 
-    tLayer = namedDeclarationWithContinuation "layer" \sc' -> do
+    tlLayer = namedDeclarationWithContinuation "layer" \sc' -> do
       A.Spanned startingSpan static <-
         spanned $
           (L.symbol sc' "using" $> True)
@@ -195,4 +246,4 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
     wildcard = A.WildcardEntry <$ "_"
 
 parseConfig :: Parser A.Config
-parseConfig = A.MkConfig <$> some (spanned toplevel)
+parseConfig = A.MkConfig <$> some toplevel

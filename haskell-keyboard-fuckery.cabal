@@ -58,7 +58,8 @@ library
       DeriveFunctor,
       DeriveTraversable,
       LambdaCase,
-      OverloadedStrings
+      OverloadedStrings,
+      TupleSections
 
 executable haskell-keyboard-fuckery
     main-is:          Main.hs

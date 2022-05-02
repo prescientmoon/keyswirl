@@ -1,0 +1,25 @@
+-- | Says "fuck you" to the compiler
+assume trust_me: Broken
+
+-- | Another way to say "fuck you" to the compiler
+alias unsafe_coerce: Broken -> Broken = trust_me
+
+-- | Runs a sequence within an extra layer
+assume map_sequence: Layer -> Sequence -> Sequence
+
+-- | Adds a layer to the stack
+assume with_layer: Layer -> Sequence
+
+-- | Sets the default layer in the stack
+assume set_base: Layer -> Sequence
+
+-- | Layer which does nothing
+assume id_layer: Layer
+
+-- | Make an action require a second press of a button to deactivate (think caps-lock)
+assume sticky: Sequence -> Sequence
+
+-- | Presses a sequence of keys and releases them once the next key has been released
+assume around_next: Sequence -> Sequence
+
+alias layer_next (l: Layer): Sequence = around_next with_layer

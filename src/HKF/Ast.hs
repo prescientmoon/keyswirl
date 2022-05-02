@@ -24,6 +24,8 @@ data RawExpression
     Sequence [Expression]
   | -- Array of keys first all pressed down and then all released
     Chord [Expression]
+  | -- Type annotation coming from the user
+    Annotation (Spanned EType) Expression
   deriving (Show)
 
 newtype LayerTemplate = MkLayerTemplate
@@ -72,6 +74,7 @@ data ToplevelDeclaration
   = Layer Layer
   | LayerTemplate LayerTemplate
   | Alias Expression -- argument support perhaps?
+  | Assumption (Spanned EType)
   deriving (Show)
 
 data UnnamedConfigEntry
@@ -85,6 +88,15 @@ data ConfigEntry
   deriving (Show)
 
 newtype Config = MkConfig [Spanned ConfigEntry]
+  deriving (Show)
+
+data EType
+  = TBroken -- eg: we can't infer a type because the underlying declaration errors out somewhere else
+  | TKeycode -- in a way, this is a chord with one element
+  | TChord -- in a way, this is a sequence with one element
+  | TSequence -- [Chord], more or less
+  | TTemplate -- type of templates
+  | TArrow EType EType
   deriving (Show)
 
 ---------- Helpers

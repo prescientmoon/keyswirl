@@ -81,18 +81,18 @@ duplicateMarkers what duplicates =
     nth 4 = "fifth"
     nth n = show n <> "th"
 
-prettyPrintType :: C.EType -> MyDoc
-prettyPrintType C.TBroken = operator "?"
-prettyPrintType C.TKeycode = keyword "Keycode"
-prettyPrintType C.TSequence = keyword "Sequence"
-prettyPrintType C.TChord = keyword "Chord"
-prettyPrintType C.TTemplate = keyword "LayerTemplate"
-prettyPrintType (C.TArrow from to) =
+prettyPrintType :: EType -> MyDoc
+prettyPrintType TBroken = operator "?"
+prettyPrintType TKeycode = keyword "Keycode"
+prettyPrintType TSequence = keyword "Sequence"
+prettyPrintType TChord = keyword "Chord"
+prettyPrintType TTemplate = keyword "LayerTemplate"
+prettyPrintType (TArrow from to) =
   align $ sep [left, hsep [arrow, right]]
   where
     right = prettyPrintType to
     left = sometimesParenthesis (needsParens from) (prettyPrintType from)
-    needsParens (C.TArrow _ _) = True
+    needsParens (TArrow _ _) = True
     needsParens _ = False
     arrow = operator "->"
 
@@ -202,7 +202,7 @@ prettyPrintCheckError err (C.WrongType expected actual expr contradictions reaso
   err
     (Just "WrongType")
     "Cannot match types"
-    [(spanOf expr, basic)]
+    messages
     []
   where
     -- sep
@@ -210,41 +210,46 @@ prettyPrintCheckError err (C.WrongType expected actual expr contradictions reaso
     --     "I got stuck on the following contradictions:",
     --     indent $ align $ vsep $ showContradiction <$> contradictions
     --   ]
+    -- showContradiction (left, right) =
+    --   hsep
+    --     [ prettyPrintType left,
+    --       punctuation "<:",
+    --       prettyPrintType right
+    --     ]
 
-    showContradiction (left, right) =
-      hsep
-        [ prettyPrintType left,
-          punctuation "<:",
-          prettyPrintType right
-        ]
-
-    basic = This case reason of
+    messages = case reason of
       C.MustSatisfyChord _ _ -> mustSatisfyList "chord"
       C.MustSatisfySequence _ _ -> mustSatisfyList "sequence"
       C.StaticLayerMember _ -> mustSatisfyList "static layer"
       C.ComputeLayerMember _ -> mustSatisfyList "compute layer"
+      C.AnnotationSaidSo _ expr ty ->
+        [ (spanOf expr, This $ hsep ["...but this expression has type", prettyPrintType actual, "instead"]),
+          (spanOf ty, This "I was expecting this type")
+        ]
       C.StaticLayersRequireTemplate _ _ ->
+        pure . (spanOf expr,) . This $
+          sep
+            [ "Only values of type",
+              indent $ prettyPrintType expected,
+              "can be used as a static layer template! This variable has type",
+              indent $ prettyPrintType actual,
+              "instead."
+            ]
+
+    mustSatisfyList :: Text -> [DiagnosticAnnotation]
+    mustSatisfyList kind =
+      pure . (spanOf expr,) . This $
         sep
-          [ "Only values of type",
+          [ hsep
+              [ "All elements inside a",
+                pretty kind,
+                "must have type"
+              ],
             indent $ prettyPrintType expected,
-            "can be used as a static layer template! This variable has type",
+            "but this one has type",
             indent $ prettyPrintType actual,
             "instead."
           ]
-
-    mustSatisfyList :: Text -> MyDoc
-    mustSatisfyList kind =
-      sep
-        [ hsep
-            [ "All elements inside a",
-              pretty kind,
-              "must have type"
-            ],
-          indent $ prettyPrintType expected,
-          "but this one has type",
-          indent $ prettyPrintType actual,
-          "instead."
-        ]
 
 resolveAnnotation :: PrettyAnnotation -> AnsiStyle
 resolveAnnotation ANatural = color Blue
