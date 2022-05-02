@@ -1,0 +1,6 @@
+layer foo:
+| *_ => {}
+
+template bar: a b c
+layer bazz using bar: _ foo  _ -- foo is a layer, instead of a sequence
+layer buzz using bar: _ (bazz "a")_ -- calling layers inside other layers is totally fine tho

@@ -179,11 +179,11 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
             <|> (":" $> False)
       extendSpan startingSpan
         <$> if static
-          then (pure <$> spanned) do
+          then (fmap pure . spanned) do
             templateName <- spanned parseName_
             L.symbol sc' ":"
             let entry = wildcard <|> A.ExpressionEntry <$> atom sc'
-            contents <- spanned (entry `sepBy1` try sc')
+            contents <- spanned $ many ((try sc' *> entry) <?> "layer entry")
             pure $
               A.Layer $
                 A.StaticLayer $ A.MkStaticLayer templateName contents
@@ -191,6 +191,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
             branches <- some $ L.nonIndented scn patternMatchBranch
             pure $ A.Layer $ A.ComputeLayer $ A.MkComputeLayer branches
 
+    wildcard :: Parser A.StaticLayerEntry
     wildcard = A.WildcardEntry <$ "_"
 
 parseConfig :: Parser A.Config

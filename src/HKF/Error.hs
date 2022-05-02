@@ -103,7 +103,7 @@ prettyPrintCheckError ::
 prettyPrintCheckError err (C.VarNotInScope (Spanned span name) _ (Just (Spanned futureSpan _))) =
   err
     (Just "VarNotInScope")
-    (hsep ["Variable", quoted (var name), "not in scope"])
+    (hsep ["Variable", quoted (var name), "used before it's declaration"])
     [(span, This $ hsep ["Variable", quoted (var name), "hasn't been defined at this point"]), futureMarker]
     [futureHint]
   where
@@ -152,7 +152,7 @@ prettyPrintCheckError err (C.WrongTemplateLength (Spanned span _) template templ
   err
     (Just "WrongStaticLayerLength")
     "The length of the static layer does not match the length of the template it uses"
-    [ (span, This $ hsep ["...but this layer only has", natural actual, "members"]),
+    [ (span, This $ hsep ["...but this layer", if expected > actual then "only has" else "", natural actual, "members"]),
       (spanOf templateName, Where "This is the template being used"),
       (spanOf template, This $ hsep ["This template has", natural expected, "elements"])
     ]
@@ -186,65 +186,66 @@ prettyPrintCheckError err (C.NotCallable func arg tyFunc tyArg) =
     hint = "Try removing the argument from this expression"
     funcError = This $ hsep ["but expressions of type", prettyPrintType tyFunc, "are not callable"]
     argError = Where $ hsep ["You've tried calling an expression with an argument of type", prettyPrintType tyArg]
-prettyPrintCheckError err e = err Nothing "not implemented" [] [pretty (show e :: Text)]
+prettyPrintCheckError err (C.WrongArgument func arg expected actual contradictions) =
+  err
+    (Just "WrongArgument")
+    "Argument does not have the expected type."
+    [ (spanOf arg, argError),
+      (spanOf func, funcError)
+    ]
+    []
+  where
+    funcError = This $ hsep ["...but this function expects arguments of type", prettyPrintType expected, "instead"]
+    argError = This $ hsep ["This expression has type", prettyPrintType actual]
+-- prettyPrintCheckError err e = err Nothing "not implemented" [] [pretty (show e :: Text)]
+prettyPrintCheckError err (C.WrongType expected actual expr contradictions reason) =
+  err
+    (Just "WrongType")
+    "Cannot match types"
+    [(spanOf expr, basic)]
+    []
+  where
+    -- sep
+    --   [ basic,
+    --     "I got stuck on the following contradictions:",
+    --     indent $ align $ vsep $ showContradiction <$> contradictions
+    --   ]
 
--- prettyPrintCheckError (C.NotCallable func arg tyFunc tyArg) =
---   Spanned (spanOf func) $
---     sep
---       [ "Expression cannot be called, as it has type",
---         indent $ prettyPrintType tyFunc -- Consider abstracting over this
---       ]
--- prettyPrintCheckError (C.WrongArgument func arg expected actual contradictions) =
---   Spanned (spanOf arg) $
---     sep
---       [ "Wrong argument type! Expecting",
---         indent $ prettyPrintType expected,
---         "but got",
---         indent $ prettyPrintType actual,
---         "instead!"
---       ]
--- prettyPrintCheckError (C.WrongType expected actual expr contradictions reason) =
---   Spanned (spanOf expr) $
---     sep
---       [ basic,
---         "I got stuck on the following contradictions:",
---         indent $ align $ vsep $ showContradiction <$> contradictions
---       ]
---   where
---     showContradiction (left, right) =
---       hsep
---         [ prettyPrintType left,
---           punctuation "<:",
---           prettyPrintType right
---         ]
---
---     basic = case reason of
---       C.MustSatisfyChord _ _ -> mustSatisfyList "chord"
---       C.MustSatisfySequence _ _ -> mustSatisfyList "sequence"
---       C.StaticLayerMember _ -> mustSatisfyList "static layer"
---       C.StaticLayersRequireTemplate _ _ ->
---         sep
---           [ "Only values of type",
---             indent $ prettyPrintType expected,
---             "can be used as a static layer template! Got",
---             indent $ prettyPrintType actual,
---             "instead."
---           ]
---
---     mustSatisfyList :: Text -> MyDoc
---     mustSatisfyList kind =
---       sep
---         [ hsep
---             [ "All elements inside a",
---               pretty kind,
---               "must have type"
---             ],
---           indent $ prettyPrintType expected,
---           "but this one has type",
---           indent $ prettyPrintType actual,
---           "instead."
---         ]
---
+    showContradiction (left, right) =
+      hsep
+        [ prettyPrintType left,
+          punctuation "<:",
+          prettyPrintType right
+        ]
+
+    basic = This case reason of
+      C.MustSatisfyChord _ _ -> mustSatisfyList "chord"
+      C.MustSatisfySequence _ _ -> mustSatisfyList "sequence"
+      C.StaticLayerMember _ -> mustSatisfyList "static layer"
+      C.ComputeLayerMember _ -> mustSatisfyList "compute layer"
+      C.StaticLayersRequireTemplate _ _ ->
+        sep
+          [ "Only values of type",
+            indent $ prettyPrintType expected,
+            "can be used as a static layer template! This variable has type",
+            indent $ prettyPrintType actual,
+            "instead."
+          ]
+
+    mustSatisfyList :: Text -> MyDoc
+    mustSatisfyList kind =
+      sep
+        [ hsep
+            [ "All elements inside a",
+              pretty kind,
+              "must have type"
+            ],
+          indent $ prettyPrintType expected,
+          "but this one has type",
+          indent $ prettyPrintType actual,
+          "instead."
+        ]
+
 resolveAnnotation :: PrettyAnnotation -> AnsiStyle
 resolveAnnotation ANatural = color Blue
 resolveAnnotation AKeyword = bold <> color Yellow

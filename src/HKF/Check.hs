@@ -236,7 +236,7 @@ inferType spanned@(Spanned span e) ctx = case e of
         TArrow from to -> do
           let contradictions = subtype aType from
           unless (L.null contradictions) do
-            let error = WrongArgument func arg to aType contradictions
+            let error = WrongArgument func arg from aType contradictions
             ctxTcError ctx error
           pure to
         somethingElse -> do

@@ -1,0 +1,4 @@
+layer foo:
+| *_ => []
+
+alias bar = foo ["a"] -- Layers take in chords, not sequences 

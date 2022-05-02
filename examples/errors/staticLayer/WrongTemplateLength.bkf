@@ -1,0 +1,3 @@
+template foo: a b c
+layer bar using foo: "a" "b" "c" "d" -- too long
+layer buzz using foo: "a" "b" -- too small

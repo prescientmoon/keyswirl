@@ -1,0 +1,2 @@
+alias foo = []
+layer bar using foo: "a" -- foo is a chord, not a template!
