@@ -127,11 +127,11 @@ atom sc' = key <|> parseParenthesis <|> lambda <|> var <|> chord <|> sequence
     chord = spanned $ A.Chord <$> curlyBraces sc' (sepBy (expression sc') $ lm ",")
     sequence = spanned $ A.Sequence <$> squareBraces sc' (sepBy (expression sc') $ lm ",")
     lambda = do
-      L.symbol sc' "fun" <|> L.symbol sc' "λ"
+      A.Spanned span _ <- spanned (L.symbol sc' "fun" <|> L.symbol sc' "λ")
       buildLambda <- parseLambdaHead True sc'
       L.symbol sc' "=>"
       inner <- expression sc'
-      pure $ buildLambda inner
+      extendSpan span $ pure $ buildLambda inner
 
     lm = L.lexeme sc'
 
@@ -219,7 +219,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
           ty <- spanned $ etype sc'
           pure $ A.Assumption ty
 
-    tlAlias = namedDeclaration "alias" \sc' -> do
+    tlAlias = namedDeclaration ("alias" <|> "def") \sc' -> do
       buildLambda <- parseLambdaHead False sc'
       L.symbol sc' "="
       r <- expression sc'

@@ -8,3 +8,4 @@ alias c = {b} -- chords cannot contain sequences
 alias d: Layer = [] -- oops, the annotation disagrees!
 
 alias e = fun (g: Chord): Keycode => g -- The return type doesn't match the returned value
+alias f(g: Chord): Keycode = g -- The return type doesn't match the returned value

@@ -1,4 +1,10 @@
-assume foo: LayerTemplate -> Sequence → Sequence
+-- import anotherFile.otherThing.anotherThing
+-- import anotherFile.otherThing (a, b, c)
+-- import anotherFile.otherThing (a, b, c) as Bruh
+-- 
+-- export (a, b, c, Bruh, foo)
 
-alias a = [foo]
+assume foo: Layer -> Sequence → Sequence
+
+def a: Chord = fun (a: Layer) => foo a (a "bruh")
 
