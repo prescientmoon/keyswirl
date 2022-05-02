@@ -14,7 +14,7 @@ assume with_layer: Layer -> Sequence
 assume set_base: Layer -> Sequence
 
 -- | Layer which does nothing
-assume id_layer: Layer
+def id_layer: Layer = λ(x: Chord) => x
 
 -- | Make an action require a second press of a button to deactivate (think caps-lock)
 assume sticky: Sequence -> Sequence

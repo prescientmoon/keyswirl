@@ -229,7 +229,8 @@ inferType spanned@(Spanned span e) ctx = case e of
     checkExpression inner (unspan ty, reason) ctx
     pure (unspan ty)
   A.Lambda name ty body -> do
-    inferType body $ extendContext (name, unspan ty) ctx
+    inner <- inferType body $ extendContext (name, unspan ty) ctx
+    pure $ TArrow (unspan ty) inner
   where
     inferSingleCall func fType arg = do
       aType <- inferType arg ctx

@@ -9,3 +9,7 @@ alias d: Layer = [] -- oops, the annotation disagrees!
 
 alias e = fun (g: Chord): Keycode => g -- The return type doesn't match the returned value
 alias f(g: Chord): Keycode = g -- The return type doesn't match the returned value
+
+-- the left hand side of the -> operator flips the subtyping relation around
+alias g: Chord -> Keycode = fun (x: Sequence) => "x" -- compiles
+alias g: Sequence -> Keycode = fun (x: Chord) => "x" -- does not compile
