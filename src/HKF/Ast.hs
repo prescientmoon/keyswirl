@@ -89,6 +89,34 @@ data ConfigEntry
   | UnnamedConfigEntry UnnamedConfigEntry
   deriving (Show)
 
+newtype ImportPath = MkImportPath (Spanned [Spanned Text])
+  deriving (Show)
+
+data ConfigImport = MkConfigImport
+  { importPath :: ImportPath,
+    importList :: Maybe (Spanned [Spanned Text]),
+    importAs :: Maybe (Spanned Text)
+  }
+  deriving (Show)
+
+newtype ConfigExports
+  = MkConfigExports
+      (Spanned (Maybe [Spanned Text]))
+  deriving (Show)
+
+data ConfigHeader = MkConfigHeader
+  { moduleIsUnsafe :: Bool,
+    exports :: ConfigExports,
+    imports :: [Spanned ConfigImport]
+  }
+  deriving (Show)
+
+data ConfigModule = MkConfigModule
+  { configHeader :: ConfigHeader,
+    config :: Config
+  }
+  deriving (Show)
+
 newtype Config = MkConfig [Spanned ConfigEntry]
   deriving (Show)
 
