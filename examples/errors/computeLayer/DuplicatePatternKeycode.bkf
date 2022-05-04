@@ -1,2 +1,4 @@
+module exporting ()
+
 layer foo:
 | "a" "a" => [] -- How can a key be pressed twice at the same time?

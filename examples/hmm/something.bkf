@@ -1,4 +1,4 @@
-module (a, b, c)
+module exporting (a, b, c)
 
 alias c = "abc"
 alias b = {c}

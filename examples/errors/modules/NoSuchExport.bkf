@@ -1,0 +1,6 @@
+module exporting (aaa, aa, bb, cc) -- The compiler will complain cc is not in scope
+
+import errors.modules.helper (aa, bb, cc) as CC -- the compiler will tell you cc isn't a valid export
+import errors.modules.helper 
+
+alias aaa = [CC.aa, bb]

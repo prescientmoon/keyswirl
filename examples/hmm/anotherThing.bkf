@@ -1,4 +1,4 @@
-module *
+module exporting *
 
 import hmm.something
 

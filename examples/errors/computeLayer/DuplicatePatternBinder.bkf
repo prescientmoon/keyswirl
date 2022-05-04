@@ -1,3 +1,5 @@
+module exporting ()
+
 layer foo:
 | a a => [] -- a is bound twice here
 | a other _ *a => [] -- also occurs with rest binders

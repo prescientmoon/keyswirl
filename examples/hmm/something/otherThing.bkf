@@ -1,6 +1,6 @@
-module (aaa)
+module exporting (aaa)
 
-import hmm.something as S -- TODO: merging 
+import hmm.something as S
 import hmm.anotherThing (aa) as AT 
 
 alias aaa = [S.a, AT.aa]

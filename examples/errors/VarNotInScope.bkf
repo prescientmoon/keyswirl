@@ -1,3 +1,5 @@
+module exporting ()
+
 -- The compiler will explain you might want to move this declaration down a bit
 alias bar = foo -- used before it's declared
 

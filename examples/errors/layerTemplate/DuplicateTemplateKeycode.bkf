@@ -1,1 +1,3 @@
+module exporting ()
+
 template foo: a b a -- a appears twice here

@@ -2,11 +2,13 @@
 -- This module takes care of the actual following of the imports in each file
 module HKF.Crawl where
 
+import Control.Exception.Base (IOException)
 import Control.Monad.Writer (runWriter)
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
 import Error.Diagnose
 import Error.Diagnose.Compat.Megaparsec (HasHints (hints), errorDiagnosticFromBundle)
+import GHC.IO (catch)
 import HKF.Ast (CompleteConfig, Module, Spanned (..), unspan)
 import qualified HKF.Ast as A
 import HKF.Check hiding (Module)
@@ -45,12 +47,13 @@ addModule path module_ = modify \ctx ->
     { config = (path, module_) : config ctx
     }
 
+-- TODO: abstract this away
 prefix = "./examples/"
 
 buildFullConfig :: A.ModuleName -> Crawl ()
 buildFullConfig entry = do
   let filename = prefix <> T.intercalate "/" (T.split (== '.') entry) <> ".bkf"
-  file <- liftIO $ T.readFile $ T.unpack filename
+  file <- liftIO $ catch (T.readFile $ T.unpack filename) (\e -> let e' = (e :: IOException) in error ("Couldn't open file " <> filename))
   loadFile entry file
   case flip runReader (MkParsingContext True) $ runParserT parser (T.unpack entry) file of
     Left bundle -> do

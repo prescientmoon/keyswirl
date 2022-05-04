@@ -286,9 +286,9 @@ parseModuleHeader = do
     parseModuleData = L.nonIndented scn . L.lineFold scn $ \sc' -> do
       let parser = do
             isUnsafe <- isJust <$> optional (L.symbol sc' "unsafe")
-            moduleKw <- L.symbol sc' "module"
+            moduleKw <- L.symbol sc' "module" *> L.symbol sc' "exporting"
             let everything = "*" $> Nothing
-            let specified = Just <$> parens sc' (sepBy1 (spanned parseName_) (L.symbol sc' ","))
+            let specified = Just <$> parens sc' (sepBy (spanned parseName_) (L.symbol sc' ","))
             exportList <- spanned (everything <|> specified)
             pure (isUnsafe, A.MkExports exportList)
       parser <* scn
@@ -303,8 +303,9 @@ parseModuleHeader = do
       L.lineFold scn \sc' -> do
         let importKw = L.symbol sc' "import"
         let lm = L.lexeme sc'
-        let parseNames = parens sc' do
-              sepBy1 (lm $ spanned parseName_) (lm ",")
+        let parseNames =
+              parens sc' do
+                sepBy1 (lm $ spanned parseName_) (lm ",")
         let parser = do
               path <- parseImportPath
               names <- optional $ try (try sc' *> parseNames)
@@ -317,7 +318,7 @@ parseModuleHeader = do
         spanned (importKw *> parser) <* scn
 
 parseConfig :: Parser A.Config
-parseConfig = A.MkConfig <$> some toplevel
+parseConfig = A.MkConfig <$> many toplevel
 
 parseConfigModule :: Parser A.Module
 parseConfigModule = do

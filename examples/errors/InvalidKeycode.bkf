@@ -1,1 +1,3 @@
+module exporting ()
+
 alias foo = "wrong"

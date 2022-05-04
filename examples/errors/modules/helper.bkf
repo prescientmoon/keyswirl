@@ -1,0 +1,6 @@
+-- Helper module for showing the other errors
+module exporting (aa, bb)
+
+alias cc = "c"
+alias aa = {"a", cc, "a"}
+alias bb = [aa]

@@ -1,4 +1,4 @@
-unsafe module (Bruh, foo, aaa)
+unsafe module exporting (Bruh, foo, aaa)
 
 import hmm.something (a, b, c) as Bruh
 import hmm.anotherThing (aa)

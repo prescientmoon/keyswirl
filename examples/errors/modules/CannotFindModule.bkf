@@ -1,0 +1,3 @@
+module exporting () 
+
+import foo.bar.goo as FBG -- oops, no such module
