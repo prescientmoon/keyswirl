@@ -1,10 +1,10 @@
--- import anotherFile.otherThing.anotherThing
--- import anotherFile.otherThing (a, b, c)
--- import anotherFile.otherThing (a, b, c) as Bruh
--- 
--- export (a, b, c, Bruh, foo)
+unsafe module (Bruh, foo, aaa)
+
+import hmm.something (a, b, c) as Bruh
+import hmm.anotherThing (aa)
+import hmm.something.otherThing
 
 assume foo: Layer -> Sequence → Sequence
 
-def a: Chord = fun (a: Layer) => foo a (a "bruh")
+def Bruh = fun (a: Layer) => foo a (a Bruh.b)
 

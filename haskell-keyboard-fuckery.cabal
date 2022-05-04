@@ -30,6 +30,7 @@ library
       HKF.Parser
       HKF.Check
       HKF.Error
+      HKF.Crawl
 
     mixins:  
       base hiding (Prelude),
@@ -55,10 +56,15 @@ library
     default-language: Haskell2010
     default-extensions: 
       BlockArguments,
+      NamedFieldPuns,
       DeriveFunctor,
       DeriveTraversable,
       LambdaCase,
       OverloadedStrings,
+      MultiParamTypeClasses,
+      TypeSynonymInstances,
+      FlexibleInstances,
+      PartialTypeSignatures,
       TupleSections
 
 executable haskell-keyboard-fuckery

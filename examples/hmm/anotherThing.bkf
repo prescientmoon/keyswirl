@@ -1,0 +1,8 @@
+module *
+
+import hmm.something
+
+
+alias cc = "abc"
+alias bb = {b}
+alias aa = [b, c]

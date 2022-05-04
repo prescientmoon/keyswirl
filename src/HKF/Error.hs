@@ -40,6 +40,10 @@ indent x = flatAlt (P.indent indentation x) x
 var :: Text -> MyDoc
 var = annotate AVariable . pretty
 
+varName :: VarName -> MyDoc
+varName (Nothing, a) = var a
+varName (Just prefix, a) = var (prefix <> "." <> a)
+
 keyword :: Text -> MyDoc
 keyword = annotate AKeyword . pretty
 
@@ -103,17 +107,17 @@ prettyPrintCheckError ::
 prettyPrintCheckError err (C.VarNotInScope (Spanned span name) _ (Just (Spanned futureSpan _))) =
   err
     (Just "VarNotInScope")
-    (hsep ["Variable", quoted (var name), "used before it's declaration"])
-    [(span, This $ hsep ["Variable", quoted (var name), "hasn't been defined at this point"]), futureMarker]
+    (hsep ["Variable", quoted (varName name), "used before it's declaration"])
+    [(span, This $ hsep ["Variable", quoted (varName name), "hasn't been defined at this point"]), futureMarker]
     [futureHint]
   where
-    futureHint = hsep ["Try moving this declaration under the place", quoted (var name), "is defiend"]
+    futureHint = hsep ["Try moving this declaration under the place", quoted (varName name), "is defiend"]
     futureMarker = (futureSpan, Maybe "The variable is defined here")
 prettyPrintCheckError err (C.VarNotInScope (Spanned span name) similar Nothing) =
   err
     (Just "VarNotInScope")
     "Undefined variable"
-    ((span, This $ hsep ["Undefined variable", var name]) : similarityMarker)
+    ((span, This $ hsep ["Undefined variable", varName name]) : similarityMarker)
     similarityHint
   where
     similarityMarker = case similar of
@@ -121,7 +125,7 @@ prettyPrintCheckError err (C.VarNotInScope (Spanned span name) similar Nothing) 
       (Spanned span target : _) -> pure (span, Maybe $ hsep ["Were you refering to this?"])
     similarityHint = case similar of
       [] -> []
-      _ -> [hsep ["You might be referring to one of the following:", hcat $ intersperse ", " (fmap (pretty . unspan) similar)]] -- TODO: did you mean hint
+      _ -> [hsep ["You might be referring to one of the following:", hcat $ intersperse ", " (fmap (varName . unspan) similar)]] -- TODO: did you mean hint
 prettyPrintCheckError err (C.InvalidKeycode (Spanned span code)) =
   err
     (Just "InvalidKeycode")
@@ -164,7 +168,7 @@ prettyPrintCheckError err (C.WrongTemplateLength (Spanned span _) template templ
           "I was expecting" <+> natural expected
             <+> "expressions,",
           "as specified by the"
-            <+> var (unspan templateName)
+            <+> varName (unspan templateName)
             <+> "template,",
           "but got"
             <+> natural actual
@@ -250,6 +254,20 @@ prettyPrintCheckError err (C.WrongType expected actual expr contradictions reaso
             indent $ prettyPrintType actual,
             "instead."
           ]
+prettyPrintCheckError err (C.NoSuchExport moduleName export) =
+  err
+    (Just "NoSuchExport")
+    "No such export"
+    [ (spanOf export, This "No declaration with this name found in the given module."),
+      (spanOf moduleName, Where $ hsep ["This is the module you tried importing", quoted $var $ unspan export, "from"])
+    ]
+    []
+prettyPrintCheckError err (C.ModuleNotFound moduleName) =
+  err
+    (Just "ModuleNotFound")
+    (hsep ["Module", quoted (pretty (unspan moduleName)), "not found"])
+    [(spanOf moduleName, This "This module does not exist")]
+    [] -- TODO: did you mean..?
 
 resolveAnnotation :: PrettyAnnotation -> AnsiStyle
 resolveAnnotation ANatural = color Blue
@@ -265,8 +283,6 @@ instance Pretty MyDoc where
 printErrors :: (Diagnostic MyDoc -> IO ()) -> [C.CheckError] -> IO ()
 printErrors print =
   print
-    -- renderStrict . showSpan
-    -- . fmap (reAnnotate resolveAnnotation)
     . foldr (flip addReport) def
     . fmap \(C.MkCheckError generalLocation details) ->
       let generalLocationMarker Nothing = []

@@ -1,0 +1,8 @@
+module (aaa)
+
+import hmm.something as S -- TODO: merging 
+import hmm.anotherThing (aa) as AT 
+
+alias aaa = [S.a, AT.aa]
+
+

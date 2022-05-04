@@ -2,21 +2,52 @@ module HKF.Check where
 
 import Control.Monad.Writer as W
 import Data.Bifunctor
+import Data.Foldable (foldl)
+import qualified Data.HashMap.Strict as HM
 import qualified Data.List as L
 import qualified Data.Text as T
 import Data.Text.Metrics (damerauLevenshtein)
 import Data.Validation
 import GHC.Num (intToNatural)
-import HKF.Ast (EType (..), Spanned (..), StaticLayerEntry (ExpressionEntry), spanOf, unspan)
+import HKF.Ast (EType (..), Spanned (..), StaticLayerEntry (ExpressionEntry), VarName, spanOf, unspan)
 import qualified HKF.Ast as A
 import Relude.Extra (DynamicMap (insert), StaticMap (lookup, member))
 import Relude.Extra.Map (keys)
 import qualified Relude.String.Reexport as T
 
+data ScopeBinding = MkScopeBinding
+  { seNameSpan :: A.Span,
+    seType :: EType,
+    seValue :: Maybe (Spanned A.ToplevelDeclaration)
+  }
+  deriving (Show)
+
+data ScopeEntry
+  = ScopeBinding ScopeBinding
+  | Reddirect VarName
+  deriving (Show)
+
+newtype Scope = MkScope
+  { scope :: HashMap Text ScopeEntry
+  }
+  deriving (Show)
+
+data Module = MkModule
+  { moduleScope :: Scope,
+    publicMembers :: [Text]
+  }
+  deriving (Show)
+
+data ModuleBridge = MkModuleBridge
+  { actualModule :: Spanned A.ModuleName,
+    importedNames :: [Text]
+  }
+  deriving (Show)
+
 data Context = MkContext
-  { scope :: HashMap Text (Spanned A.ToplevelDeclaration),
-    types :: HashMap Text EType,
-    nameSpans :: HashMap Text A.Span,
+  { moduleScopes :: HashMap A.ModuleName Module,
+    importedModules :: HashMap A.ModuleName ModuleBridge,
+    currentScope :: Scope,
     generalLocation :: Maybe (Spanned CheckErrorGeneralLocation)
   }
   deriving (Show)
@@ -37,7 +68,7 @@ data TypeExpectationReason
       }
   | StaticLayersRequireTemplate
       { slrtLayer :: Spanned A.StaticLayer,
-        slrtTemplateName :: Spanned Text
+        slrtTemplateName :: Spanned VarName
       }
   | ComputeLayerMember
       { clmExpression :: A.Expression
@@ -84,11 +115,11 @@ data CheckErrorDetails
         typeofArgument :: EType
       }
   | VarNotInScope
-      { vnsSource :: Spanned Text,
-        similar :: [Spanned Text],
-        definedLater :: Maybe (Spanned Text)
+      { vnsSource :: Spanned VarName,
+        similar :: [Spanned VarName],
+        definedLater :: Maybe (Spanned VarName)
       }
-  | WrongTemplateLength (Spanned [A.StaticLayerEntry]) (Spanned [Spanned Text]) (Spanned Text) Natural Natural
+  | WrongTemplateLength (Spanned [A.StaticLayerEntry]) (Spanned [Spanned Text]) (Spanned VarName) Natural Natural
   | DuplicateTemplateKeycode
       { dtkTemplate :: Spanned [Spanned Text],
         dtkInstances :: NonEmpty (Spanned Text),
@@ -105,6 +136,11 @@ data CheckErrorDetails
         dpkKeycode :: Text
       }
   | InvalidKeycode (Spanned Text)
+  | NoSuchExport
+      { nseModule :: Spanned A.ModuleName,
+        nseName :: Spanned Text
+      }
+  | ModuleNotFound (Spanned A.ModuleName)
   deriving (Show)
 
 ---------- Helpers
@@ -114,29 +150,82 @@ mapDetails f (MkCheckError loc details) = MkCheckError loc (f details)
 tcError :: CheckError -> Checked ()
 tcError = tell . pure
 
+mkCtxTcError :: Context -> CheckErrorDetails -> CheckError
+mkCtxTcError ctx = MkCheckError (generalLocation ctx)
+
 ctxTcError :: Context -> CheckErrorDetails -> Checked ()
-ctxTcError ctx = tcError . MkCheckError (generalLocation ctx)
+ctxTcError ctx = tcError . mkCtxTcError ctx
 
-lookupScope :: Text -> Context -> Maybe (Spanned A.ToplevelDeclaration)
-lookupScope name ctx = lookup name (scope ctx)
+mapScope :: (HashMap Text ScopeEntry -> HashMap Text ScopeEntry) -> Scope -> Scope
+mapScope f = MkScope . f . scope
 
-lookupTypeScope :: Text -> Context -> Maybe EType
-lookupTypeScope name ctx = lookup name (types ctx)
+lookupScope :: VarName -> Context -> Maybe ScopeBinding
+lookupScope = go False
+  where
+    go direct (moduleName, name) ctx =
+      mightRecurse . lookup name . scope <=< getModuleScope direct moduleName $
+        ctx
+      where
+        mightRecurse (Just (Reddirect to)) = go True to ctx
+        mightRecurse (Just (ScopeBinding binding)) = Just binding
+        mightRecurse Nothing = Nothing
+
+getModule :: A.ModuleName -> Context -> Maybe Module
+getModule name = lookup name . moduleScopes
+
+getModuleScope :: Bool -> Maybe A.ModuleName -> Context -> Maybe Scope
+getModuleScope direct Nothing ctx = Just $ currentScope ctx
+getModuleScope direct (Just moduleName) ctx =
+  if direct
+    then fmap publicModuleScope . lookup moduleName . moduleScopes $ ctx
+    else publicBridgeScope <=< lookup moduleName . importedModules $ ctx
+  where
+    publicModuleScope :: Module -> Scope
+    publicModuleScope module_ = mapScope (publicOnly $ publicMembers module_) (moduleScope module_)
+
+    publicBridgeScope :: ModuleBridge -> Maybe Scope
+    publicBridgeScope (MkModuleBridge reddirect exports) =
+      fmap (mapScope (publicOnly exports) . moduleScope) (lookup (unspan reddirect) (moduleScopes ctx))
+
+    publicOnly exports =
+      HM.mapMaybeWithKey
+        \k v ->
+          if k `elem` exports
+            then Just v
+            else Nothing
+
+lookupTypeOf :: VarName -> Context -> Maybe EType
+lookupTypeOf name = fmap seType . lookupScope name
+
+lookupSpanOf :: VarName -> Context -> Maybe A.Span
+lookupSpanOf name = fmap seNameSpan . lookupScope name
+
+addNameSpan :: VarName -> Context -> Maybe (Spanned VarName)
+addNameSpan name = fmap (flip Spanned name . seNameSpan) . lookupScope name
 
 -- TODO: quide this by the type
-similarInScope :: Text -> Context -> [Spanned Text]
-similarInScope name ctx
+similarInScope :: VarName -> Context -> [Spanned VarName]
+similarInScope fullName@(moduleName, name) ctx
   | T.length name < 3 = []
-  | otherwise = mapMaybe fetchSpan $ take 3 $ fmap fst $ sortBy (on compare snd) $ mapMaybe similarity $ keys (types ctx)
+  | otherwise =
+    mapMaybe (\name -> addNameSpan (moduleName, name) ctx) $
+      take 3
+        . fmap fst
+        . sortBy (on compare snd)
+        . mapMaybe similarity
+        $ namesInScope moduleName ctx
   where
-    similarity t = if result < 3 then Just (t, result) else Nothing
+    namesInScope :: Maybe A.ModuleName -> Context -> [Text]
+    namesInScope moduleName = maybe [] (keys . scope) . getModuleScope False moduleName
+
+    similarity :: Text -> Maybe (Text, Int)
+    similarity t = if result < 4 then Just (t, result) else Nothing
       where
         result = damerauLevenshtein name t
-    fetchSpan t = lookup t (nameSpans ctx) <&> \span -> Spanned span t
 
-lookupTyped :: Spanned Text -> (EType, TypeExpectationReason) -> Context -> Checked (Maybe (Spanned A.ToplevelDeclaration))
-lookupTyped spannedName@(Spanned span name) (expected, reason) ctx = case (lookupScope name ctx, lookupTypeScope name ctx) of
-  (Just decl, Just ty) -> do
+lookupTyped :: Spanned VarName -> (EType, TypeExpectationReason) -> Context -> Checked (Maybe (Spanned A.ToplevelDeclaration))
+lookupTyped spannedName@(Spanned span name) (expected, reason) ctx = case lookupScope name ctx of
+  (Just (MkScopeBinding _ ty (Just decl))) -> do
     let contradictions = subtype ty expected
     unless (L.null contradictions) do
       ctxTcError ctx $
@@ -146,7 +235,6 @@ lookupTyped spannedName@(Spanned span name) (expected, reason) ctx = case (looku
           (Spanned span $ A.Variable spannedName)
           contradictions
           reason
-
     pure $ Just decl
   _ -> do
     ctxTcError ctx $ VarNotInScope spannedName (similarInScope name ctx) Nothing
@@ -197,7 +285,7 @@ subtype left right = case (left, right) of
 inferType :: A.Expression -> Context -> Checked EType
 inferType spanned@(Spanned span e) ctx = case e of
   A.Key keycode -> checkKeycode keycode ctx $> TKeycode
-  A.Variable spannedName -> case lookup (unspan spannedName) (types ctx) of
+  A.Variable spannedName -> case lookupTypeOf (unspan spannedName) ctx of
     Just ty -> pure ty
     Nothing -> do
       ctxTcError ctx $ VarNotInScope spannedName (similarInScope (unspan spannedName) ctx) Nothing
@@ -229,7 +317,7 @@ inferType spanned@(Spanned span e) ctx = case e of
     checkExpression inner (unspan ty, reason) ctx
     pure (unspan ty)
   A.Lambda name ty body -> do
-    inner <- inferType body $ extendContext (name, unspan ty) ctx
+    inner <- inferType body $ extendContext (name, unspan ty, Nothing) ctx
     pure $ TArrow (unspan ty) inner
   where
     inferSingleCall func fType arg = do
@@ -260,11 +348,25 @@ checkExpression spanned@(Spanned span e) (expected, reason) ctx = case e of
       let error = WrongType expected inferred spanned contradictions reason
       ctxTcError ctx error
 
-extendContext :: (Spanned Text, EType) -> Context -> Context
-extendContext (Spanned span name, ty) ctx =
+reddirectInScope :: Text -> VarName -> Scope -> Scope
+reddirectInScope from to = mapScope (insert from (Reddirect to))
+
+reddirectInCurrentScope :: Text -> VarName -> Context -> Context
+reddirectInCurrentScope from to ctx =
   ctx
-    { types = insert name ty (types ctx),
-      nameSpans = insert name span (nameSpans ctx)
+    { currentScope = reddirectInScope from to (currentScope ctx)
+    }
+
+extendScope :: (Spanned Text, EType, Maybe (Spanned A.ToplevelDeclaration)) -> Scope -> Scope
+extendScope (Spanned span name, ty, val) ctx =
+  ctx
+    { scope = insert name (ScopeBinding $ MkScopeBinding span ty val) (scope ctx)
+    }
+
+extendContext :: (Spanned Text, EType, Maybe (Spanned A.ToplevelDeclaration)) -> Context -> Context
+extendContext (name, ty, val) ctx =
+  ctx
+    { currentScope = extendScope (name, ty, val) (currentScope ctx)
     }
 
 checkPatternMatchBranch ::
@@ -287,7 +389,7 @@ checkPatternMatchBranch (this@(Spanned _ branch), inner) ctx = do
 
     withBinder :: EType -> Spanned A.Binder -> Context -> Context
     withBinder ty (Spanned span (A.Named name)) ctx =
-      extendContext (Spanned span name, ty) ctx
+      extendContext (Spanned span name, ty, Nothing) ctx
     withBinder ty _ ctx = ctx
 
     keycodeValidityCheck = for_ (A.pmKeycodes branch) (`checkKeycode` ctx)
@@ -296,7 +398,7 @@ checkPatternMatchBranch (this@(Spanned _ branch), inner) ctx = do
       where
         keycodes = A.pmKeycodes branch
         mkError instances =
-          MkCheckError (generalLocation ctx) $
+          mkCtxTcError ctx $
             DuplicatePatternKeycode
               this
               instances
@@ -311,7 +413,7 @@ checkPatternMatchBranch (this@(Spanned _ branch), inner) ctx = do
               <> maybeToList (A.pmRest branch)
 
         mkError instances =
-          MkCheckError (generalLocation ctx) $
+          mkCtxTcError ctx $
             DuplicatePatternBinder
               this
               instances
@@ -343,7 +445,7 @@ checkLayerTemplate this@(Spanned _ template) ctx = noDuplicates *> keycodeCheck
         (unspan $ A.templateKeycodes template)
       where
         mkError duplicates =
-          MkCheckError (generalLocation ctx) $
+          mkCtxTcError ctx $
             DuplicateTemplateKeycode
               (A.templateKeycodes template)
               duplicates
@@ -380,11 +482,83 @@ checkStaticLayer this@(Spanned _ layer) ctx = lengthCheck *> expressionCheck
             layerLength = length (unspan $ A.staticLayerContents layer)
         _ -> pure ()
 
-checkConfig ::
+resolveImport :: A.Import -> Context -> Checked Context
+resolveImport (A.MkImport path list importAs) ctx = case getModule (unspan path) ctx of
+  Nothing -> do
+    ctxTcError ctx $
+      ModuleNotFound
+        path
+    pure ctx
+  Just module_ -> do
+    let exports = publicMembers module_
+
+    for_ list $ traverse_
+      \name ->
+        if unspan name `notElem` exports
+          then ctxTcError ctx $ NoSuchExport path name
+          else pure ()
+
+    -- TODO: check for duplicates
+    let imports = maybe exports (fmap unspan) list
+
+    case importAs of
+      Nothing -> pure $ foldl (flip importOne) ctx imports
+        where
+          importOne name =
+            reddirectInCurrentScope
+              name
+              (Just (unspan path), name)
+      Just importAs ->
+        pure $
+          ctx
+            { importedModules = insert (unspan importAs) newModule $ importedModules ctx
+            }
+        where
+          newModule :: ModuleBridge
+          newModule = MkModuleBridge path imports
+
+checkModule :: A.ModuleName -> A.Module -> Context -> Checked Context
+checkModule path (A.MkModule (A.MkHeader isUnsafe exports imports) inner) ctx = do
+  withImports <- foldM (flip $ resolveImport . unspan) ctx imports
+  checked <- checkConfig inner withImports
+
+  for_ (unspan $ A.unConfigExports exports) $ traverse \export -> do
+    let name = (Nothing, unspan export)
+    unless (isJust $ lookupScope name checked) do
+      ctxTcError checked $
+        VarNotInScope
+          (Spanned (spanOf export) name)
+          (similarInScope name checked)
+          Nothing
+  let exportList = maybe (newNamesInScope checked) (fmap unspan) (unspan $ A.unConfigExports exports)
+  let currentModule :: Module
+      currentModule = MkModule (currentScope checked) exportList
+
+  pure $
+    checked
+      { currentScope = MkScope mempty,
+        moduleScopes = insert path currentModule (moduleScopes checked)
+      }
+  where
+    newNamesInScope :: Context -> [Text]
+    newNamesInScope = keys . HM.filter mapper . scope . currentScope
+      where
+        mapper (Reddirect _) = False
+        mapper _ = True
+
+checkConfig :: A.Config -> Context -> Checked Context
+checkConfig (A.MkConfig config) =
+  checkNamedDeclarations $
+    mapMaybe (traverse toNamed) config
+  where
+    toNamed (A.NamedConfigEntry name decl) = Just (name, decl)
+    toNamed _ = Nothing
+
+checkNamedDeclarations ::
   [Spanned (Spanned Text, Spanned A.ToplevelDeclaration)] ->
   Context ->
   Checked Context
-checkConfig t ctx = go t (pure ctx)
+checkNamedDeclarations t ctx = go t (pure ctx)
   where
     go [] ctx = ctx
     go (h : t) ctx = go t $ checkDeclaration h ctx
@@ -413,14 +587,13 @@ checkDeclaration (Spanned wholeSpan (name, decl)) continuation = do
       inferType expr $ withLocation WhileCheckingAlias
     A.Assumption ty -> do
       pure (unspan ty)
-  pure $
-    ctx
-      { scope = insert (unspan name) decl (scope ctx),
-        types = insert (unspan name) ty (types ctx),
-        nameSpans = insert (unspan name) (spanOf name) (nameSpans ctx),
-        generalLocation = Nothing
-      }
+  pure $ extendContext (name, ty, Just decl) ctx
   where
-    attemptFixingVNSErrors target = mapDetails \case
-      VarNotInScope name similar Nothing | unspan name == unspan target -> VarNotInScope name similar (Just target)
+    attemptFixingVNSErrors spannedTarget@(Spanned _ target) = mapDetails \case
+      VarNotInScope spannedName@(Spanned _ (Nothing, name)) similar Nothing
+        | name == target ->
+          VarNotInScope
+            spannedName
+            similar
+            (Just $ fmap (Nothing,) spannedTarget)
       other -> other

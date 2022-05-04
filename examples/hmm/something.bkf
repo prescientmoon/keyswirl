@@ -1,0 +1,5 @@
+module (a, b, c)
+
+alias c = "abc"
+alias b = {c}
+alias a = [b, c]

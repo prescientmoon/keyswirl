@@ -3,8 +3,11 @@ module HKF.Ast where
 import qualified Data.Text as T
 import Error.Diagnose (Position (Position))
 import Error.Diagnose.Position (Position)
+import Relude.Extra.Map (DynamicMap (insert))
 import Text.Megaparsec (SourcePos)
 import qualified Text.Show
+
+type VarName = (Maybe ModuleName, Text)
 
 type Span = Position
 
@@ -16,10 +19,12 @@ instance Show a => Show (Spanned a) where
 
 type Expression = Spanned RawExpression
 
+type ModuleName = Text
+
 data RawExpression
   = Key (Spanned Text)
   | Call Expression [Expression]
-  | Variable (Spanned Text)
+  | Variable (Spanned VarName)
   | -- Functions
     Lambda (Spanned Text) (Spanned EType) Expression
   | -- Array of keys pressed and released individually in order
@@ -41,7 +46,7 @@ data StaticLayerEntry
   deriving (Show)
 
 data StaticLayer = MkStaticLayer
-  { staticLayerTemplate :: Spanned T.Text,
+  { staticLayerTemplate :: Spanned VarName,
     staticLayerContents :: Spanned [StaticLayerEntry]
   }
   deriving (Show)
@@ -75,7 +80,7 @@ data Input
 data ToplevelDeclaration
   = Layer Layer
   | LayerTemplate LayerTemplate
-  | Alias Expression -- argument support perhaps?
+  | Alias Expression
   | Assumption (Spanned EType)
   deriving (Show)
 
@@ -89,35 +94,37 @@ data ConfigEntry
   | UnnamedConfigEntry UnnamedConfigEntry
   deriving (Show)
 
-newtype ImportPath = MkImportPath (Spanned [Spanned Text])
-  deriving (Show)
-
-data ConfigImport = MkConfigImport
-  { importPath :: ImportPath,
-    importList :: Maybe (Spanned [Spanned Text]),
-    importAs :: Maybe (Spanned Text)
+data Import = MkImport
+  { importPath :: Spanned ModuleName,
+    importList :: Maybe [Spanned Text],
+    importAs :: Maybe (Spanned ModuleName)
   }
   deriving (Show)
 
-newtype ConfigExports
-  = MkConfigExports
-      (Spanned (Maybe [Spanned Text]))
+newtype Exports = MkExports
+  { unConfigExports :: Spanned (Maybe [Spanned Text])
+  }
   deriving (Show)
 
-data ConfigHeader = MkConfigHeader
+data Header = MkHeader
   { moduleIsUnsafe :: Bool,
-    exports :: ConfigExports,
-    imports :: [Spanned ConfigImport]
+    exports :: Exports,
+    imports :: [Spanned Import]
   }
   deriving (Show)
 
-data ConfigModule = MkConfigModule
-  { configHeader :: ConfigHeader,
+data Module = MkModule
+  { configHeader :: Header,
     config :: Config
   }
   deriving (Show)
 
 newtype Config = MkConfig [Spanned ConfigEntry]
+  deriving (Show)
+
+newtype CompleteConfig = MkCompleteConfig
+  { modules :: HashMap ModuleName Module
+  }
   deriving (Show)
 
 data EType
@@ -168,3 +175,9 @@ mergeSpans (Position s e f) (Position s' e' f')
         if f l0 l1 == l0
           then (l0, c0)
           else (l1, c1)
+
+addModule :: ModuleName -> Module -> CompleteConfig -> CompleteConfig
+addModule k v c = c {modules = insert k v $ modules c}
+
+unqualifyName :: (ModuleName, Text) -> Text
+unqualifyName (a, b) = a <> "." <> b

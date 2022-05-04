@@ -118,12 +118,21 @@ parseLambdaHead required sc' = do
   where
     lm = L.lexeme sc'
 
+parseVarName :: Parser A.VarName
+parseVarName =
+  pieces <&> \pieces -> case reverse pieces of
+    [] -> error "impossible"
+    [h] -> (Nothing, h)
+    h : t -> (Just $ T.intercalate "." $ reverse t, h)
+  where
+    pieces = sepBy1 parseName_ "."
+
 atom :: Parser () -> Parser A.Expression
 atom sc' = key <|> parseParenthesis <|> lambda <|> var <|> chord <|> sequence
   where
     -- TODO: annotations
     key = spanned $ A.Key <$> spanned (stringLiteral sc')
-    var = spanned $ A.Variable <$> (spanned parseName_ <?> "variable")
+    var = spanned $ A.Variable <$> (spanned parseVarName <?> "variable")
     parseParenthesis = parens sc' (expression sc')
     chord = spanned $ A.Chord <$> curlyBraces sc' (sepBy (expression sc') $ lm ",")
     sequence = spanned $ A.Sequence <$> squareBraces sc' (sepBy (expression sc') $ lm ",")
@@ -208,7 +217,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
       Parser (Spanned A.ConfigEntry)
     unnamedDeclaration kind parser =
       fmap A.UnnamedConfigEntry <$> L.lineFold scn \sc' -> do
-        let parseKind = L.lexeme sc' kind <?> "declaration kind"
+        let parseKind = L.lexeme sc' kind <?> "unnamed declaration kind"
         spanned (parseKind *> parser sc') <* scn
 
     tlAssumption = do
@@ -253,7 +262,7 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
       extendSpan startingSpan
         <$> if static
           then (fmap pure . spanned) do
-            templateName <- spanned parseName_
+            templateName <- spanned parseVarName
             L.symbol sc' ":"
             let entry = wildcard <|> A.ExpressionEntry <$> atom sc'
             contents <- spanned $ many ((try sc' *> entry) <?> "layer entry")
@@ -267,47 +276,57 @@ toplevel = L.nonIndented scn (tlTemplate <|> tInput <|> tOutput <|> tlAlias <|> 
     wildcard :: Parser A.StaticLayerEntry
     wildcard = A.WildcardEntry <$ "_"
 
-parseModuleHeader :: Parser A.ConfigHeader
+parseModuleHeader :: Parser A.Header
 parseModuleHeader = do
   (isUnsafe, exports) <- parseModuleData
   imports <- many parseImport
-  pure $ A.MkConfigHeader isUnsafe exports imports
+  pure $ A.MkHeader isUnsafe exports imports
   where
-    parseModuleData :: Parser (Bool, A.ConfigExports)
+    parseModuleData :: Parser (Bool, A.Exports)
     parseModuleData = L.nonIndented scn . L.lineFold scn $ \sc' -> do
       let parser = do
-            moduleKw <- L.symbol sc' "module"
             isUnsafe <- isJust <$> optional (L.symbol sc' "unsafe")
+            moduleKw <- L.symbol sc' "module"
             let everything = "*" $> Nothing
             let specified = Just <$> parens sc' (sepBy1 (spanned parseName_) (L.symbol sc' ","))
             exportList <- spanned (everything <|> specified)
-            pure (isUnsafe, A.MkConfigExports exportList)
+            pure (isUnsafe, A.MkExports exportList)
       parser <* scn
-    parseImportPath :: Parser A.ImportPath
-    parseImportPath = A.MkImportPath <$> spanned (sepBy1 (spanned parseName_) ".")
 
-    parseImport :: Parser (Spanned A.ConfigImport)
+    parseImportPath :: Parser (Spanned A.ModuleName)
+    parseImportPath = spanned do
+      pieces <- sepBy1 parseName_ "."
+      pure $ T.intercalate "." pieces
+
+    parseImport :: Parser (Spanned A.Import)
     parseImport = L.nonIndented scn do
       L.lineFold scn \sc' -> do
         let importKw = L.symbol sc' "import"
         let lm = L.lexeme sc'
+        let parseNames = parens sc' do
+              sepBy1 (lm $ spanned parseName_) (lm ",")
         let parser = do
-              path <- lm parseImportPath
-              names <- optional $
-                spanned $ parens sc' do
-                  sepBy1 (lm $ spanned parseName_) (lm ",")
+              path <- parseImportPath
+              names <- optional $ try (try sc' *> parseNames)
               importAs <-
-                try sc' *> optional do
+                optional do
+                  try sc'
                   L.symbol sc' "as"
                   spanned parseName_
-              pure $ A.MkConfigImport path names importAs
+              pure $ A.MkImport path names importAs
         spanned (importKw *> parser) <* scn
 
 parseConfig :: Parser A.Config
 parseConfig = A.MkConfig <$> some toplevel
 
-parseConfigModule :: Parser A.ConfigModule
+parseConfigModule :: Parser A.Module
 parseConfigModule = do
   header <- parseModuleHeader
-  inner <- parseConfig
-  A.MkConfigModule header <$> parseConfig
+
+  let updateCtx ctx =
+        ctx
+          { danger = A.moduleIsUnsafe header
+          }
+
+  local updateCtx do
+    A.MkModule header <$> parseConfig
