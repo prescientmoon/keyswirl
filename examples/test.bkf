@@ -3,8 +3,13 @@ unsafe module exporting (Bruh, foo, aaa)
 import hmm.something (a, b, c) as Bruh
 import hmm.anotherThing (aa)
 import hmm.something.otherThing
+import prelude
 
 assume foo: Layer -> Sequence → Sequence
 
-def Bruh = fun (a: Layer) => foo a (a Bruh.b)
+def Bruh(a: Layer) = foo a (a Bruh.b)
+
+layer nl_test:
+| "n" "l" *o => [around "alt" o, with_layer (around "alt")]
+
 

@@ -1,3 +1,5 @@
+unsafe module exporting *
+
 -- | Says "fuck you" to the compiler
 assume trust_me: Broken
 
@@ -7,7 +9,9 @@ def unsafe_coerce(x: Broken): Broken = x
 -- | Runs a sequence within an extra layer
 assume map_sequence: Layer -> Sequence -> Sequence
 
--- | Adds a layer to the stack
+-- | Adds a layer to the stack.
+-- |   0: Layer gets addded to stack
+-- |   1: Layer gets removed to stack
 assume with_layer: Layer -> Sequence
 
 -- | Sets the default layer in the stack
@@ -17,10 +21,16 @@ assume set_base: Layer -> Sequence
 def id_layer: Layer = λ(x: Chord) => x
 
 -- | Make an action require a second press of a button to deactivate (think caps-lock)
-assume sticky: Sequence -> Sequence
+assume sticky: Chord -> Chord
 
 -- | Presses a sequence of keys and releases them once the next key has been released
 assume around_next: Sequence -> Sequence
 
+-- | Presses A then B, releases in reverse order
+assume around: Sequence -> Sequence -> Sequence
+
 -- | Version of around_next specialized for layers
 def layer_next (l: Layer): Sequence = around_next (with_layer l)
+
+-- | The numbers from 0 to 9
+template numbers: 0 1 2 3 4 5 6 7 8 9
