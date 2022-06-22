@@ -1,0 +1,7 @@
+[error ModuleNotFound]: Module "foo.bar.goo" not found
+     +--> errors.modules.CannotFindModule@3:8-3:19
+     |
+   3 | import foo.bar.goo as FBG -- oops, no such module
+     :        ^---------- 
+     :        `- This module does not exist
+-----+

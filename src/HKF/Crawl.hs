@@ -15,6 +15,7 @@ import HKF.Check hiding (Module)
 import HKF.Error (MyDoc, printErrors)
 import HKF.Parser (Parser, ParsingContext (MkParsingContext), parseConfigModule)
 import Prettyprinter (Pretty (pretty))
+import Relude (Either (Right))
 import Relude.Monad.Reexport
 import Text.Megaparsec (MonadParsec (eof), runParserT)
 
@@ -52,17 +53,20 @@ buildFullConfig :: A.ModuleName -> Crawl ()
 buildFullConfig entry = do
   prefix <- gets rootDir
   let filename = prefix <> T.intercalate "/" (T.split (== '.') entry) <> ".hkf"
-  file <- liftIO $ catch (T.readFile $ T.unpack filename) (\e -> let e' = (e :: IOException) in error ("Couldn't open file " <> filename))
-  loadFile entry file
-  case flip runReader (MkParsingContext True) $ runParserT parser (T.unpack entry) file of
-    Left bundle -> do
-      let report :: Diagnostic MyDoc
-          report = errorDiagnosticFromBundle Nothing "Parse error on input" Nothing bundle
-      addDiagnostic report
-    Right _module@(A.MkModule (A.MkHeader isUnsafe exports imports) inner) -> do
-      addModule entry _module
-      for_ imports \(Spanned _ import_) -> do
-        buildFullConfig (unspan $ A.importPath import_)
+  file <- liftIO $ catch (fmap Just $ T.readFile $ T.unpack filename) (const (pure Nothing) :: IOException -> IO (Maybe Text))
+  case file of
+    Nothing -> pure ()
+    Just file -> do
+      loadFile entry file
+      case flip runReader (MkParsingContext True) $ runParserT parser (T.unpack entry) file of
+        Left bundle -> do
+          let report :: Diagnostic MyDoc
+              report = errorDiagnosticFromBundle Nothing "Parse error on input" Nothing bundle
+          addDiagnostic report
+        Right _module@(A.MkModule (A.MkHeader isUnsafe exports imports) inner) -> do
+          addModule entry _module
+          for_ imports \(Spanned _ import_) -> do
+            buildFullConfig (unspan $ A.importPath import_)
 
 initialCrawlState :: CrawlState
 initialCrawlState = MkCrawlState [] def "./tests/examples/"
