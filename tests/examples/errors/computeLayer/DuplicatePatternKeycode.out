@@ -1,0 +1,13 @@
+[error DuplicatePatternKeycode]: Keycode "a" appears more than once in a single layer branch
+     +--> errors.computeLayer.DuplicatePatternKeycode@4:7-4:10
+     |
+   3 | layer foo:
+     :       ^-- 
+     :       `- while checking this compute layer
+   4 | | "a" "a" => [] -- How can a key be pressed twice at the same time?
+     :   ^-- ^-- 
+     :   |   `- the second occurence of this keycode
+     :   `- the first occurence of this keycode
+     :
+     | Hint: Try removing all but one of the highlighted occurences
+-----+

@@ -280,10 +280,9 @@ resolveAnnotation AOperator = colorDull White
 instance Pretty MyDoc where
   pretty = unAnnotate
 
-printErrors :: (Diagnostic MyDoc -> IO ()) -> [C.CheckError] -> IO ()
-printErrors print =
-  print
-    . foldr (flip addReport) def
+printErrors :: [C.CheckError] -> Diagnostic MyDoc
+printErrors =
+  foldr (flip addReport) def
     . fmap \(C.MkCheckError generalLocation details) ->
       let generalLocationMarker Nothing = []
           generalLocationMarker (Just (Spanned span location)) = [(span, Where message)]

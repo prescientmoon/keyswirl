@@ -1,0 +1,30 @@
+[error WrongStaticLayerLength]: The length of the static layer does not match the length of the template it uses
+     +--> errors.staticLayer.WrongTemplateLength@3:15-3:20
+     |
+   3 | template foo: a b c
+     :               ^----
+     :               `- This template has 3 elements
+     :
+   5 | layer buzz using foo: "a" "b" -- too small
+     :       ^----      ^--  ^------ 
+     :       |          |    `- ...but this layer only has 2 members
+     :       |          `- This is the template being used
+     :       `- while checking this static layer
+     :
+     | Hint: Try adding 1 more members to this layer
+-----+
+
+[error WrongStaticLayerLength]: The length of the static layer does not match the length of the template it uses
+     +--> errors.staticLayer.WrongTemplateLength@3:15-3:20
+     |
+   3 | template foo: a b c
+     :               ^----
+     :               `- This template has 3 elements
+   4 | layer bar using foo: "a" "b" "c" "d" -- too long
+     :       ^---      ^--  ^-------------- 
+     :       |         |    `- ...but this layer  4 members
+     :       |         `- This is the template being used
+     :       `- while checking this static layer
+     :
+     | Hint: Try removing 1 members from this layer
+-----+

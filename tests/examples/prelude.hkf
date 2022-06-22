@@ -11,7 +11,7 @@ assume map_sequence: Layer -> Sequence -> Sequence
 
 -- | Adds a layer to the stack.
 -- |   0: Layer gets addded to stack
--- |   1: Layer gets removed to stack
+-- |   1: Layer gets removed from stack
 assume with_layer: Layer -> Sequence
 
 -- | Sets the default layer in the stack
@@ -21,7 +21,7 @@ assume set_base: Layer -> Sequence
 def id_layer: Layer = λ(x: Chord) => x
 
 -- | Make an action require a second press of a button to deactivate (think caps-lock)
-assume sticky: Chord -> Chord
+assume sticky: Chord -> Sequence
 
 -- | Presses a sequence of keys and releases them once the next key has been released
 assume around_next: Sequence -> Sequence

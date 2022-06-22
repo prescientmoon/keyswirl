@@ -1,0 +1,78 @@
+[error WrongType]: Cannot match types
+     +--> errors.WrongType@17:32-17:53
+     |
+  17 | alias g: Sequence -> Keycode = fun (x: Chord) => "x" -- does not compile
+     :       ^  ^------------------   ^-------------------- 
+     :       |  |                     `- ...but this expression has type Chord -> Keycode instead
+     :       |  `- I was expecting this type
+     :       `- while checking this alias
+-----+
+
+[error WrongType]: Cannot match types
+     +--> errors.WrongType@13:30-13:31
+     |
+  13 | alias f(g: Chord): Keycode = g -- Same story
+     :       ^            ^------   ^ 
+     :       |            |         `- ...but this expression has type Chord instead
+     :       |            `- I was expecting this type
+     :       `- while checking this alias
+-----+
+
+[error WrongType]: Cannot match types
+     +--> errors.WrongType@12:38-12:39
+     |
+  12 | alias e = fun (g: Chord): Keycode => g -- The return type doesn't match the returned value
+     :       ^-                  ^------    ^ 
+     :       |                   |          `- ...but this expression has type Chord instead
+     :       |                   `- I was expecting this type
+     :       `- while checking this alias
+-----+
+
+[error WrongType]: Cannot match types
+     +--> errors.WrongType@10:18-10:20
+     |
+  10 | alias d: Layer = [] -- oops, the annotation disagrees!
+     :       ^  ^----   ^- 
+     :       |  |       `- ...but this expression has type Sequence instead
+     :       |  `- I was expecting this type
+     :       `- while checking this alias
+-----+
+
+[error WrongType]: Cannot match types
+     +--> errors.WrongType@8:12-8:13
+     |
+   8 | alias c = {b} -- chords cannot contain sequences
+     :       ^-   ^ 
+     :       |    `- All elements inside a chord must have type
+     :       |         Chord
+     :       |       but this one has type
+     :       |         Sequence
+     :       |       instead.
+     :       `- while checking this alias
+-----+
+
+[error WrongType]: Cannot match types
+     +--> errors.WrongType@7:12-7:15
+     |
+   7 | alias b = [foo] -- sequences must only contain sequences (or other lower types)
+     :       ^-   ^-- 
+     :       |    `- All elements inside a sequence must have type
+     :       |         Sequence
+     :       |       but this one has type
+     :       |         Chord -> Sequence
+     :       |       instead.
+     :       `- while checking this alias
+-----+
+
+[error WrongType]: Cannot match types
+     +--> errors.WrongType@6:12-6:15
+     |
+   6 | alias a = {foo} -- chords must only contain chords (or other lower types)
+     :       ^-   ^-- 
+     :       |    `- All elements inside a chord must have type
+     :       |         Chord
+     :       |       but this one has type
+     :       |         Chord -> Sequence
+     :       |       instead.
+     :       `- while checking this alias
+-----+

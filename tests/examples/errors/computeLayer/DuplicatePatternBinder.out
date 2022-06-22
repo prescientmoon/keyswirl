@@ -1,0 +1,28 @@
+[error DuplicatePatternBinder]: Name "a" is bound more than once in the same layer branch
+     +--> errors.computeLayer.DuplicatePatternBinder@5:14-5:15
+     |
+   3 | layer foo:
+     :       ^-- 
+     :       `- while checking this compute layer
+     :
+   5 | | a other _ *a => [] -- also occurs with rest binders
+     :   ^          ^ 
+     :   |          `- the second occurence of this binder
+     :   `- the first occurence of this binder
+     :
+     | Hint: Try removing all but one of the highlighted occurences
+-----+
+
+[error DuplicatePatternBinder]: Name "a" is bound more than once in the same layer branch
+     +--> errors.computeLayer.DuplicatePatternBinder@4:5-4:6
+     |
+   3 | layer foo:
+     :       ^-- 
+     :       `- while checking this compute layer
+   4 | | a a => [] -- a is bound twice here
+     :   ^ ^ 
+     :   | `- the second occurence of this binder
+     :   `- the first occurence of this binder
+     :
+     | Hint: Try removing all but one of the highlighted occurences
+-----+

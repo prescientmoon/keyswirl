@@ -1,0 +1,12 @@
+[error WrongType]: Cannot match types
+     +--> errors.staticLayer.IncorrectMemberType@7:25-7:28
+     |
+   7 | layer bazz using bar: _ foo  _ -- foo is a layer, instead of a sequence
+     :       ^----             ^-- 
+     :       |                 `- All elements inside a static layer must have type
+     :       |                      Sequence
+     :       |                    but this one has type
+     :       |                      Chord -> Sequence
+     :       |                    instead.
+     :       `- while checking this static layer
+-----+

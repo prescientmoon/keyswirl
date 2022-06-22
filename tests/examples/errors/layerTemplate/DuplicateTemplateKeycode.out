@@ -1,0 +1,11 @@
+[error DuplicateTemplateKeycode]: Keycode "a" appears in template more than once
+     +--> errors.layerTemplate.DuplicateTemplateKeycode@3:19-3:20
+     |
+   3 | template foo: a b a -- a appears twice here
+     :          ^--  ^   ^ 
+     :          |    |   `- the second occurence of this keycode
+     :          |    `- the first occurence of this keycode
+     :          `- while checking this layer template
+     :
+     | Hint: Try removing all but one of the highlighted occurences
+-----+

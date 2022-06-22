@@ -1,0 +1,16 @@
+[error VarNotInScope]: Undefined variable
+     +--> errors.modules.NoSuchExport@1:32-1:34
+     |
+   1 | module exporting (aaa, aa, bb, cc) -- The compiler will complain cc is not in scope
+     :                                ^- 
+     :                                `- Undefined variable cc
+-----+
+
+[error NoSuchExport]: No such export
+     +--> errors.modules.NoSuchExport@3:39-3:41
+     |
+   3 | import errors.modules.helper (aa, bb, cc) as CC -- the compiler will tell you cc isn't a valid export
+     :        ^--------------------          ^- 
+     :        |                              `- No declaration with this name found in the given module.
+     :        `- This is the module you tried importing "cc" from
+-----+

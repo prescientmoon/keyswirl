@@ -1,0 +1,12 @@
+[error WrongType]: Cannot match types
+     +--> errors.staticLayer.RequiresTemplate@4:17-4:20
+     |
+   4 | layer bar using foo: "a" -- foo is a chord, not a template!
+     :       ^---      ^-- 
+     :       |         `- Only values of type
+     :       |              LayerTemplate
+     :       |            can be used as a static layer template! This variable has type
+     :       |              Sequence
+     :       |            instead.
+     :       `- while checking this static layer
+-----+

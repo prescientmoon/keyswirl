@@ -1,0 +1,10 @@
+[error InvalidKeycode]: Invalid keycode
+     +--> errors.InvalidKeycode@3:13-3:20
+     |
+   3 | alias foo = "wrong"
+     :       ^---  ^------
+     :       |     `- "wrong" is not a valid keycode!
+     :       `- while checking this alias
+     :
+     | Hint: For a list of all the available keycodes, check ...
+-----+

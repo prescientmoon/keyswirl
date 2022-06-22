@@ -1,0 +1,103 @@
+[error VarNotInScope]: Undefined variable
+     +--> errors.VarNotInScope@25:29-25:35
+     |
+  21 | alias abcdef = []
+     :       ^------ 
+     :       `- Were you refering to this?
+     :
+  25 | alias multipleSuggestions = abcdeg
+     :       ^-------------------  ^-----
+     :       |                     `- Undefined variable abcdeg
+     :       `- while checking this alias
+     :
+     | Hint: You might be referring to one of the following: abcdef, abcdefg, abcde
+-----+
+
+[error VarNotInScope]: Undefined variable
+     +--> errors.VarNotInScope@18:41-18:45
+     |
+  18 | alias withLambda = fun (long: Chord) => logn -- aaaand another misstype
+     :       ^----------       ^---            ^--- 
+     :       |                 |               `- Undefined variable logn
+     :       |                 `- Were you refering to this?
+     :       `- while checking this alias
+     :
+     | Hint: You might be referring to one of the following: long, foo
+-----+
+
+[error VarNotInScope]: Undefined variable
+     +--> errors.VarNotInScope@17:37-17:42
+     |
+  17 | alias withFunction (hello: Chord) = hallo -- Yet another misstype
+     :       ^------------ ^----           ^---- 
+     :       |             |               `- Undefined variable hallo
+     :       |             `- Were you refering to this?
+     :       `- while checking this alias
+     :
+     | Hint: You might be referring to one of the following: hello
+-----+
+
+[error VarNotInScope]: Undefined variable
+     +--> errors.VarNotInScope@15:16-15:26
+     |
+  13 | layer withBinders:
+     :       ^---------- 
+     :       `- while checking this compute layer
+     :
+  15 | | something => somerthing -- Oops, misstyped again! (The compiler helps here as well)
+     :   ^--------    ^--------- 
+     :   |            `- Undefined variable somerthing
+     :   `- Were you refering to this?
+     :
+     | Hint: You might be referring to one of the following: something
+-----+
+
+[error VarNotInScope]: Undefined variable
+     +--> errors.VarNotInScope@14:10-14:11
+     |
+  13 | layer withBinders:
+     :       ^---------- 
+     :       `- while checking this compute layer
+  14 | | "a" => a -- No variable named a in scope (perhaps I should add a hint about confusing keycodes with variables?)
+     :          ^ 
+     :          `- Undefined variable a
+-----+
+
+[error VarNotInScope]: Undefined variable
+     +--> errors.VarNotInScope@11:16-11:24
+     |
+  11 | alias random = nonsense -- not similar to anything we've declared
+     :       ^------  ^------- 
+     :       |        `- Undefined variable nonsense
+     :       `- while checking this alias
+-----+
+
+[error VarNotInScope]: Undefined variable
+     +--> errors.VarNotInScope@9:14-9:17
+     |
+   6 | alias foo = ["a", "b", "c"]
+     :       ^--- 
+     :       `- Were you refering to this?
+     :
+   9 | alias bazz = goo -- oops, accidentally misstyped!
+     :       ^----  ^-- 
+     :       |      `- Undefined variable goo
+     :       `- while checking this alias
+     :
+     | Hint: You might be referring to one of the following: foo, bar
+-----+
+
+[error VarNotInScope]: Variable "foo" used before it's declaration
+     +--> errors.VarNotInScope@4:13-4:16
+     |
+   4 | alias bar = foo -- used before it's declared
+     :       ^---  ^-- 
+     :       |     `- Variable "foo" hasn't been defined at this point
+     :       `- while checking this alias
+     :
+   6 | alias foo = ["a", "b", "c"]
+     :       ^--- 
+     :       `- The variable is defined here
+     :
+     | Hint: Try moving this declaration under the place "foo" is defiend
+-----+

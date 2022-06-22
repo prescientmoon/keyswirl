@@ -1,0 +1,9 @@
+[error WrongArgument]: Argument does not have the expected type.
+     +--> errors.WrongArgument@6:17-6:22
+     |
+   6 | alias bar = foo ["a"] -- Layers take in chords, not sequences 
+     :       ^---  ^-- ^---- 
+     :       |     |   `- This expression has type Sequence
+     :       |     `- but this function expects arguments of type Chord instead
+     :       `- while checking this alias
+-----+

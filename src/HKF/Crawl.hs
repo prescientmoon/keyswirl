@@ -23,7 +23,8 @@ instance HasHints Void MyDoc where
 
 data CrawlState = MkCrawlState
   { config :: [(A.ModuleName, A.Module)],
-    diagnostics :: Diagnostic MyDoc
+    diagnostics :: Diagnostic MyDoc,
+    rootDir :: Text
   }
 
 type Crawl = StateT CrawlState IO
@@ -47,12 +48,10 @@ addModule path module_ = modify \ctx ->
     { config = (path, module_) : config ctx
     }
 
--- TODO: abstract this away
-prefix = "./examples/"
-
 buildFullConfig :: A.ModuleName -> Crawl ()
 buildFullConfig entry = do
-  let filename = prefix <> T.intercalate "/" (T.split (== '.') entry) <> ".bkf"
+  prefix <- gets rootDir
+  let filename = prefix <> T.intercalate "/" (T.split (== '.') entry) <> ".hkf"
   file <- liftIO $ catch (T.readFile $ T.unpack filename) (\e -> let e' = (e :: IOException) in error ("Couldn't open file " <> filename))
   loadFile entry file
   case flip runReader (MkParsingContext True) $ runParserT parser (T.unpack entry) file of
@@ -66,14 +65,15 @@ buildFullConfig entry = do
         buildFullConfig (unspan $ A.importPath import_)
 
 initialCrawlState :: CrawlState
-initialCrawlState = MkCrawlState [] def
+initialCrawlState = MkCrawlState [] def "./tests/examples/"
 
 emptyContext :: Context
 emptyContext = MkContext {moduleScopes = mempty, importedModules = mempty, currentScope = MkScope mempty, generalLocation = Nothing}
 
-runChecker :: FilePath -> IO ()
+runChecker :: FilePath -> IO (Diagnostic MyDoc)
 runChecker entry = do
-  MkCrawlState config diagnostics <- execStateT (buildFullConfig $ T.pack entry) initialCrawlState
+  MkCrawlState config diagnostics _ <- execStateT (buildFullConfig $ T.pack entry) initialCrawlState
   let checked = foldlM (\ctx (name, module_) -> checkModule name module_ ctx) emptyContext config
   let (ctx, errors) = runWriter checked
-  printErrors (\d -> printDiagnostic stderr True True 4 (diagnostics <> d)) errors
+  let extra = printErrors errors
+  pure (diagnostics <> extra)

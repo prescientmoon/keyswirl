@@ -1,0 +1,14 @@
+[error WrongType]: Cannot match types
+     +--> errors.computeLayer.IncorrectMemberType@7:9-7:12
+     |
+   6 | layer bar: 
+     :       ^-- 
+     :       `- while checking this compute layer
+   7 | | *_ => foo -- layers don't have type sequence!
+     :         ^-- 
+     :         `- All elements inside a compute layer must have type
+     :              Sequence
+     :            but this one has type
+     :              Chord -> Sequence
+     :            instead.
+-----+

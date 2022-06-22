@@ -1,0 +1,28 @@
+[error NotCallable]: Expression cannot be called
+     +--> errors.NotCallable@8:14-8:30
+     |
+   6 | layer notCallableExample:
+     :       ^----------------- 
+     :       `- while checking this compute layer
+     :
+   8 | | *other => (basicLayer other) "a" -- second error
+     :              ^---------------  ^-- 
+     :              |                 `- You've tried calling an expression with an argument of type Keycode
+     :              `- but expressions of type Sequence are not callable
+     :
+     | Hint: Try removing the argument from this expression
+-----+
+
+[error NotCallable]: Expression cannot be called
+     +--> errors.NotCallable@7:20-7:21
+     |
+   6 | layer notCallableExample:
+     :       ^----------------- 
+     :       `- while checking this compute layer
+   7 | | "a" "b" "c" r => r ["a", {"b", "c"}] -- first error
+     :                    ^ ^---------------- 
+     :                    | `- You've tried calling an expression with an argument of type Sequence
+     :                    `- but expressions of type Keycode are not callable
+     :
+     | Hint: Try removing the argument from this expression
+-----+

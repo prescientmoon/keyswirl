@@ -1,4 +1,4 @@
-module MyLib (someFunc) where
+module MyLib (someFunc, runChecker) where
 
 import Control.Monad.Writer (execWriter, runWriter)
 import qualified Data.HashMap.Lazy as H
@@ -19,5 +19,6 @@ someFunc = do
   args <- getArgs
   let path = case args of
         h : _ -> h
-        [] -> "./examples/test.bkf"
-  runChecker path
+        [] -> "./examples/test.hkf"
+  diagnostics <- runChecker path
+  printDiagnostic stderr True True 4 defaultStyle diagnostics

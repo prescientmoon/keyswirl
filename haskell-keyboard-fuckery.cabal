@@ -1,4 +1,4 @@
-cabal-version:      2.4
+cabal-version:      3.6
 name:               haskell-keyboard-fuckery
 version:            0.1.0.0
 
@@ -21,7 +21,8 @@ maintainer:         rafaeladriel11@gmail.com
 -- category:
 extra-source-files: CHANGELOG.md
 
-library
+
+library 
     exposed-modules:  MyLib
 
     -- Modules included in this library but not exported.
@@ -86,3 +87,26 @@ executable haskell-keyboard-fuckery
         haskell-keyboard-fuckery
 
     hs-source-dirs:   app
+
+test-suite test 
+  type: exitcode-stdio-1.0
+  hs-source-dirs: tests
+  mixins:  
+    base hiding (Prelude),
+    relude (Relude as Prelude),
+    relude
+  default-extensions: 
+      BlockArguments,
+      OverloadedStrings
+  build-depends:
+    base ^>=4.14.3.0,
+    relude ^>= 1.0.0.0,
+    tasty ^>= 1.4.2.3,
+    tasty-golden ^>= 2.3.5,
+    tasty-hunit ^>= 0.10.0.3,
+    filepath,
+    diagnose,
+    prettyprinter,
+    haskell-keyboard-fuckery
+ 
+  main-is: Test.hs
