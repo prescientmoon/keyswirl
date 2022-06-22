@@ -1,0 +1,15 @@
+[error CircularImport]: Module "errors.modules.CircularImport.ping" implicitly imports itself
+     +--> errors.modules.CircularImport.pong@3:8-3:42
+     |
+   3 | import errors.modules.CircularImport.ping
+     :        ^---------------------------------
+     :        `- This is where the cycle closes is
+-----+
+
+[error ModuleNotFound]: Module "errors.modules.CircularImport.ping" not found
+     +--> errors.modules.CircularImport.pong@3:8-3:42
+     |
+   3 | import errors.modules.CircularImport.ping
+     :        ^---------------------------------
+     :        `- This module does not exist
+-----+

@@ -1,0 +1,3 @@
+module exporting *
+
+import errors.modules.CircularImport.pong

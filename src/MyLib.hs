@@ -17,8 +17,8 @@ import Text.Megaparsec (MonadParsec (eof), parseMaybe, parseTest, runParser, run
 someFunc :: IO ()
 someFunc = do
   args <- getArgs
-  let path = case args of
-        h : _ -> h
-        [] -> "./examples/test.hkf"
-  diagnostics <- runChecker path
-  printDiagnostic stderr True True 4 defaultStyle diagnostics
+  case args of
+    root : entry : _ -> do
+      diagnostics <- runChecker root (T.pack entry)
+      printDiagnostic stderr True True 4 defaultStyle diagnostics
+    _ -> print "Unknown incoming args"

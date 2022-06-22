@@ -262,6 +262,12 @@ prettyPrintCheckError err (C.NoSuchExport moduleName export) =
       (spanOf moduleName, Where $ hsep ["This is the module you tried importing", quoted $var $ unspan export, "from"])
     ]
     []
+prettyPrintCheckError err (C.CircularImport moduleName) =
+  err
+    (Just "CircularImport")
+    (hsep ["Module", quoted (pretty (unspan moduleName)), "implicitly imports itself"])
+    [(spanOf moduleName, This "This is where the cycle closes is")]
+    []
 prettyPrintCheckError err (C.ModuleNotFound moduleName) =
   err
     (Just "ModuleNotFound")

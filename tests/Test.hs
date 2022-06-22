@@ -28,7 +28,7 @@ goldenTests = do
         | hkfFile <- examples,
           let outFile = "./tests/examples/" <> replaceExtension hkfFile ".out",
           let printOutput = do
-                err <- runChecker (T.unpack $ T.intercalate "." (T.split (== '/') (T.dropEnd 4 $ T.pack hkfFile)))
+                err <- runChecker "./tests/examples/" (T.intercalate "." (T.split (== '/') (T.dropEnd 4 $ T.pack hkfFile)))
                 let doc = prettyDiagnostic False 2 err
                 pure (show $ unAnnotate doc)
       ]

@@ -141,6 +141,7 @@ data CheckErrorDetails
         nseName :: Spanned Text
       }
   | ModuleNotFound (Spanned A.ModuleName)
+  | CircularImport (Spanned A.ModuleName) -- TODO: investigate how this could show the entire cycle, and not just a signle step of the chain
   deriving (Show)
 
 ---------- Helpers
