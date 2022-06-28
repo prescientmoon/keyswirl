@@ -9,6 +9,6 @@
      :         `- All elements inside a compute layer must have type
      :              Sequence
      :            but this one has type
-     :              Chord -> Sequence
+     :              Layer
      :            instead.
 -----+

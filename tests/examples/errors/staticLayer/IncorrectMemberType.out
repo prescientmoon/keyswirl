@@ -6,7 +6,7 @@
      :       |                 `- All elements inside a static layer must have type
      :       |                      Sequence
      :       |                    but this one has type
-     :       |                      Chord -> Sequence
+     :       |                      Layer
      :       |                    instead.
      :       `- while checking this static layer
 -----+

@@ -54,7 +54,7 @@ slimArrow :: Parser () -> Parser Text
 slimArrow sc' = L.symbol sc' "->" <|> L.symbol sc' "→"
 
 customParens :: T.Text -> T.Text -> Parser () -> Parser a -> Parser a
-customParens l r sc' = between (L.symbol sc' l) (string r)
+customParens l r sc' = between (L.symbol sc' l) (try sc' *> string r)
 
 parens :: Parser () -> Parser a -> Parser a
 parens = customParens "(" ")"
@@ -86,8 +86,8 @@ parseName = lexeme parseName_
 
 expression :: Parser () -> Parser A.Expression
 expression sc' = do
-  f <- atom sc'
-  a <- many ((try sc' *> atom sc') <?> "function argument")
+  f <- try sc' *> atom sc'
+  a <- many (try (try sc' *> atom sc') <?> "function argument")
   case (a, f) of
     ([], _) -> pure f
     (_, Spanned _ (A.Call f ia)) -> spanned $ pure $ A.Call f $ ia ++ a
@@ -134,8 +134,8 @@ atom sc' = key <|> parseParenthesis <|> lambda <|> var <|> chord <|> sequence
     key = spanned $ A.Key <$> spanned (stringLiteral sc')
     var = spanned $ A.Variable <$> (spanned parseVarName <?> "variable")
     parseParenthesis = parens sc' (expression sc')
-    chord = spanned $ A.Chord <$> curlyBraces sc' (sepBy (expression sc') $ lm ",")
-    sequence = spanned $ A.Sequence <$> squareBraces sc' (sepBy (expression sc') $ lm ",")
+    chord = spanned $ A.Chord <$> curlyBraces sc' (sepBy (expression sc') $ try (sc' *> ","))
+    sequence = spanned $ A.Sequence <$> squareBraces sc' (sepBy (expression sc') $ try (sc' *> ","))
     lambda = do
       Spanned span _ <- spanned (L.symbol sc' "fun" <|> L.symbol sc' "λ")
       buildLambda <- parseLambdaHead True sc'
@@ -288,7 +288,7 @@ parseModuleHeader = do
             isUnsafe <- isJust <$> optional (L.symbol sc' "unsafe")
             moduleKw <- L.symbol sc' "module" *> L.symbol sc' "exporting"
             let everything = "*" $> Nothing
-            let specified = Just <$> parens sc' (sepBy (spanned parseName_) (L.symbol sc' ","))
+            let specified = Just <$> parens sc' (sepBy (try sc' *> spanned parseName_ <* try sc') ",")
             exportList <- spanned (everything <|> specified)
             pure (isUnsafe, A.MkExports exportList)
       parser <* scn

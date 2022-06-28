@@ -91,6 +91,7 @@ prettyPrintType TKeycode = keyword "Keycode"
 prettyPrintType TSequence = keyword "Sequence"
 prettyPrintType TChord = keyword "Chord"
 prettyPrintType TTemplate = keyword "LayerTemplate"
+prettyPrintType (TArrow TChord TSequence) = keyword "Layer"
 prettyPrintType (TArrow from to) =
   hsep [left, hsep [arrow, right]]
   where

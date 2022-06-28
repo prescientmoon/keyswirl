@@ -31,6 +31,7 @@ library
       HKF.Parser
       HKF.Check
       HKF.Error
+      HKF.IR
       HKF.Crawl
 
     mixins:  

@@ -59,7 +59,7 @@
      :       |    `- All elements inside a sequence must have type
      :       |         Sequence
      :       |       but this one has type
-     :       |         Chord -> Sequence
+     :       |         Layer
      :       |       instead.
      :       `- while checking this alias
 -----+
@@ -72,7 +72,7 @@
      :       |    `- All elements inside a chord must have type
      :       |         Chord
      :       |       but this one has type
-     :       |         Chord -> Sequence
+     :       |         Layer
      :       |       instead.
      :       `- while checking this alias
 -----+

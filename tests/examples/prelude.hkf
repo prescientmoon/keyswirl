@@ -1,13 +1,16 @@
-unsafe module exporting *
+unsafe module exporting 
+  ( trust_me, unsafe_coerce
+  , with_layer, set_base
+  , id_layer, continue
+  , around_next, layer_next
+  , numbers
+  )
 
 -- | Says "fuck you" to the compiler
 assume trust_me: Broken
 
 -- | Another way to say "fuck you" to the compiler
 def unsafe_coerce(x: Broken): Broken = x
-
--- | Runs a sequence within an extra layer
-assume map_sequence: Layer -> Sequence -> Sequence
 
 -- | Adds a layer to the stack.
 -- |   0: Layer gets addded to stack
@@ -20,14 +23,34 @@ assume set_base: Layer -> Sequence
 -- | Layer which does nothing
 def id_layer: Layer = λ(x: Chord) => x
 
--- | Make an action require a second press of a button to deactivate (think caps-lock)
-assume sticky: Chord -> Sequence
+-- | Split a sequence into it's up and down actions
+assume split: Sequence -> (Sequence -> Sequence -> Sequence) -> Sequence
+
+def down (seq: Sequence): Sequence = 
+  split seq λ(d: Sequence) => λ(u: Sequence) => d
+
+def up (seq: Sequence): Sequence = 
+  split seq λ(d: Sequence) (u: Sequence) => u
+
+-- | Let the next layer in the stack handle this
+assume continue: Sequence
+
+-- | Adds a layer to the stack on press (never removes it)
+def add_layer (layer: Layer): Sequence = down (with_layer layer) 
+
+-- | Removes a layer from the stack on press (does not add it)
+def remove_layer (layer: Layer): Sequence = up (with_layer layer) 
+
+-- | Internal layer used to implement around_next
+def once (onRelease: Sequence): Layer = 
+  λ(c: Chord) => [continue, remove_layer once, onRelease]
 
 -- | Presses a sequence of keys and releases them once the next key has been released
-assume around_next: Sequence -> Sequence
-
--- | Presses A then B, releases in reverse order
-assume around: Sequence -> Sequence -> Sequence
+def around_next (seq: Sequence): Sequence = 
+  split seq λ(downSeq: Sequence) (upSeq: Sequence) =>
+    [ downSeq
+    , add_layer (once upSeq)
+    ]
 
 -- | Version of around_next specialized for layers
 def layer_next (l: Layer): Sequence = around_next (with_layer l)
