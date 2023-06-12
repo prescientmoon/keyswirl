@@ -138,7 +138,7 @@ function renderKey(
           fill: textColor(key.trLayer, colorscheme.trLayerColor),
           "font-size": "66%",
           ...textAttribs,
-          "text-anchor": "end"
+          "text-anchor": "end",
         },
         textContents(key.trLayer)
       ),
@@ -282,14 +282,14 @@ const layout: Layout = {
     [key("T", "%", "5", "f5"), key("G", ";", "0", "f10"), key("B", "")],
     [key("TR", "", ""), key("␣", "", "")],
     [key("⇧", "", ""), key("TL", "", "")],
-    [key("Y", "^", ""), key("H", "-", "◄", "😱"), key("N", "?", "")],
+    [key("Y", "^", ""), key("H", "-", "◄", "😱"), key("N", "?", "", "🎮")],
     [
       key("U", "&", "", "🔊"),
       key("J", "_", "▼", "🔉"),
       key("M", "/", "", "🔇"),
     ],
     [key("I", "*", "", "🔆"), key("K", "=", "▲", "🔅"), key(",", "\\", "")],
-    [key("O", "~", ""), key("L", "+", "►"), key(".", "|", "")],
+    [key("O", "~", "", "⏪"), key("L", "+", "►", "⏯️"), key(".", "|", "", "⏩")],
     [key("P", "`", "del"), key(":", "", ""), key('"', "'", "")],
   ].flat(),
   padding: 20,
