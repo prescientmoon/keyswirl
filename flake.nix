@@ -2,17 +2,17 @@
   description = "Kayboard layout diagram generation";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = { nixpkgs, flake-utils, ... }@inputs:
+  outputs = { nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          swoop = pkgs.callPackage ./swoop.nix {};
+          swoop = pkgs.callPackage ./swoop.nix { };
         in
         rec {
           packages.swoop = swoop;
           defaultPackage = packages.swoop;
-          devShell = pkgs.callPackage ./shell.nix {};
+          devShell = pkgs.callPackage ./shell.nix { };
         }
       );
 }

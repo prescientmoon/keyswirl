@@ -45,7 +45,7 @@ function indent(amount: number, text: string) {
 function tag(
   name: string,
   attributes: Record<string, string | number | undefined>,
-  children: string = ""
+  children: string = "",
 ) {
   const attributeString = Object.entries(attributes)
     .map(([k, v]) => `${k}="${v}"`)
@@ -74,7 +74,7 @@ function textContents(input: string): string {
 function renderKey(
   visual: VisualKey,
   key: KeyboardKey,
-  colorscheme: LayoutColorscheme
+  colorscheme: LayoutColorscheme,
 ) {
   const centerX = visual.position[0] + visual.size[0] / 2;
   const centerY = visual.position[1] + visual.size[1] / 2;
@@ -117,7 +117,7 @@ function renderKey(
           fill: textColor(key.main, colorscheme.mainLayerColor),
           ...textAttribs,
         },
-        textContents(key.main)
+        textContents(key.main),
       ),
       tag(
         "text",
@@ -128,7 +128,7 @@ function renderKey(
           "font-size": "66%",
           ...textAttribs,
         },
-        textContents(key.tlLayer)
+        textContents(key.tlLayer),
       ),
       tag(
         "text",
@@ -140,7 +140,7 @@ function renderKey(
           ...textAttribs,
           "text-anchor": "end",
         },
-        textContents(key.trLayer)
+        textContents(key.trLayer),
       ),
       tag(
         "text",
@@ -152,9 +152,9 @@ function renderKey(
           ...textAttribs,
           "text-anchor": "start",
         },
-        textContents(key.blLayer)
+        textContents(key.blLayer),
       ),
-    ].join("\n")
+    ].join("\n"),
   );
 }
 
@@ -168,12 +168,14 @@ function renderLayout(layout: Layout) {
         2 * layout.padding + layout.size[0],
         2 * layout.padding + layout.size[1],
       ].join(" "),
+      xmlns: "http://www.w3.org/2000/svg",
+      "xmlns:xlink": "http://www.w3.org/1999/xlink",
     },
     layout.visual
       .map((key, index) =>
-        renderKey(key, layout.keys[index], layout.colorscheme)
+        renderKey(key, layout.keys[index], layout.colorscheme),
       )
-      .join("\n")
+      .join("\n"),
   );
 }
 
@@ -209,7 +211,7 @@ function neg(v: Vec2): Vec2 {
 function thumbs(
   at: Vec2,
   reverse: boolean,
-  thumbRotation = reverse ? -15 : 15
+  thumbRotation = reverse ? -15 : 15,
 ): VisualLayout {
   // Distance between thumb key centers
   const factor = keySize;
@@ -238,7 +240,7 @@ function key(
   main: string,
   tlLayer = "",
   trLayer = "",
-  blLayer = ""
+  blLayer = "",
 ): KeyboardKey {
   return { main, tlLayer, trLayer, blLayer };
 }
@@ -269,28 +271,36 @@ const layout: Layout = {
   keys: [
     [
       key("Q", "!", "1", "f1"),
-      key("A", "(", "6", "f6"),
-      key("Z", ")", "", "f11"),
+      key("A", "&lt;", "6", "f6"),
+      key("X", "&gt;", "", "f11"),
     ],
     [
       key("W", "@", "2", "f2"),
-      key("S", "[", "7", "f7"),
-      key("X", "]", "", "f12"),
+      key("R", "(", "7", "f7"),
+      key("C", ")", "", "f12"),
     ],
-    [key("E", "#", "3", "f3"), key("D", "{", "8", "f8"), key("C", "}")],
-    [key("R", "$", "4", "f4"), key("F", "&lt", "9", "f9"), key("V", "&gt")],
-    [key("T", "%", "5", "f5"), key("G", ";", "0", "f10"), key("B", "")],
+    [key("F", "#", "3", "f3"), key("S", "[", "8", "f8"), key("D", "]")],
+    [key("P", "$", "4", "f4"), key("T", "{", "9", "f9"), key("V", "}")],
+    [key("B", "%", "5", "f5"), key("G", "-", "0", "f10"), key("Z", "—")],
     [key("TR", "", ""), key("␣", "", "")],
     [key("⇧", "", ""), key("TL", "", "")],
-    [key("Y", "^", ""), key("H", "-", "◄", "😱"), key("N", "?", "", "🎮")],
+    [key("J", "^", "🏠"), key("M", "?", "◄", "😱"), key("K", "", "", "🎮")],
     [
-      key("U", "&", "", "🔊"),
-      key("J", "_", "▼", "🔉"),
-      key("M", "/", "", "🔇"),
+      key("L", "&amp;", "⏬", "🔊"),
+      key("N", "_", "▼", "🔉"),
+      key("H", "|", "", "🔇"),
     ],
-    [key("I", "*", "", "🔆"), key("K", "=", "▲", "🔅"), key(",", "\\", "")],
-    [key("O", "~", "", "⏪"), key("L", "+", "►", "⏯️"), key(".", "|", "", "⏩")],
-    [key("P", "`", "del"), key(":", "", ""), key('"', "'", "")],
+    [key("U", "*", "⏫", "🔆"), key("E", "/", "▲", "🔅"), key(",", "\\", "")],
+    [
+      key("Y", "~", "end", "⏪"),
+      key("I", "=", "►", "⏯️"),
+      key(".", "+", "", "⏩"),
+    ],
+    [
+      key(":", "`", "del", "copy"),
+      key("O", ";", "", "paste"),
+      key("'", '"', "", "cut"),
+    ],
   ].flat(),
   padding: 20,
   size: [keySize * 12, keySize * 6],

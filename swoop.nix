@@ -12,7 +12,7 @@ pkgs.stdenv.mkDerivation {
   ];
 
   buildPhase = ''
-    esbuild $src/index.ts --bundle --outfile=./out.js
+    esbuild $src/index.ts --bundle --outfile=./out.js --platform=node
   '';
 
   installPhase = ''
