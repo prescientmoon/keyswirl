@@ -7,12 +7,13 @@
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          swoop = pkgs.callPackage ./swoop.nix { };
+          layout-lens = pkgs.callPackage ./layout-lens/default.nix { };
         in
         rec {
-          packages.swoop = swoop;
-          defaultPackage = packages.swoop;
-          devShell = pkgs.callPackage ./shell.nix { };
+          packages.layout-lens = layout-lens;
+          defaultPackage = packages.layout-lens;
+          devShells.layout-lens = pkgs.callPackage ./layout-lens/shell.nix { };
+          devShells.qmk = pkgs.callPackage ./keyboards/qmk/shell.nix { };
         }
       );
 }
