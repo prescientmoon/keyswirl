@@ -1,0 +1,517 @@
+<svg viewBox="-20 -20 640 340" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="0" y="50" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="25" y="75" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      Q
+    </text>
+    <text x="8.333333333333334" y="58.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      !
+    </text>
+    <text x="45" y="58.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      TR
+    </text>
+    <text x="5" y="91.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f1
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="0" y="100" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="25" y="125" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      A
+    </text>
+    <text x="8.333333333333334" y="108.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      &lt;
+    </text>
+    <text x="45" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      6
+    </text>
+    <text x="5" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f6
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="0" y="150" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="25" y="175" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      X
+    </text>
+    <text x="8.333333333333334" y="158.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      &gt;
+    </text>
+    <text x="45" y="158.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="5" y="191.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f11
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="50" y="25" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="75" y="50" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      W
+    </text>
+    <text x="58.333333333333336" y="33.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      @
+    </text>
+    <text x="95" y="33.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      2
+    </text>
+    <text x="55" y="66.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f2
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="50" y="75" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="75" y="100" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      R
+    </text>
+    <text x="58.333333333333336" y="83.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      (
+    </text>
+    <text x="95" y="83.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      7
+    </text>
+    <text x="55" y="116.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f7
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="50" y="125" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="75" y="150" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      C
+    </text>
+    <text x="58.333333333333336" y="133.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ]
+    </text>
+    <text x="95" y="133.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="55" y="166.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f12
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="100" y="0" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="125" y="25" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      F
+    </text>
+    <text x="108.33333333333333" y="8.333333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      #
+    </text>
+    <text x="145" y="8.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      3
+    </text>
+    <text x="105" y="41.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f3
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="100" y="50" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="125" y="75" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      S
+    </text>
+    <text x="108.33333333333333" y="58.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      [
+    </text>
+    <text x="145" y="58.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      8
+    </text>
+    <text x="105" y="91.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f8
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="100" y="100" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="125" y="125" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      D
+    </text>
+    <text x="108.33333333333333" y="108.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ]
+    </text>
+    <text x="145" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="105" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="150" y="25" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="175" y="50" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      P
+    </text>
+    <text x="158.33333333333334" y="33.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      $
+    </text>
+    <text x="195" y="33.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      4
+    </text>
+    <text x="155" y="66.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f4
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="150" y="75" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="175" y="100" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      T
+    </text>
+    <text x="158.33333333333334" y="83.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      {
+    </text>
+    <text x="195" y="83.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      9
+    </text>
+    <text x="155" y="116.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f9
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="150" y="125" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="175" y="150" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      V
+    </text>
+    <text x="158.33333333333334" y="133.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      }
+    </text>
+    <text x="195" y="133.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="155" y="166.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="200" y="50" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="225" y="75" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      B
+    </text>
+    <text x="208.33333333333334" y="58.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      %
+    </text>
+    <text x="245" y="58.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      5
+    </text>
+    <text x="205" y="91.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f5
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="200" y="100" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="225" y="125" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      G
+    </text>
+    <text x="208.33333333333334" y="108.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      -
+    </text>
+    <text x="245" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      TL
+    </text>
+    <text x="205" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      f10
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="200" y="150" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="225" y="175" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      Z
+    </text>
+    <text x="208.33333333333334" y="158.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      —
+    </text>
+    <text x="245" y="158.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="205" y="191.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="rotate(15, 200, 250)">
+    <rect width="50px" height="50px" x="175" y="225" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="200" y="250" textLength="25px" fill="red" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ■
+    </text>
+    <text x="183.33333333333334" y="233.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="220" y="233.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="180" y="266.6666666666667" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="rotate(15, 248.2962913144534, 262.94095225512604)">
+    <rect width="50px" height="50px" x="223.2962913144534" y="237.94095225512604" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="248.2962913144534" y="262.94095225512604" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ␣
+    </text>
+    <text x="231.62962464778676" y="246.27428558845938" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="268.2962913144534" y="246.27428558845938" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="228.2962913144534" y="279.6076189217927" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="rotate(-15, 351.7037086855466, 262.94095225512604)">
+    <rect width="50px" height="50px" x="326.7037086855466" y="237.94095225512604" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="351.7037086855466" y="262.94095225512604" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ⇧
+    </text>
+    <text x="335.0370420188799" y="246.27428558845938" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="371.7037086855466" y="246.27428558845938" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="331.7037086855466" y="279.6076189217927" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="rotate(-15, 400, 250)">
+    <rect width="50px" height="50px" x="375" y="225" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="400" y="250" textLength="25px" fill="blue" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ■
+    </text>
+    <text x="383.3333333333333" y="233.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="420" y="233.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="380" y="266.6666666666667" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="350" y="50" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="375" y="75" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      J
+    </text>
+    <text x="358.3333333333333" y="58.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ^
+    </text>
+    <text x="395" y="58.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      🏠
+    </text>
+    <text x="355" y="91.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="350" y="100" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="375" y="125" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      M
+    </text>
+    <text x="358.3333333333333" y="108.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ?
+    </text>
+    <text x="395" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      ◄
+    </text>
+    <text x="355" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      😱
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="350" y="150" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="375" y="175" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      K
+    </text>
+    <text x="358.3333333333333" y="158.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="395" y="158.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="355" y="191.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      🎮
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="400" y="25" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="425" y="50" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      L
+    </text>
+    <text x="408.3333333333333" y="33.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      &amp;
+    </text>
+    <text x="445" y="33.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      ⏬
+    </text>
+    <text x="405" y="66.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      🔊
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="400" y="75" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="425" y="100" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      N
+    </text>
+    <text x="408.3333333333333" y="83.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      _
+    </text>
+    <text x="445" y="83.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      ▼
+    </text>
+    <text x="405" y="116.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      🔉
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="400" y="125" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="425" y="150" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      H
+    </text>
+    <text x="408.3333333333333" y="133.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      |
+    </text>
+    <text x="445" y="133.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="405" y="166.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      🔇
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="450" y="0" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="475" y="25" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      U
+    </text>
+    <text x="458.3333333333333" y="8.333333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      *
+    </text>
+    <text x="495" y="8.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      ⏫
+    </text>
+    <text x="455" y="41.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      🔆
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="450" y="50" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="475" y="75" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      E
+    </text>
+    <text x="458.3333333333333" y="58.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      /
+    </text>
+    <text x="495" y="58.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      ▲
+    </text>
+    <text x="455" y="91.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      🔅
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="450" y="100" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="475" y="125" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ,
+    </text>
+    <text x="458.3333333333333" y="108.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      \
+    </text>
+    <text x="495" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="455" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="500" y="25" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="525" y="50" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      Y
+    </text>
+    <text x="508.3333333333333" y="33.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ~
+    </text>
+    <text x="545" y="33.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      end
+    </text>
+    <text x="505" y="66.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      ⏪
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="500" y="75" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="525" y="100" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      I
+    </text>
+    <text x="508.3333333333333" y="83.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      =
+    </text>
+    <text x="545" y="83.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      ►
+    </text>
+    <text x="505" y="116.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      ⏯️
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="500" y="125" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="525" y="150" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      .
+    </text>
+    <text x="508.3333333333333" y="133.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      +
+    </text>
+    <text x="545" y="133.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="505" y="166.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      ⏩
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="550" y="50" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="575" y="75" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      :
+    </text>
+    <text x="558.3333333333334" y="58.333333333333336" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      `
+    </text>
+    <text x="595" y="58.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+      del
+    </text>
+    <text x="555" y="91.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      copy
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="550" y="100" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="575" y="125" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      O
+    </text>
+    <text x="558.3333333333334" y="108.33333333333333" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      ;
+    </text>
+    <text x="595" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="555" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      paste
+    </text>
+  </g>
+  <g transform="undefined">
+    <rect width="50px" height="50px" x="550" y="150" fill="#ffffff" stroke="#000000" stroke-width="2px">
+    </rect>
+    <text x="575" y="175" textLength="25px" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      '
+    </text>
+    <text x="558.3333333333334" y="158.33333333333334" fill="blue" font-size="66%" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+      "
+    </text>
+    <text x="595" y="158.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
+    </text>
+    <text x="555" y="191.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      cut
+    </text>
+  </g>
+</svg>

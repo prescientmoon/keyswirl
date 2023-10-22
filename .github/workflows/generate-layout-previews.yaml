@@ -1,0 +1,28 @@
+name: Generate layout previews
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v22
+
+      - name: Generate Files
+        run: |
+          nix run .#generate-layout-previews
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff --quiet --cached || git commit -m "Auto-generated layout previews [skip ci]"
+          git push

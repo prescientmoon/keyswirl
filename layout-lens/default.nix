@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 pkgs.stdenv.mkDerivation {
-  name = "swoop";
+  name = "layout-lens";
 
   src = ./src;
 
@@ -17,6 +17,6 @@ pkgs.stdenv.mkDerivation {
 
   installPhase = ''
     mkdir $out/bin -p
-    cp -rv out.js $out/bin/swoop
+    cp -rv out.js $out/bin/layout-lens
   '';
 }
