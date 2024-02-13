@@ -419,6 +419,7 @@
     <text x="495" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
     </text>
     <text x="455" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
+      ↩️
     </text>
   </g>
   <g transform="undefined">
@@ -478,7 +479,7 @@
       `
     </text>
     <text x="595" y="58.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
-      del
+      🗑️
     </text>
     <text x="555" y="91.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
       copy
@@ -496,7 +497,7 @@
     <text x="595" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
     </text>
     <text x="555" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
-      paste
+      📋
     </text>
   </g>
   <g transform="undefined">
@@ -511,7 +512,7 @@
     <text x="595" y="158.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
     </text>
     <text x="555" y="191.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
-      cut
+      ✂️
     </text>
   </g>
 </svg>
