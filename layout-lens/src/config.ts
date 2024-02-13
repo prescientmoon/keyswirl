@@ -25,7 +25,8 @@ export function parseConfig(input: string): Config {
     keys: (parsed.keys as string[][]).map((k) =>
       k.map((s) => {
         const special = SpecialSymbols[s];
-        if (special === undefined) return s;
+        const isNumber = String(parseInt(s)) == s;
+        if (isNumber || special === undefined) return s;
         return special as SpecialSymbols;
       }),
     ),
