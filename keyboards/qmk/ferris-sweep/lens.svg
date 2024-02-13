@@ -9,7 +9,7 @@
       !
     </text>
     <text x="45" y="58.333333333333336" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
-      TR
+      1
     </text>
     <text x="5" y="91.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
       f1
@@ -211,7 +211,7 @@
       -
     </text>
     <text x="245" y="108.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="middle" font-family="Helvetica">
-      TL
+      0
     </text>
     <text x="205" y="141.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="middle" font-family="Helvetica">
       f10
