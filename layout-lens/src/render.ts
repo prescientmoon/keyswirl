@@ -190,8 +190,8 @@ function renderChordShape(
       r: radius,
       fill: "gray",
       stroke: "gray",
-      "fill-opacity": 0.1,
-      "stroke-opacity": 0.6,
+      "fill-opacity": 0.3,
+      "stroke-opacity": 0.7,
       "stroke-width": px(measurements.keyStrokeWidth),
       "stroke-dasharray": (radius * 2 * Math.PI) / 12,
     });

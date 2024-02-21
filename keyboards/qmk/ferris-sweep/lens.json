@@ -45,11 +45,6 @@
   "chords": [
     [
       {
-        "input": ["Q", "W"],
-        "output": "⎋",
-        "fill": "#9ccaff"
-      },
-      {
         "input": ["A", "R"],
         "output": "⌥",
         "fill": "#39f785"
@@ -101,6 +96,11 @@
       }
     ],
     [
+      {
+        "input": ["Q", "W"],
+        "output": "⎋",
+        "fill": "#9ccaff"
+      },
       {
         "input": ["C", "P"],
         "output": "📋",
