@@ -1,15 +1,27 @@
 import { VisualKey, VisualLayout } from "./types";
 import * as V from "./vec2";
 
-function visualKey(at: V.Vec2, keySize: number, angle: number = 0): VisualKey {
-  return { position: at, size: [keySize, keySize], angle };
+export function visualKey(
+  position: V.Vec2,
+  size: V.Vec2 = [1, 1],
+  angle: number = 0,
+): VisualKey {
+  return { position, size, angle };
 }
 
-function col(at: V.Vec2, keySize: number): VisualLayout {
+function offsetMany(keys: VisualLayout, offsets: V.Vec2[]): VisualLayout {
+  return keys.map((key, index) => {
+    const offset = offsets[index] || [0, 0];
+    key.position = V.add(key.position, offset);
+    return key;
+  });
+}
+
+function col(at: V.Vec2): VisualLayout {
   return [
-    visualKey(at, keySize),
-    visualKey(V.add(at, [0, keySize]), keySize),
-    visualKey(V.add(at, [0, 2 * keySize]), keySize),
+    visualKey(at),
+    visualKey(V.add(at, [0, 1])),
+    visualKey(V.add(at, [0, 2])),
   ];
 }
 
@@ -20,22 +32,18 @@ function radians(deg: number): number {
 export function thumbs(
   at: V.Vec2,
   reverse: boolean,
-  keySize: number,
   thumbRotation = reverse ? -15 : 15,
 ): VisualLayout {
-  // Distance between thumb key centers
-  const factor = keySize;
-
   const offset: V.Vec2 = [
-    Math.cos(radians(thumbRotation)) * factor,
-    Math.sin(radians(thumbRotation)) * factor,
+    Math.cos(radians(thumbRotation)),
+    Math.sin(radians(thumbRotation)),
   ];
 
   const result = [
-    visualKey(at, keySize, thumbRotation),
+    visualKey(at, undefined, thumbRotation),
     visualKey(
       V.add(at, reverse ? V.neg(offset) : offset),
-      keySize,
+      undefined,
       thumbRotation,
     ),
   ];
@@ -48,9 +56,17 @@ export function thumbs(
 export function cols(
   at: V.Vec2,
   cols: V.Vec2[],
-  keySize: number,
+  offsets: V.Vec2[] = [],
 ): VisualLayout {
   return cols.flatMap((self, index) =>
-    col(V.add(at, V.add(self, [index * keySize, 0])), keySize),
+    offsetMany(col(V.add(at, V.add(self, [index, 0]))), offsets),
   );
+}
+
+export function scaleVisual(visual: VisualKey, amount: number): VisualKey {
+  return {
+    angle: visual.angle,
+    position: V.scale(visual.position, amount),
+    size: V.scale(visual.size, amount),
+  };
 }

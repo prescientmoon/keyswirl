@@ -38,28 +38,33 @@ export interface LayoutColorscheme {
   blLayerColor: string;
 }
 
-export interface Layout {
-  visual: VisualLayout;
-  keys: KeyboardKey[];
-  colorscheme: LayoutColorscheme;
-  imagePadding: number;
-  size: Vec2;
-  keySize: number;
-}
-
 export enum PredefinedLayoutName {
   split_3x5_2,
+  alpha_staggered_double_switch,
+}
+
+export interface LayoutMeasurements {
+  imagePadding: number;
+  keySize: number;
+  keyPadding: number;
+  keyCornerRadius: number;
+  keyStrokeWidth: number;
 }
 
 export interface Config {
   keys: KeySymbol[][];
-  colorscheme: LayoutColorscheme;
-  imagePadding: number;
-  keySize: number;
   layout: PredefinedLayoutName;
+  colorscheme: LayoutColorscheme;
+  measurements: LayoutMeasurements;
 }
 
-export type PredefinedLayout = (keySize: number) => {
+export type PredefinedLayout = {
   visual: VisualLayout;
   size: Vec2;
 };
+
+export interface Layout extends PredefinedLayout {
+  keys: KeyboardKey[];
+  colorscheme: LayoutColorscheme;
+  measurements: LayoutMeasurements;
+}

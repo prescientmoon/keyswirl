@@ -7,8 +7,28 @@ import {
   PredefinedLayout,
   PredefinedLayoutName,
   SpecialSymbols,
+  LayoutMeasurements,
+  LayoutColorscheme,
 } from "./types";
 import split_3x5_2 from "./layouts/split_3x5_2";
+import alpha_staggered_double_switch from "./layouts/alpha_staggered_double_switch";
+
+const defaultMeasurements: LayoutMeasurements = {
+  imagePadding: 20,
+  keySize: 60,
+  keyPadding: 2,
+  keyCornerRadius: 5,
+  keyStrokeWidth: 1.5,
+};
+
+const defaultColorscheme: LayoutColorscheme = {
+  keyFill: "#ffffff",
+  keyStroke: "#000000",
+  mainLayerColor: "black",
+  tlLayerColor: "blue",
+  trLayerColor: "red",
+  blLayerColor: "purple",
+};
 
 export function parseConfig(input: string): Config {
   const parsed = JSON.parse(input);
@@ -30,9 +50,8 @@ export function parseConfig(input: string): Config {
         return special as SpecialSymbols;
       }),
     ),
-    colorscheme: parsed.colorscheme,
-    imagePadding: parsed.imagePadding,
-    keySize: parsed.keySize,
+    colorscheme: { ...defaultColorscheme, ...parsed.colorscheme },
+    measurements: { ...defaultMeasurements, ...parsed.measurements },
     layout,
   };
 }
@@ -48,15 +67,16 @@ function key(
 
 const layouts: Record<PredefinedLayoutName, PredefinedLayout> = {
   [PredefinedLayoutName.split_3x5_2]: split_3x5_2,
+  [PredefinedLayoutName.alpha_staggered_double_switch]:
+    alpha_staggered_double_switch,
 };
 
 export function makeLayout(config: Config): Layout {
-  const predefined = layouts[config.layout](config.keySize);
+  const predefined = layouts[config.layout];
   return {
     keys: config.keys.map((k) => key(...(k as Arguments<typeof key>))),
     colorscheme: config.colorscheme,
-    imagePadding: config.imagePadding,
-    keySize: config.keySize,
+    measurements: config.measurements,
     visual: predefined.visual,
     size: predefined.size,
   };
