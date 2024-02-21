@@ -1,5 +1,11 @@
 {
   "layout": "split_3x5_2",
+  "measurements": {
+    "keySize": 60,
+    "keyPadding": 2,
+    "keyCornerRadius": 5,
+    "keyStrokeWidth": 1.5
+  },
   "keys": [
     ["Q", "!", "1", "f1"],
     ["A", "&lt;", "6", "f6"],
@@ -35,5 +41,88 @@
     [":", "`", "🗑️", "🔆"],
     ["O", ";", "", "🔅"],
     ["'", "\"", ""]
+  ],
+  "chords": [
+    [
+      {
+        "input": ["Q", "W"],
+        "output": "⎋",
+        "fill": "#9ccaff"
+      },
+      {
+        "input": ["A", "R"],
+        "output": "⌥",
+        "fill": "#39f785"
+      },
+      {
+        "input": ["S", "T"],
+        "output": "⭾",
+        "fill": "#fdff80",
+        "fontSizeModifier": 0.8
+      },
+      {
+        "input": ["G", "M"],
+        "output": "⌫",
+        "fill": "#f9adff"
+      },
+      {
+        "input": ["N", "E"],
+        "output": "⊥",
+        "fill": "#f58e8e"
+      },
+      {
+        "input": ["I", "O"],
+        "output": "⌥",
+        "fill": "#39f785"
+      }
+    ],
+    [
+      {
+        "input": ["R", "S"],
+        "output": "⇧",
+        "fill": "#f9adff"
+      },
+      {
+        "input": ["E", "I"],
+        "output": "⇧",
+        "fill": "#f9adff"
+      }
+    ],
+    [
+      {
+        "input": ["R", "T"],
+        "output": "ctrl",
+        "fill": "#fdff80"
+      },
+      {
+        "input": ["N", "I"],
+        "output": "ctrl",
+        "fill": "#fdff80"
+      }
+    ],
+    [
+      {
+        "input": ["C", "P"],
+        "output": "📋",
+        "fill": "#fdff80"
+      },
+      {
+        "input": ["K", "I"],
+        "output": "❖",
+        "fill": "#f58e8e"
+      }
+    ],
+    [
+      {
+        "input": ["F", "T"],
+        "output": "↵",
+        "fill": "#9ccaff"
+      },
+      {
+        "input": ["N", "U"],
+        "output": "💾",
+        "fill": "#9ccaff"
+      }
+    ]
   ]
 }

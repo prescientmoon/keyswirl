@@ -1,4 +1,10 @@
-import { VisualKey, VisualLayout } from "./types";
+import type {
+  KeySymbol,
+  Layout,
+  LayoutMeasurements,
+  VisualKey,
+  VisualLayout,
+} from "./types";
 import * as V from "./vec2";
 
 export function visualKey(
@@ -69,4 +75,29 @@ export function scaleVisual(visual: VisualKey, amount: number): VisualKey {
     position: V.scale(visual.position, amount),
     size: V.scale(visual.size, amount),
   };
+}
+
+export function scaleMeasurements(
+  measurements: LayoutMeasurements,
+  amount: number,
+): LayoutMeasurements {
+  return {
+    imagePadding: measurements.imagePadding * amount,
+    keySize: measurements.keySize * amount,
+    keyPadding: measurements.keyPadding * amount,
+    keyCornerRadius: measurements.keyCornerRadius * amount,
+    keyStrokeWidth: measurements.keyStrokeWidth * amount,
+    mainToChordsGap: measurements.mainToChordsGap * amount,
+  };
+}
+
+export function findKeyByLabel(
+  layout: Layout,
+  label: KeySymbol,
+): VisualKey | null {
+  for (let i = 0; i < layout.keys.length; i++) {
+    if (layout.keys[i].main === label) return layout.visual[i];
+  }
+
+  return null;
 }

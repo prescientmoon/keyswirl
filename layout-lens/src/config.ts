@@ -9,12 +9,13 @@ import {
   SpecialSymbols,
   LayoutMeasurements,
   LayoutColorscheme,
+  ChordConfig,
+  ElementLayout,
 } from "./types";
 import split_3x5_2 from "./layouts/split_3x5_2";
 import alpha_staggered_double_switch from "./layouts/alpha_staggered_double_switch";
 
 const defaultMeasurements: LayoutMeasurements = {
-  imagePadding: 20,
   keySize: 60,
   keyPadding: 2,
   keyCornerRadius: 5,
@@ -30,6 +31,20 @@ const defaultColorscheme: LayoutColorscheme = {
   blLayerColor: "purple",
 };
 
+const defaultElementLayout: ElementLayout = {
+  mainToChordsGap: 10,
+  imagePadding: 20,
+  groupsPerRow: 2,
+  groupPadding: 20,
+};
+
+function parseSymbol(s: string) {
+  const special = SpecialSymbols[s];
+  const isNumber = String(parseInt(s)) == s;
+  if (isNumber || special === undefined) return s;
+  return special as SpecialSymbols;
+}
+
 export function parseConfig(input: string): Config {
   const parsed = JSON.parse(input);
 
@@ -42,16 +57,20 @@ export function parseConfig(input: string): Config {
   }
 
   return {
-    keys: (parsed.keys as string[][]).map((k) =>
-      k.map((s) => {
-        const special = SpecialSymbols[s];
-        const isNumber = String(parseInt(s)) == s;
-        if (isNumber || special === undefined) return s;
-        return special as SpecialSymbols;
-      }),
+    keys: (parsed.keys as string[][]).map((k) => k.map(parseSymbol)),
+    chords: ((parsed.chords as ChordConfig[][]) || []).map((group) =>
+      group.map((chord) => ({
+        ...chord,
+        input: chord.input.map((k) => parseSymbol(k as string)),
+        output: parseSymbol(chord.output as string),
+      })),
     ),
     colorscheme: { ...defaultColorscheme, ...parsed.colorscheme },
     measurements: { ...defaultMeasurements, ...parsed.measurements },
+    elementLayout: {
+      ...defaultElementLayout,
+      ...parsed.elementLayout,
+    },
     layout,
   };
 }
@@ -77,6 +96,8 @@ export function makeLayout(config: Config): Layout {
     keys: config.keys.map((k) => key(...(k as Arguments<typeof key>))),
     colorscheme: config.colorscheme,
     measurements: config.measurements,
+    elementLayout: config.elementLayout,
+    chords: config.chords,
     visual: predefined.visual,
     size: predefined.size,
   };

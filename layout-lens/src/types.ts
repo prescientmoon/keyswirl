@@ -38,24 +38,42 @@ export interface LayoutColorscheme {
   blLayerColor: string;
 }
 
-export enum PredefinedLayoutName {
-  split_3x5_2,
-  alpha_staggered_double_switch,
-}
-
 export interface LayoutMeasurements {
-  imagePadding: number;
   keySize: number;
   keyPadding: number;
   keyCornerRadius: number;
   keyStrokeWidth: number;
 }
 
+export enum PredefinedLayoutName {
+  split_3x5_2,
+  alpha_staggered_double_switch,
+}
+
+export type ChordName = string;
+
+export interface ChordConfig {
+  input: KeySymbol[];
+  output: KeySymbol;
+  fill: string;
+  stroke?: string;
+  fontSizeModifier?: number;
+}
+
+export interface ElementLayout {
+  groupsPerRow: number;
+  groupPadding: number;
+  imagePadding: number;
+  mainToChordsGap: number;
+}
+
 export interface Config {
   keys: KeySymbol[][];
+  chords: ChordConfig[][];
   layout: PredefinedLayoutName;
   colorscheme: LayoutColorscheme;
   measurements: LayoutMeasurements;
+  elementLayout: ElementLayout;
 }
 
 export type PredefinedLayout = {
@@ -64,7 +82,10 @@ export type PredefinedLayout = {
 };
 
 export interface Layout extends PredefinedLayout {
-  keys: KeyboardKey[];
   colorscheme: LayoutColorscheme;
   measurements: LayoutMeasurements;
+  elementLayout: ElementLayout;
+
+  keys: KeyboardKey[];
+  chords: ChordConfig[][];
 }

@@ -1,12 +1,14 @@
 # Layout-lens
 
-> NOTE: this project cannot yet render combos, which will change soon
-
 This is a quickly-thrown-together set of scripts for generating SVG previews of keyboard layouts. For example configurations check out any config in the `keyboards` directory of this repository. To run this on your config simply do
 
 ```sh
 nix run github:mateiadrielrafael/keyswirl#layout-lens my-config.json out.svg
 ```
+
+## Future improvements
+
+This project does not render chords involving rotated keys properly. Moreover, chord definitions in general can be a little verboose.
 
 ## Technical details
 

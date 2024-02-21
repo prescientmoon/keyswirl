@@ -26,7 +26,7 @@ const layout: PredefinedLayout = {
     L.visualKey([7.75, 3.25]),
     L.cols([5, 0], block, offsets),
   ].flat(),
-  size: [10.8, 4],
+  size: [10.8, 4.25],
 };
 
 export default layout;

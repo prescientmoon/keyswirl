@@ -5,6 +5,10 @@ function indent(amount: number, text: string) {
     .join("\n");
 }
 
+export function children(...many: string[]): string {
+  return many.join("\\n");
+}
+
 export function tag(
   name: string,
   attributes: Record<string, string | number | undefined>,
