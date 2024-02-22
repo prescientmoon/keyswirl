@@ -1,0 +1,21 @@
+package:
+  name: layout-lens
+  dependencies:
+    - console
+    - effect
+    - prelude
+    - tuples
+    - maybe
+    - debugged
+    - colors
+    - unordered-collections
+  test:
+    main: Test.Main
+    dependencies: []
+workspace:
+  package_set:
+    registry: 50.1.0
+  extra_packages:
+    debugged:
+      git: https://github.com/mateiadrielrafael/purescript-debugged.git
+      ref: 0d5a4149279129f10c8fe2a3ef280b9fde4d5116

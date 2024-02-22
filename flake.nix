@@ -1,12 +1,19 @@
 {
   description = "Kayboard layout diagram generation";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    purescript-overlay = {
+      url = "github:thomashoneyman/purescript-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
-  outputs = { nixpkgs, flake-utils, ... }:
+  outputs = { nixpkgs, flake-utils, ... }@inputs:
     flake-utils.lib.eachDefaultSystem
       (system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = nixpkgs.legacyPackages.${system}.extend inputs.purescript-overlay.overlays.default;
           layout-lens = pkgs.callPackage ./layout-lens/default.nix { };
         in
         rec {

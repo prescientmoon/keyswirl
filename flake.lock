@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -17,21 +33,68 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1695360818,
-        "narHash": "sha256-JlkN3R/SSoMTa+CasbxS1gq+GpGxXQlNZRUh9+LIy/0=",
-        "path": "/nix/store/09yvj6yyxspzfivv91bcxwrjxawpk1g2-source",
-        "rev": "e35dcc04a3853da485a396bdd332217d0ac9054f",
-        "type": "path"
+        "lastModified": 1708532945,
+        "narHash": "sha256-0KucnySzsz5Zgonjjm8cQMql+HGHa/OhB0fnKmGeD+0=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "ac4c5a60bebfb783f1106d126b9f39cc8e809e0e",
+        "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "purescript-overlay": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "slimlock": "slimlock"
+      },
+      "locked": {
+        "lastModified": 1708554905,
+        "narHash": "sha256-KXXSaeOgHOE/2YCZNfvw3efe1OZkPH8T6HqziPs2/Q8=",
+        "owner": "thomashoneyman",
+        "repo": "purescript-overlay",
+        "rev": "c7d9df1e916aa976125f4459d1bc2a480b75e43b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thomashoneyman",
+        "repo": "purescript-overlay",
+        "type": "github"
       }
     },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "purescript-overlay": "purescript-overlay"
+      }
+    },
+    "slimlock": {
+      "inputs": {
+        "nixpkgs": [
+          "purescript-overlay",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1688756706,
+        "narHash": "sha256-xzkkMv3neJJJ89zo3o2ojp7nFeaZc2G0fYwNXNJRFlo=",
+        "owner": "thomashoneyman",
+        "repo": "slimlock",
+        "rev": "cf72723f59e2340d24881fd7bf61cb113b4c407c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thomashoneyman",
+        "repo": "slimlock",
+        "type": "github"
       }
     }
   },

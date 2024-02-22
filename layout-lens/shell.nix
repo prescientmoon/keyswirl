@@ -1,9 +1,14 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs>, ... }:
 with pkgs;
 mkShell {
-  buildInputs = with pkgs; with nodePackages_latest; [
-    typescript
+  buildInputs =  [
+    nodePackages_latest.typescript
+    nodePackages_latest.ts-node
     nodejs
-    ts-node
+    purs
+    spago-unstable
+    purs-tidy-bin.purs-tidy-0_10_0
+    purs-backend-es
+    purescript-language-server
   ];
 }
