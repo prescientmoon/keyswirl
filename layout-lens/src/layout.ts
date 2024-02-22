@@ -82,12 +82,10 @@ export function scaleMeasurements(
   amount: number,
 ): LayoutMeasurements {
   return {
-    imagePadding: measurements.imagePadding * amount,
     keySize: measurements.keySize * amount,
     keyPadding: measurements.keyPadding * amount,
     keyCornerRadius: measurements.keyCornerRadius * amount,
     keyStrokeWidth: measurements.keyStrokeWidth * amount,
-    mainToChordsGap: measurements.mainToChordsGap * amount,
   };
 }
 

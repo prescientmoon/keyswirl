@@ -1,0 +1,79 @@
+physical
+  block
+    0 1
+    1 0.5
+    2 0
+    3 0.5
+    4 1
+
+  block
+    place 0 0
+    place 7 0
+
+  place 0 0
+  place 0 1
+  place 0 2
+
+  block
+    0 0
+    1 0
+
+  place 3.5 4.5  0.2617993878 4 5
+  place 6.5 4.5 -0.2617993878 8 5
+
+section
+  keyboard
+    action 🟥 🌈 sticky-switch red
+    action 🟦 🌈 sticky-switch blue
+    action 🟪 ⚔️  sticky-switch purple
+
+    layer main center
+    Q W F P B   J  L U Y :
+    A R S T G   M  N E I O
+    X C D V Z   K  H , . '
+         🟥 ␣   ⇧  🟦
+
+    layer red topright #0b00d9
+    1 2 3 4 ⚔️   🏠 ⏬ ⏫ end 🗑️
+    5 6 7 8 ⚔️   ◄  ▼  ▲  ►   ⚔️
+    9 0 ⚔️ ⚔️ ⚔️   ⚔️  ⚔️  ⚔️  ⚔️   ⚔️
+          ⚔️ ⚔️   ⚔️  🟪
+
+    layer blue topleft #b80034
+    ! @ [ ( %   ^  & * ~ `
+    < { ] ) ?   -  _ / = ;
+    > } $ ? ⚔️   —  | \ + "
+         🟪 ⚔️   ⚔️  ⚔️
+
+    layer purple bottomleft #660099
+    f1  f2  f3 f4 f5    😱 copy ⏩ 🔊 🔆
+    f6  f7  f8 f9 f10   ↩️   📋  ⏯️  🔉 🔅
+    f11 f12 f4 ⚔️  ⚔️     🎮  ✂️   ⏪ 🔇 ⚔️
+               ⚔️  ⚔️     ⚔️  ⚔️
+
+section
+  columns 2
+
+  chordgroup
+  A R => ⌥  #39f785
+  S T => ⭾  #fdff80 0.8
+  G M => ⌫  #f9adff
+  N E => ⊥  #f58e8e
+  I O => ⌥  #39f785
+
+  chordgroup
+  R S => ⇧  #f9adff
+  E I => ⇧  #f9adff
+
+  chordgroup
+  R T => ctrl #fdff80
+  N I => ctrl #fdff80
+
+  chordgroup
+  Q W => ⎋  #9ccaff
+  C P => 📋 #fdff80
+  K I => ❖  #f58e8e
+
+  chordgroup
+  F T => ↵  #9ccaff
+  N U => 💾 #9ccaff

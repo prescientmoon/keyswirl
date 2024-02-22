@@ -104,10 +104,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] = LAYOUT_split_3x5_2(
         // !       @       #       $          %          ^          &          *       `         ~
         S(KC_1),   S(KC_2),S(KC_3),S(KC_4),   S(KC_5),   S(KC_6),   S(KC_7),   S(KC_8),KC_GRV,   S(KC_GRV),
-        // <       (       [       {          -          ?          _          /       =         ;
-        S(KC_COMM),S(KC_9),KC_LBRC,S(KC_LBRC),KC_MINS,   S(KC_SLSH),S(KC_MINS),KC_SLSH,KC_EQL,   KC_SCLN,
-        // >       )       ]       }          — em dash             |          \       +         "
-        S(KC_DOT), S(KC_0),KC_RBRC,S(KC_RBRC),UC(0x2014),KC_NO,     S(KC_BSLS),KC_BSLS,S(KC_EQL),S(KC_QUOT),
+        // <       {          [       (       ?          -          _          /       =         ;
+        S(KC_COMM),S(KC_LBRC),KC_LBRC,S(KC_9),S(KC_SLSH),KC_MINS,  S(KC_MINS),KC_SLSH,KC_EQL,   KC_SCLN,
+        // >       }          ]       )                  — em dash  |          \       +         "
+        S(KC_DOT), S(KC_RBRC),KC_RBRC,S(KC_0),KC_NO,     UC(0x2014),S(KC_BSLS),KC_BSLS,S(KC_EQL),S(KC_QUOT),
                                         TL_LOWR, KC_TRNS, KC_TRNS, KC_NO
     ),
     // Purple layer (blue + red)
