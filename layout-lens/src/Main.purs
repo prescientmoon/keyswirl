@@ -1,10 +1,17 @@
 module Main where
 
-import Prelude
+import LayoutLens.Prelude
 
-import Effect (Effect)
-import Effect.Console (log)
+import LayoutLens.Parser (parseConfig)
+import Node.Encoding (Encoding(..))
+import Node.FS.Aff (readTextFile)
 
 main :: Effect Unit
-main = do
-  log "🍝"
+main = launchAff_ do
+  file <- readTextFile UTF8 "../keyboards/qmk/ferris-sweep/config.lens"
+  case parseConfig file of
+    Left err -> log err
+    Right result -> log
+      $ prettyPrintWith
+          defaultPrettyPrintOptions { maxDepth = Nothing }
+      $ debug result

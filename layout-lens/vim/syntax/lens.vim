@@ -4,9 +4,9 @@
 
 set iskeyword+=-
 
-syntax keyword lensKeyword physical section keyboard layer chordgroup block
+syntax keyword lensKeyword physical section layergroup layer chordgroup block end
 syntax keyword lensAction sticky-switch switch
-syntax keyword lensFunction columns place action
+syntax keyword lensFunction columns place action key
 syntax keyword lensLayerName center topleft topright bottomleft bottomright
 
 syntax match lensComment "\v--.*$"

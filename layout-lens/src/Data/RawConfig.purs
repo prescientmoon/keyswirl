@@ -38,6 +38,9 @@ newtype RawLayer = RawLayer
   , keys :: Array RawKeySymbol
   }
 
+layerName :: RawLayer -> String
+layerName (RawLayer { name }) = name
+
 data RawElement
   = RawLayerGroup (HashMap LayerVisualPosition RawLayer)
   | RawChordGroup (Array RawChord)
@@ -46,6 +49,9 @@ newtype RawSection = RawSection
   { columns :: Int
   , elements :: Array RawElement
   }
+
+sectionElements :: RawSection -> Array RawElement
+sectionElements (RawSection { elements }) = elements
 
 data RawActionDisplay
   = DisplaySymbol RawKeySymbol
@@ -56,15 +62,14 @@ data RawActionEffect
   | StickyLayerSwitch String
 
 newtype RawAction = RawAction
-  { name :: String
-  , visualSymbol :: RawActionDisplay
+  { display :: RawActionDisplay
   , effect :: RawActionEffect
   }
 
 newtype RawConfig = RawConfig
   { physical :: RawPhysical
-  , actions :: Array RawAction
-  , sections :: RawSection
+  , actions :: HashMap String RawAction
+  , sections :: Array RawSection
   }
 
 derive instance Eq RawPhysicalActionStep

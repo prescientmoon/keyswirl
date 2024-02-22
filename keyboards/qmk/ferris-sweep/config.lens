@@ -1,55 +1,62 @@
 physical
   block
-    0 1
-    1 0.5
-    2 0
-    3 0.5
-    4 1
+    key 0 1
+    key 1 0.5
+    key 2 0
+    key 3 0.5
+    key 4 1
+  end
 
   block
     place 0 0
     place 7 0
+  end
 
   place 0 0
   place 0 1
   place 0 2
 
   block
-    0 0
-    1 0
+    key 0 0
+    key 1 0
+  end
 
   place 3.5 4.5  0.2617993878 4 5
   place 6.5 4.5 -0.2617993878 8 5
 
 section
-  keyboard
-    action 🟥 🌈 sticky-switch red
-    action 🟦 🌈 sticky-switch blue
-    action 🟪 ⚔️  sticky-switch purple
+  action 🟥 🌈 sticky-switch red
+  action 🟦 🌈 sticky-switch blue
+  action 🟪 ⚔️  sticky-switch purple
 
+  layergroup
     layer main center
     Q W F P B   J  L U Y :
     A R S T G   M  N E I O
     X C D V Z   K  H , . '
          🟥 ␣   ⇧  🟦
+    end
 
     layer red topright #0b00d9
-    1 2 3 4 ⚔️   🏠 ⏬ ⏫ end 🗑️
+    1 2 3 4 ⚔️   ⏪ ⏬ ⏫ ⏩  🗑️
     5 6 7 8 ⚔️   ◄  ▼  ▲  ►   ⚔️
     9 0 ⚔️ ⚔️ ⚔️   ⚔️  ⚔️  ⚔️  ⚔️   ⚔️
           ⚔️ ⚔️   ⚔️  🟪
+    end
 
     layer blue topleft #b80034
     ! @ [ ( %   ^  & * ~ `
     < { ] ) ?   -  _ / = ;
     > } $ ? ⚔️   —  | \ + "
          🟪 ⚔️   ⚔️  ⚔️
+    end
 
     layer purple bottomleft #660099
     f1  f2  f3 f4 f5    😱 copy ⏩ 🔊 🔆
     f6  f7  f8 f9 f10   ↩️   📋  ⏯️  🔉 🔅
     f11 f12 f4 ⚔️  ⚔️     🎮  ✂️   ⏪ 🔇 ⚔️
                ⚔️  ⚔️     ⚔️  ⚔️
+    end
 
 section
   columns 2

@@ -7,8 +7,13 @@ package:
     - tuples
     - maybe
     - debugged
+    - debug
     - colors
     - unordered-collections
+    - string-parsers
+    - node-fs
+    - aff
+    - strings
   test:
     main: Test.Main
     dependencies: []

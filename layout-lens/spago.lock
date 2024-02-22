@@ -3,15 +3,23 @@ workspace:
     layout-lens:
       path: ./
       dependencies:
+        - aff
         - colors
         - console
+        - debug
         - debugged
         - effect
         - maybe
+        - node-fs
         - prelude
+        - string-parsers
+        - strings
         - tuples
+        - unordered-collections
       test_dependencies: []
       build_plan:
+        - aff
+        - arraybuffer-types
         - arrays
         - bifunctors
         - colors
@@ -20,6 +28,7 @@ workspace:
         - contravariant
         - control
         - datetime
+        - debug
         - debugged
         - distributive
         - effect
@@ -29,20 +38,30 @@ workspace:
         - exists
         - fixed-points
         - foldable-traversable
+        - foreign
         - functions
         - functors
         - gen
         - identity
         - integers
         - invariant
+        - js-date
         - lazy
         - lists
         - maybe
         - newtype
+        - node-buffer
+        - node-event-emitter
+        - node-fs
+        - node-path
+        - node-streams
         - nonempty
+        - now
+        - nullable
         - numbers
         - ordered-collections
         - orders
+        - parallel
         - partial
         - prelude
         - profunctor
@@ -50,6 +69,7 @@ workspace:
         - refs
         - safe-coerce
         - st
+        - string-parsers
         - strings
         - tailrec
         - transformers
@@ -544,6 +564,33 @@ workspace:
       git: https://github.com/mateiadrielrafael/purescript-debugged.git
       ref: 0d5a4149279129f10c8fe2a3ef280b9fde4d5116
 packages:
+  aff:
+    type: registry
+    version: 7.1.0
+    integrity: sha256-7hOC6uQO9XBAI5FD8F33ChLjFAiZVfd4BJMqlMh7TNU=
+    dependencies:
+      - arrays
+      - bifunctors
+      - control
+      - datetime
+      - effect
+      - either
+      - exceptions
+      - foldable-traversable
+      - functions
+      - maybe
+      - newtype
+      - parallel
+      - prelude
+      - refs
+      - tailrec
+      - transformers
+      - unsafe-coerce
+  arraybuffer-types:
+    type: registry
+    version: 3.0.2
+    integrity: sha256-mQKokysYVkooS4uXbO+yovmV/s8b138Ws3zQvOwIHRA=
+    dependencies: []
   arrays:
     type: registry
     version: 7.3.0
@@ -637,6 +684,13 @@ packages:
       - partial
       - prelude
       - tuples
+  debug:
+    type: registry
+    version: 6.0.2
+    integrity: sha256-vmkYFuXYuELBzeauvgHG6E6Kf/Hp1dAnxwE9ByHfwSg=
+    dependencies:
+      - functions
+      - prelude
   debugged:
     type: git
     url: https://github.com/mateiadrielrafael/purescript-debugged.git
@@ -742,6 +796,20 @@ packages:
       - orders
       - prelude
       - tuples
+  foreign:
+    type: registry
+    version: 7.0.0
+    integrity: sha256-1ORiqoS3HW+qfwSZAppHPWy4/6AQysxZ2t29jcdUMNA=
+    dependencies:
+      - either
+      - functions
+      - identity
+      - integers
+      - lists
+      - maybe
+      - prelude
+      - strings
+      - transformers
   functions:
     type: registry
     version: 6.0.0
@@ -805,6 +873,17 @@ packages:
     dependencies:
       - control
       - prelude
+  js-date:
+    type: registry
+    version: 8.0.0
+    integrity: sha256-6TVF4DWg5JL+jRAsoMssYw8rgOVALMUHT1CuNZt8NRo=
+    dependencies:
+      - datetime
+      - effect
+      - exceptions
+      - foreign
+      - integers
+      - now
   lazy:
     type: registry
     version: 6.0.0
@@ -847,6 +926,70 @@ packages:
     dependencies:
       - prelude
       - safe-coerce
+  node-buffer:
+    type: registry
+    version: 9.0.0
+    integrity: sha256-PWE2DJ5ruBLCmeA/fUiuySEFmUJ/VuRfyrnCuVZBlu4=
+    dependencies:
+      - arraybuffer-types
+      - effect
+      - maybe
+      - nullable
+      - st
+      - unsafe-coerce
+  node-event-emitter:
+    type: registry
+    version: 3.0.0
+    integrity: sha256-Qw0MjsT4xRH2j2i4K8JmRjcMKnH5z1Cw39t00q4LE4w=
+    dependencies:
+      - effect
+      - either
+      - functions
+      - maybe
+      - nullable
+      - prelude
+      - unsafe-coerce
+  node-fs:
+    type: registry
+    version: 9.1.0
+    integrity: sha256-TzhvGdrwcM0bazDvrWSqh+M/H8GKYf1Na6aGm2Qg4+c=
+    dependencies:
+      - datetime
+      - effect
+      - either
+      - enums
+      - exceptions
+      - functions
+      - integers
+      - js-date
+      - maybe
+      - node-buffer
+      - node-path
+      - node-streams
+      - nullable
+      - partial
+      - prelude
+      - strings
+      - unsafe-coerce
+  node-path:
+    type: registry
+    version: 5.0.0
+    integrity: sha256-pd82nQ+2l5UThzaxPdKttgDt7xlsgIDLpPG0yxDEdyE=
+    dependencies:
+      - effect
+  node-streams:
+    type: registry
+    version: 9.0.0
+    integrity: sha256-2n6dq7YWleTDmD1Kur/ul7Cn08IvWrScgPf+0PgX2TQ=
+    dependencies:
+      - aff
+      - effect
+      - either
+      - exceptions
+      - node-buffer
+      - node-event-emitter
+      - nullable
+      - prelude
   nonempty:
     type: registry
     version: 7.0.0
@@ -858,6 +1001,21 @@ packages:
       - prelude
       - tuples
       - unfoldable
+  now:
+    type: registry
+    version: 6.0.0
+    integrity: sha256-xZ7x37ZMREfs6GCDw/h+FaKHV/3sPWmtqBZRGTxybQY=
+    dependencies:
+      - datetime
+      - effect
+  nullable:
+    type: registry
+    version: 6.0.0
+    integrity: sha256-yiGBVl3AD+Guy4kNWWeN+zl1gCiJK+oeIFtZtPCw4+o=
+    dependencies:
+      - effect
+      - functions
+      - maybe
   numbers:
     type: registry
     version: 9.0.1
@@ -888,6 +1046,22 @@ packages:
     dependencies:
       - newtype
       - prelude
+  parallel:
+    type: registry
+    version: 7.0.0
+    integrity: sha256-gUC9i4Txnx9K9RcMLsjujbwZz6BB1bnE2MLvw4GIw5o=
+    dependencies:
+      - control
+      - effect
+      - either
+      - foldable-traversable
+      - functors
+      - maybe
+      - newtype
+      - prelude
+      - profunctor
+      - refs
+      - transformers
   partial:
     type: registry
     version: 4.0.0
@@ -941,6 +1115,21 @@ packages:
       - prelude
       - tailrec
       - unsafe-coerce
+  string-parsers:
+    type: registry
+    version: 8.0.0
+    integrity: sha256-9ATYh0S54ERoR+uhkCM59wBRvW/6zv6geHJ0TmcI644=
+    dependencies:
+      - arrays
+      - bifunctors
+      - control
+      - either
+      - foldable-traversable
+      - lists
+      - maybe
+      - prelude
+      - strings
+      - tailrec
   strings:
     type: registry
     version: 6.0.1

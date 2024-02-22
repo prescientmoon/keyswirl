@@ -10,6 +10,9 @@ derive instance Generic LayerVisualPosition _
 instance Debug LayerVisualPosition where
   debug = genericDebug
 
+instance Show LayerVisualPosition where
+  show = genericShow
+
 instance Hashable LayerVisualPosition where
   hash Center = 0
   hash TopLeft = 1
