@@ -1,859 +1,1244 @@
 <svg viewBox="-20 -20 688 687.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g transform="">
     <rect width="56px" height="56px" x="2" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="30" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="30" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       Q
-    </text>\n<text x="11.333333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="11.333333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       !
-    </text>\n<text x="52.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="52.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       1
-    </text>\n<text x="7.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="7.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f1
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="17" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="45" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="45" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       A
-    </text>\n<text x="26.333333333333336" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="26.333333333333336" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       &lt;
-    </text>\n<text x="67.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="67.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       6
-    </text>\n<text x="22.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="22.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f6
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="47" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="75" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="75" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       X
-    </text>\n<text x="56.333333333333336" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="56.333333333333336" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       &gt;
-    </text>\n<text x="97.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="52.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="97.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="52.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f11
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="62" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="90" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="90" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       W
-    </text>\n<text x="71.33333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="71.33333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       @
-    </text>\n<text x="112.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="112.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       2
-    </text>\n<text x="67.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="67.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f2
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="77" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="105" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="105" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       R
-    </text>\n<text x="86.33333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="86.33333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       {
-    </text>\n<text x="127.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="127.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       7
-    </text>\n<text x="82.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="82.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f7
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="107" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="135" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="135" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       C
-    </text>\n<text x="116.33333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="116.33333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       }
-    </text>\n<text x="157.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="112.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="157.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="112.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f12
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="122" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="150" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="150" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       F
-    </text>\n<text x="131.33333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="131.33333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       #
-    </text>\n<text x="172.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="172.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       3
-    </text>\n<text x="127.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="127.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f3
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="137" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="165" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="165" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       S
-    </text>\n<text x="146.33333333333334" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="146.33333333333334" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       [
-    </text>\n<text x="187.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="187.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       8
-    </text>\n<text x="142.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="142.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f8
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="167" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="195" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="195" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       D
-    </text>\n<text x="176.33333333333334" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
-      ]
-    </text>\n<text x="217.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="172.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
     </text>
-  </g>\n<g transform="">
+    <text x="176.33333333333334" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+      ]
+    </text>
+    <text x="217.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="172.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="182" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="210" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="210" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       P
-    </text>\n<text x="191.33333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="191.33333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       $
-    </text>\n<text x="232.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="232.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       4
-    </text>\n<text x="187.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="187.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f4
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="197" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="225" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="225" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       T
-    </text>\n<text x="206.33333333333334" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="206.33333333333334" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       (
-    </text>\n<text x="247.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="247.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       9
-    </text>\n<text x="202.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="202.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f9
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="227" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="255" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="255" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       V
-    </text>\n<text x="236.33333333333334" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
-      )
-    </text>\n<text x="277.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="232.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
     </text>
-  </g>\n<g transform="">
+    <text x="236.33333333333334" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+      )
+    </text>
+    <text x="277.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="232.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="242" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="270" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="270" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       B
-    </text>\n<text x="251.33333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="251.33333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       %
-    </text>\n<text x="292.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="292.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       5
-    </text>\n<text x="247.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="247.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f5
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="257" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="285" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="285" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       G
-    </text>\n<text x="266.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="266.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ?
-    </text>\n<text x="307.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="307.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       0
-    </text>\n<text x="262.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="262.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       f10
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="287" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="315" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="315" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       Z
-    </text>\n<text x="296.3333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="337.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="292.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
     </text>
-  </g>\n<g transform="">
+    <text x="296.3333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="337.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="292.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="107" y="197" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="135" y="225" textLength="28px" fill="red" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="135" y="225" textLength="28px" fill="red" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       ■
-    </text>\n<text x="116.33333333333333" y="206.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="157.4" y="206.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="112.6" y="243.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
     </text>
-  </g>\n<g transform="">
+    <text x="116.33333333333333" y="206.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="157.4" y="206.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="112.6" y="243.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="">
     <rect width="296px" height="56px" x="167" y="197" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="315" y="225" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="315" y="225" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       ␣
-    </text>\n<text x="216.33333333333334" y="206.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="433.4" y="206.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="196.6" y="243.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
     </text>
-  </g>\n<g transform="">
+    <text x="216.33333333333334" y="206.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="433.4" y="206.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="196.6" y="243.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="467" y="197" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="495" y="225" textLength="28px" fill="blue" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="495" y="225" textLength="28px" fill="blue" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       ■
-    </text>\n<text x="476.3333333333333" y="206.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="517.4" y="206.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="472.6" y="243.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
     </text>
-  </g>\n<g transform="">
+    <text x="476.3333333333333" y="206.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="517.4" y="206.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="472.6" y="243.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="302" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="330" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="330" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       J
-    </text>\n<text x="311.3333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="311.3333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ^
-    </text>\n<text x="352.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="352.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       🏠
-    </text>\n<text x="307.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="307.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       😱
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="317" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="345" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="345" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       M
-    </text>\n<text x="326.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="326.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       -
-    </text>\n<text x="367.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="367.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       ◄
-    </text>\n<text x="322.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="322.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ↩️
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="347" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="375" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="375" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       K
-    </text>\n<text x="356.3333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="356.3333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       —
-    </text>\n<text x="397.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="352.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="397.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="352.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       🎮
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="362" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="390" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="390" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       L
-    </text>\n<text x="371.3333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="371.3333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       &amp;
-    </text>\n<text x="412.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="412.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       ⏬
-    </text>\n<text x="367.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="367.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       copy
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="377" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="405" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="405" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       N
-    </text>\n<text x="386.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="386.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       _
-    </text>\n<text x="427.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="427.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       ▼
-    </text>\n<text x="382.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="382.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       📋
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="407" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="435" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="435" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       H
-    </text>\n<text x="416.3333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="416.3333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       |
-    </text>\n<text x="457.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="412.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="457.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="412.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ✂️
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="422" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="450" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="450" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       U
-    </text>\n<text x="431.3333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="431.3333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       *
-    </text>\n<text x="472.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="472.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       ⏫
-    </text>\n<text x="427.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="427.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ⏩
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="437" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="465" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="465" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       E
-    </text>\n<text x="446.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="446.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       /
-    </text>\n<text x="487.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="487.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       ▲
-    </text>\n<text x="442.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="442.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ⏯️
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="467" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="495" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="495" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       ,
-    </text>\n<text x="476.3333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="476.3333333333333" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       \
-    </text>\n<text x="517.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="472.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="517.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="472.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ⏪
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="482" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="510" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="510" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       Y
-    </text>\n<text x="491.3333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="491.3333333333333" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ~
-    </text>\n<text x="532.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="532.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       end
-    </text>\n<text x="487.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="487.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       🔊
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="497" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="525" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="525" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       I
-    </text>\n<text x="506.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="506.3333333333333" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       =
-    </text>\n<text x="547.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="547.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       ►
-    </text>\n<text x="502.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="502.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       🔉
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="527" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="555" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="555" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       .
-    </text>\n<text x="536.3333333333334" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="536.3333333333334" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       +
-    </text>\n<text x="577.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="532.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="577.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="532.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       🔇
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="542" y="2" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="570" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="570" y="30" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       :
-    </text>\n<text x="551.3333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="551.3333333333334" y="11.333333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       `
-    </text>\n<text x="592.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="592.4" y="11.333333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
       🗑️
-    </text>\n<text x="547.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="547.6" y="48.666666666666664" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       🔆
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="557" y="62" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="585" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="585" y="90" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       O
-    </text>\n<text x="566.3333333333334" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="566.3333333333334" y="71.33333333333333" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       ;
-    </text>\n<text x="607.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="562.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="607.4" y="71.33333333333333" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="562.6" y="108.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
       🔅
     </text>
-  </g>\n<g transform="">
+  </g>
+  <g transform="">
     <rect width="56px" height="56px" x="587" y="122" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5px">
-    </rect>\n<text x="615" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
+    </rect>
+    <text x="615" y="150" textLength="28px" fill="black" text-anchor="middle" dominant-baseline="central" font-family="Helvetica">
       '
-    </text>\n<text x="596.3333333333334" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
-      "
-    </text>\n<text x="637.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
-    </text>\n<text x="592.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
     </text>
-  </g>\n<g transform="translate(0 265)">
+    <text x="596.3333333333334" y="131.33333333333334" fill="blue" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+      "
+    </text>
+    <text x="637.4" y="131.33333333333334" fill="red" font-size="66%" text-anchor="end" dominant-baseline="central" font-family="Helvetica">
+    </text>
+    <text x="592.6" y="168.66666666666666" fill="purple" font-size="66%" text-anchor="start" dominant-baseline="central" font-family="Helvetica">
+    </text>
+  </g>
+  <g transform="translate(0 265)">
     <g transform="translate(20 20)">
-      \n\n<g transform="">
+      
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="20.598765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n\n<g transform="">
+      </g>
+      
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="53.46913580246914" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="73.19135802469137" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="79.76543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="99.48765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="106.06172839506173" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="125.78395061728396" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="129.7283950617284px" height="24.543209876543212px" x="73.19135802469137" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="132.35802469135803" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="152.08024691358025" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="158.6543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="178.37654320987653" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="184.9506172839506" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="211.2469135802469" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="230.96913580246914" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="237.54320987654322" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="257.2654320987655" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#9ccaff" stroke="undefined" stroke-width="0.6574074074074074px" d="M 0.8765432098765432 0.8765432098765432 L 27.172839506172842 0.8765432098765432 L 51.71604938271605 0.8765432098765432 L 51.71604938271605 25.419753086419757 L 25.419753086419757 25.419753086419757 L 0.8765432098765432 25.419753086419757 Z">
-        </path>\n<circle cx="13.148148148148149" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="39.44444444444444" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="26.296296296296298" y="13.148148148148149" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="13.148148148148149" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="39.44444444444444" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="26.296296296296298" y="13.148148148148149" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ⎋
         </text>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#39f785" stroke="undefined" stroke-width="0.6574074074074074px" d="M 7.450617283950618 27.172839506172842 L 33.74691358024692 27.172839506172842 L 58.29012345679013 27.172839506172842 L 58.29012345679013 51.71604938271605 L 31.99382716049383 51.71604938271605 L 7.450617283950618 51.71604938271605 Z">
-        </path>\n<circle cx="19.72222222222222" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="46.01851851851852" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="32.87037037037037" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="19.72222222222222" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="46.01851851851852" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="32.87037037037037" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ⌥
         </text>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#fdff80" stroke="undefined" stroke-width="0.6574074074074074px" d="M 60.043209876543216 27.172839506172842 L 86.3395061728395 27.172839506172842 L 110.88271604938272 27.172839506172842 L 110.88271604938272 51.71604938271605 L 84.58641975308643 51.71604938271605 L 60.043209876543216 51.71604938271605 Z">
-        </path>\n<circle cx="72.31481481481482" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="98.61111111111111" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="85.46296296296296" y="39.44444444444444" font-size="56%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="72.31481481481482" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="98.61111111111111" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="85.46296296296296" y="39.44444444444444" font-size="56%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ⭾
         </text>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#f9adff" stroke="undefined" stroke-width="0.6574074074074074px" d="M 112.63580246913581 27.172839506172842 L 138.9320987654321 27.172839506172842 L 163.47530864197532 27.172839506172842 L 163.47530864197532 51.71604938271605 L 137.179012345679 51.71604938271605 L 112.63580246913581 51.71604938271605 Z">
-        </path>\n<circle cx="124.90740740740742" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="151.20370370370372" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="138.05555555555557" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="124.90740740740742" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="151.20370370370372" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="138.05555555555557" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ⌫
         </text>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#f58e8e" stroke="undefined" stroke-width="0.6574074074074074px" d="M 165.22839506172838 27.172839506172842 L 191.52469135802468 27.172839506172842 L 216.0679012345679 27.172839506172842 L 216.0679012345679 51.71604938271605 L 189.7716049382716 51.71604938271605 L 165.22839506172838 51.71604938271605 Z">
-        </path>\n<circle cx="177.5" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="203.7962962962963" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="190.64814814814815" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="177.5" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="203.7962962962963" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="190.64814814814815" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ⊥
         </text>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#39f785" stroke="undefined" stroke-width="0.6574074074074074px" d="M 217.820987654321 27.172839506172842 L 244.1172839506173 27.172839506172842 L 268.6604938271605 27.172839506172842 L 268.6604938271605 51.71604938271605 L 242.3641975308642 51.71604938271605 L 217.820987654321 51.71604938271605 Z">
-        </path>\n<circle cx="230.0925925925926" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="256.3888888888889" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="243.24074074074076" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="230.0925925925926" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="256.3888888888889" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="243.24074074074076" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ⌥
         </text>
       </g>
-    </g>\n<g transform="translate(344 20)">
+    </g>
+    <g transform="translate(344 20)">
       <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="0.8765432098765432" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="7.450617283950618" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="20.598765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="27.172839506172842" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="53.46913580246914" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="73.19135802469137" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="79.76543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="86.3395061728395" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="99.48765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="106.06172839506173" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="112.63580246913581" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="125.78395061728396" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="129.7283950617284px" height="24.543209876543212px" x="73.19135802469137" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="132.35802469135803" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="138.9320987654321" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="152.08024691358025" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="158.6543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="165.22839506172838" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="178.37654320987653" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="184.9506172839506" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="211.2469135802469" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="230.96913580246914" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="237.54320987654322" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="244.1172839506173" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="257.2654320987655" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#f9adff" stroke="undefined" stroke-width="0.6574074074074074px" d="M 33.74691358024692 27.172839506172842 L 60.043209876543216 27.172839506172842 L 84.58641975308643 27.172839506172842 L 84.58641975308643 51.71604938271605 L 58.29012345679013 51.71604938271605 L 33.74691358024692 51.71604938271605 Z">
-        </path>\n<circle cx="46.01851851851852" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="72.31481481481482" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="59.16666666666667" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
-          ⇧
-        </text>
-      </g>\n<g>
-        <path fill="#f9adff" stroke="undefined" stroke-width="0.6574074074074074px" d="M 191.52469135802468 27.172839506172842 L 217.820987654321 27.172839506172842 L 242.3641975308642 27.172839506172842 L 242.3641975308642 51.71604938271605 L 216.0679012345679 51.71604938271605 L 191.52469135802468 51.71604938271605 Z">
-        </path>\n<circle cx="203.7962962962963" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="230.0925925925926" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="216.94444444444446" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="46.01851851851852" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="72.31481481481482" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="59.16666666666667" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ⇧
         </text>
       </g>
-    </g>\n<g transform="translate(20 147.5)">
+      <g>
+        <path fill="#f9adff" stroke="undefined" stroke-width="0.6574074074074074px" d="M 191.52469135802468 27.172839506172842 L 217.820987654321 27.172839506172842 L 242.3641975308642 27.172839506172842 L 242.3641975308642 51.71604938271605 L 216.0679012345679 51.71604938271605 L 191.52469135802468 51.71604938271605 Z">
+        </path>
+        <circle cx="203.7962962962963" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="230.0925925925926" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="216.94444444444446" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+          ⇧
+        </text>
+      </g>
+    </g>
+    <g transform="translate(20 147.5)">
       <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="0.8765432098765432" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="7.450617283950618" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="20.598765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="27.172839506172842" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="53.46913580246914" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="60.043209876543216" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="73.19135802469137" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="79.76543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="99.48765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="106.06172839506173" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="112.63580246913581" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="125.78395061728396" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="129.7283950617284px" height="24.543209876543212px" x="73.19135802469137" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="132.35802469135803" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="138.9320987654321" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="152.08024691358025" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="158.6543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="178.37654320987653" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="184.9506172839506" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="191.52469135802468" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="211.2469135802469" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="230.96913580246914" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="237.54320987654322" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="244.1172839506173" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="257.2654320987655" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#fdff80" stroke="undefined" stroke-width="0.6574074074074074px" d="M 33.74691358024692 27.172839506172842 L 86.3395061728395 27.172839506172842 L 110.88271604938272 27.172839506172842 L 110.88271604938272 51.71604938271605 L 58.29012345679013 51.71604938271605 L 33.74691358024692 51.71604938271605 Z">
-        </path>\n<circle cx="46.01851851851852" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="98.61111111111111" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="72.31481481481481" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
-          ctrl
-        </text>
-      </g>\n<g>
-        <path fill="#fdff80" stroke="undefined" stroke-width="0.6574074074074074px" d="M 165.22839506172838 27.172839506172842 L 217.820987654321 27.172839506172842 L 242.3641975308642 27.172839506172842 L 242.3641975308642 51.71604938271605 L 189.7716049382716 51.71604938271605 L 165.22839506172838 51.71604938271605 Z">
-        </path>\n<circle cx="177.5" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="230.0925925925926" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="203.7962962962963" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="46.01851851851852" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="98.61111111111111" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="72.31481481481481" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ctrl
         </text>
       </g>
-    </g>\n<g transform="translate(344 147.5)">
+      <g>
+        <path fill="#fdff80" stroke="undefined" stroke-width="0.6574074074074074px" d="M 165.22839506172838 27.172839506172842 L 217.820987654321 27.172839506172842 L 242.3641975308642 27.172839506172842 L 242.3641975308642 51.71604938271605 L 189.7716049382716 51.71604938271605 L 165.22839506172838 51.71604938271605 Z">
+        </path>
+        <circle cx="177.5" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="230.0925925925926" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="203.7962962962963" y="39.44444444444444" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+          ctrl
+        </text>
+      </g>
+    </g>
+    <g transform="translate(344 147.5)">
       <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="0.8765432098765432" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="7.450617283950618" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="20.598765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="27.172839506172842" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="33.74691358024692" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="53.46913580246914" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="60.043209876543216" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="73.19135802469137" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="86.3395061728395" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="99.48765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="106.06172839506173" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="112.63580246913581" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="125.78395061728396" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="129.7283950617284px" height="24.543209876543212px" x="73.19135802469137" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="132.35802469135803" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="138.9320987654321" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="158.6543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="165.22839506172838" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="178.37654320987653" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="184.9506172839506" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="191.52469135802468" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="211.2469135802469" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="230.96913580246914" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="237.54320987654322" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="244.1172839506173" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="257.2654320987655" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#fdff80" stroke="undefined" stroke-width="0.6574074074074074px" d="M 46.89506172839506 53.46913580246914 L 79.76543209876543 0.8765432098765432 L 104.30864197530865 0.8765432098765432 L 104.30864197530865 25.419753086419757 L 71.43827160493828 78.01234567901236 L 46.89506172839506 78.01234567901236 Z">
-        </path>\n<circle cx="59.16666666666667" cy="65.74074074074075" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="92.03703703703704" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="75.60185185185185" y="39.44444444444445" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="59.16666666666667" cy="65.74074074074075" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="92.03703703703704" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="75.60185185185185" y="39.44444444444445" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           📋
         </text>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#f58e8e" stroke="undefined" stroke-width="0.6574074074074074px" d="M 152.08024691358025 53.46913580246914 L 217.820987654321 27.172839506172842 L 242.3641975308642 27.172839506172842 L 242.3641975308642 51.71604938271605 L 176.62345679012347 78.01234567901236 L 152.08024691358025 78.01234567901236 Z">
-        </path>\n<circle cx="164.35185185185188" cy="65.74074074074075" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="230.0925925925926" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="197.22222222222223" y="52.592592592592595" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="164.35185185185188" cy="65.74074074074075" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="230.0925925925926" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="197.22222222222223" y="52.592592592592595" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ❖
         </text>
       </g>
-    </g>\n<g transform="translate(182 275)">
+    </g>
+    <g transform="translate(182 275)">
       <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="0.8765432098765432" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="7.450617283950618" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="20.598765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="27.172839506172842" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="33.74691358024692" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="60.043209876543216" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="73.19135802469137" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="79.76543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="99.48765432098766" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="106.06172839506173" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="112.63580246913581" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="125.78395061728396" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="46.89506172839506" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="129.7283950617284px" height="24.543209876543212px" x="73.19135802469137" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="86.3395061728395" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="132.35802469135803" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="138.9320987654321" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="152.08024691358025" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="158.6543209876543" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="178.37654320987653" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n\n<g transform="">
+      </g>
+      
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="191.52469135802468" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="204.67283950617283" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="211.2469135802469" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="217.820987654321" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="230.96913580246914" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="237.54320987654322" y="0.8765432098765432" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="244.1172839506173" y="27.172839506172842" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g transform="">
+      </g>
+      <g transform="">
         <rect width="24.543209876543212px" height="24.543209876543212px" x="257.2654320987655" y="53.46913580246914" rx="2.191358024691358" fill="gray" stroke="#000000" stroke-width="0px">
         </rect>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#9ccaff" stroke="undefined" stroke-width="0.6574074074074074px" d="M 53.46913580246914 0.8765432098765432 L 78.01234567901236 0.8765432098765432 L 110.88271604938272 27.172839506172842 L 110.88271604938272 51.71604938271605 L 86.3395061728395 51.71604938271605 L 53.46913580246914 25.419753086419757 Z">
-        </path>\n<circle cx="65.74074074074075" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="98.61111111111111" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="82.17592592592592" y="26.296296296296298" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="65.74074074074075" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="98.61111111111111" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="82.17592592592592" y="26.296296296296298" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           ↵
         </text>
-      </g>\n<g>
+      </g>
+      <g>
         <path fill="#9ccaff" stroke="undefined" stroke-width="0.6574074074074074px" d="M 165.22839506172838 27.172839506172842 L 184.9506172839506 0.8765432098765432 L 209.49382716049382 0.8765432098765432 L 209.49382716049382 25.419753086419757 L 189.7716049382716 51.71604938271605 L 165.22839506172838 51.71604938271605 Z">
-        </path>\n<circle cx="177.5" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<circle cx="197.22222222222223" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
-        </circle>\n<text x="187.36111111111111" y="26.296296296296298" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
+        </path>
+        <circle cx="177.5" cy="39.44444444444444" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <circle cx="197.22222222222223" cy="13.148148148148149" r="3.272427983539095" fill="gray" stroke="gray" fill-opacity="0.3" stroke-opacity="0.7" stroke-width="0.6574074074074074px" stroke-dasharray="1.7134392854146803">
+        </circle>
+        <text x="187.36111111111111" y="26.296296296296298" font-size="70%" fill="black" text-anchor="middle" dominant-baseline="middle" font-family="Helvetica">
           💾
         </text>
       </g>
