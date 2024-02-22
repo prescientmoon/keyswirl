@@ -6,7 +6,7 @@ function indent(amount: number, text: string) {
 }
 
 export function children(...many: string[]): string {
-  return many.join("\\n");
+  return many.join("\n");
 }
 
 export function tag(
