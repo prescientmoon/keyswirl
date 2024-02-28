@@ -21,8 +21,15 @@ module LayoutLens.Prelude
   , module Safe.Coerce
   , module Data.Newtype
   , module Data.Semigroup.First
+  , module Data.Number
+  , module Data.Semigroup.Generic
+  , module Data.Monoid.Generic
+  , module Data.String
+  , module Data.List
   , wrapInto
   , unimplemented
+  , logPretty
+  , unlines
   ) where
 
 import Prelude
@@ -38,9 +45,15 @@ import Data.HashMap (HashMap)
 import Data.HashSet (HashSet)
 import Data.Hashable (class Hashable)
 import Data.Maybe (Maybe(..), fromJust, fromMaybe, fromMaybe', isJust, isNothing, maybe, maybe', optional)
-import Data.Newtype (class Newtype, wrap)
+import Data.Monoid.Generic (genericMempty)
+import Data.Newtype (class Newtype, wrap, unwrap)
+import Data.Number (cos, sin, tan, pi)
+import Data.Semigroup.First (First(..))
+import Data.Semigroup.Generic (genericAppend)
 import Data.Show.Generic (genericShow)
+import Data.String (joinWith, split)
 import Data.Tuple (Tuple(..), curry, fst, snd, swap, uncurry)
+import Data.List (List(..))
 import Data.Tuple.Nested (type (/\), T10, T11, T2, T3, T4, T5, T6, T7, T8, T9, Tuple1, Tuple10, Tuple2, Tuple3, Tuple4, Tuple5, Tuple6, Tuple7, Tuple8, Tuple9, curry1, curry10, curry2, curry3, curry4, curry5, curry6, curry7, curry8, curry9, get1, get10, get2, get3, get4, get5, get6, get7, get8, get9, over1, over10, over2, over3, over4, over5, over6, over7, over8, over9, tuple1, tuple10, tuple2, tuple3, tuple4, tuple5, tuple6, tuple7, tuple8, tuple9, uncurry1, uncurry10, uncurry2, uncurry3, uncurry4, uncurry5, uncurry6, uncurry7, uncurry8, uncurry9, (/\))
 import Effect (Effect, forE, foreachE, untilE, whileE)
 import Effect.Aff (Aff, BracketConditions, Canceler(..), Error, Fiber, Milliseconds(..), ParAff, apathize, attempt, bracket, cancelWith, catchError, delay, effectCanceler, error, fiberCanceler, finally, forkAff, generalBracket, invincible, joinFiber, killFiber, launchAff, launchAff_, launchSuspendedAff, makeAff, message, never, nonCanceler, parallel, runAff, runAff_, runSuspendedAff, sequential, supervise, suspendAff, throwError, try)
@@ -49,10 +62,18 @@ import Effect.Class.Console (clear, group, groupCollapsed, groupEnd, grouped, in
 import Effect.Exception.Unsafe (unsafeThrow)
 import Prim.TypeError (class Warn, Text)
 import Safe.Coerce (class Coercible, coerce)
-import Data.Semigroup.First (First(..))
 
 unimplemented :: forall a. Warn (Text "unimplemenet") => a
 unimplemented = unsafeThrow "unimplemented"
 
 wrapInto :: forall a @t. Newtype t a => a -> t
 wrapInto = wrap
+
+logPretty :: forall m @a. Debug a => MonadEffect m => a -> m Unit
+logPretty a = log
+  $ prettyPrintWith
+      defaultPrettyPrintOptions { maxDepth = Nothing }
+  $ debug a
+
+unlines :: Array String -> String
+unlines = joinWith "\n"

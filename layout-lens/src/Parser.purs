@@ -8,9 +8,25 @@ import Data.HashSet as HS
 import Data.Int as Int
 import Data.Number as Number
 import Data.String.CodeUnits as String
-import LayoutLens.Data.Config (LayerVisualPosition(..))
-import LayoutLens.Data.RawConfig (RawAction(..), RawActionDisplay(..), RawActionEffect(..), RawChord(..), RawConfig(..), RawElement(..), RawKeySymbol(..), RawLayer(..), RawPhysical(..), RawPhysicalActionStep(..), RawPhysicalStep(..), RawSection(..), layerName, sectionElements)
-import LayoutLens.Data.Vec2 (Radians(..), Vec2(..))
+import LayoutLens.Data.CommonConfig
+  ( Action(..)
+  , ActionDisplay(..)
+  , ActionEffect(..)
+  , Chord(..)
+  , ConfigElement(..)
+  , ConfigSection(..)
+  , Layer(..)
+  , LayerVisualPosition(..)
+  , layerName
+  , sectionElements
+  )
+import LayoutLens.Data.RawConfig
+  ( RawConfig(..)
+  , RawPhysical(..)
+  , RawPhysicalActionStep(..)
+  , RawPhysicalStep(..)
+  )
+import LayoutLens.Data.Vec2 (Radians(..), RawScalePreservingTransform(..), Vec2(..))
 import Safe.Coerce (coerce)
 import StringParser (Parser, printParserError, runParser)
 import StringParser as P
@@ -67,7 +83,26 @@ name = ows *> P.try do
     P.fail "Names cannot be keywords"
   pure result
   where
-  kws = [ "layergroup", "chordgroup" ]
+  kws =
+    [ "layergroup"
+    , "chordgroup"
+    , "columns"
+    , "section"
+    , "layer"
+    , "block"
+    , "end"
+    , "point"
+    , "place"
+    , "physical"
+    , "action"
+    ]
+
+displaySymbol :: Parser String
+displaySymbol = do
+  result <- name
+  pure
+    if result == "⚔️" then ""
+    else result
 
 color :: Parser Color
 color = do
@@ -111,12 +146,12 @@ physical = do
   place :: Parser RawPhysicalActionStep
   place = flip P.withError "failed to parse 'place' command" do
     string "place"
-    offset <- vec2
-    rotateBy /\ rotateAround <- P.option (Radians 0.0 /\ offset) do
+    position <- vec2
+    rotateBy /\ rotateAround <- P.option (Radians 0.0 /\ position) do
       angle <- radians
-      around <- P.option offset vec2
+      around <- P.option position vec2
       pure $ angle /\ around
-    pure $ Place { offset, rotateBy, rotateAround }
+    pure $ Place $ RawScalePreservingTransform { position, rotateBy, rotateAround }
 
   point :: Parser RawPhysicalActionStep
   point = do
@@ -126,25 +161,21 @@ physical = do
     let size = Vec2 1.0 1.0
     let rotateBy = Radians 0.0
     let rotateAround = position
+    let
+      point a b c d = Point
+        { transform: RawScalePreservingTransform { position: a, rotateBy: b, rotateAround: c }
+        , size: d
+        }
     case arguments of
-      [] -> pure $ Point { position, size, rotateBy, rotateAround }
-      [ angle ] -> pure $ Point { position, size, rotateAround, rotateBy: Radians angle }
-      [ sx, sy ] -> pure $ Point { position, rotateBy, rotateAround, size: Vec2 sx sy }
-      [ sx, sy, angle ] -> pure $ Point
-        { position
-        , rotateAround
-        , size: Vec2 sx sy
-        , rotateBy: Radians angle
-        }
-      [ sx, sy, angle, rx, ry ] -> pure $ Point
-        { position
-        , size: Vec2 sx sy
-        , rotateBy: Radians angle
-        , rotateAround: Vec2 rx ry
-        }
+      [] -> pure $ point position rotateBy rotateAround size
+      [ angle ] -> pure $ point position (Radians angle) rotateAround size
+      [ sx, sy ] -> pure $ point position rotateBy rotateAround (Vec2 sx sy)
+      [ sx, sy, angle ] -> pure $ point position (Radians angle) rotateAround (Vec2 sx sy)
+      [ sx, sy, angle, rx, ry ] -> pure $ point position (Radians angle) (Vec2 rx ry) (Vec2 sx sy)
+
       _ -> P.fail "Too many arguments provided to point"
 
-layer :: Parser (LayerVisualPosition /\ RawLayer)
+layer :: Parser (LayerVisualPosition /\ Layer)
 layer = do
   string "layer"
   layerName <- tok name
@@ -159,59 +190,56 @@ layer = do
   newline
   keys <- Array.fromFoldable
     <$> P.many1Till
-      (rawKeySymbol <* ws)
+      (displaySymbol <* ws)
       (string "end")
-  pure $ position /\ RawLayer { name: layerName, keys, textColor }
+  pure $ position /\ Layer { name: layerName, keys, textColor }
 
-layergroup :: Parser RawElement
+layergroup :: Parser ConfigElement
 layergroup = do
   string "layergroup" *> newline
   layers <- manyLines layer
   noDuplicates "Layer" $ (show <<< fst) <$> layers
-  pure $ RawLayerGroup $ coerce $ Array.foldMap
-    (\(name /\ value) -> HM.singleton name $ wrapInto @(First RawLayer) value)
+  pure $ LayerGroup $ coerce $ Array.foldMap
+    (\(name /\ value) -> HM.singleton name $ wrapInto @(First Layer) value)
     layers
 
-chord :: Parser RawChord
+chord :: Parser Chord
 chord = do
   from <- Array.fromFoldable <$> P.manyTill
-    (rawKeySymbol <* iws)
+    (name <* iws)
     (P.string "=>")
 
   to <- tok $ Array.fromFoldable <$> P.manyTill
-    (rawKeySymbol <* iws)
+    (displaySymbol <* iws)
     (P.lookAhead color)
 
   fill <- color
   fontSizeModifier <- P.option 1.0 $ tok number
-  pure $ RawChord { from, to, fill, fontSizeModifier }
+  pure $ Chord { from, to, fill, fontSizeModifier }
 
-chordgroup :: Parser RawElement
+chordgroup :: Parser ConfigElement
 chordgroup = do
   string "chordgroup" *> newline
-  c <- RawChordGroup <$> manyLines chord
+  c <- ChordGroup <$> manyLines chord
   pure c
 
-type NamedRawAction = String /\ RawAction
+type NamedAction = String /\ Action
 
-rawKeySymbol :: Parser RawKeySymbol
-rawKeySymbol = RawKeySymbol <$> name
-
-action :: Parser NamedRawAction
+action :: Parser NamedAction
 action = do
   string "action"
   actionName <- tok name
   display <- tok $ oneOf
     [ DisplayLayerColor <$ string "🌈"
-    , DisplaySymbol <$> rawKeySymbol
+    , DisplaySymbol <$> displaySymbol
     ]
   effect <- tok $ oneOf
     [ string "switch" *> (LayerSwitch <$> tok name)
     , string "sticky-switch" *> (StickyLayerSwitch <$> tok name)
     ]
-  pure $ actionName /\ RawAction { display, effect }
+  pure $ actionName /\ Action { display, effect }
 
-section :: Parser (Array NamedRawAction /\ RawSection)
+section :: Parser (Array NamedAction /\ ConfigSection)
 section = do
   string "section" *> newline
   actions /\ columnCounts /\ elements <- map fold $ manyLines $ oneOf
@@ -225,7 +253,7 @@ section = do
     [ single ] -> pure single
     _ -> P.fail $ "Column count defined multiple times " <> show columnCounts
 
-  pure $ actions /\ RawSection { columns, elements }
+  pure $ actions /\ ConfigSection { columns, elements }
   where
   parseColumns :: Parser Int
   parseColumns = P.string "columns" *> tok nat
@@ -244,8 +272,8 @@ config = do
     <#> snd
     >>= sectionElements
     >>= case _ of
-      RawLayerGroup layers -> layerName <$> HM.values layers
-      RawChordGroup _ -> []
+      LayerGroup layers -> layerName <$> HM.values layers
+      ChordGroup _ -> []
     # noDuplicates "Layer"
 
   pure $ RawConfig

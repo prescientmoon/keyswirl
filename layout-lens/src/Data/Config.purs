@@ -1,21 +1,95 @@
-module LayoutLens.Data.Config where
+module LayoutLens.Data.Config
+  ( PhysicalKey(..)
+  , PhysicalLayout(..)
+  , LensConfig(..)
+  , buildConfig
+  , buildPhysical
+  ) where
 
 import LayoutLens.Prelude
 
-data LayerVisualPosition = Center | TopLeft | TopRight | BottomLeft | BottomRight
+import Data.Array as Array
+import LayoutLens.Data.CommonConfig (Action, ConfigSection)
+import LayoutLens.Data.RawConfig
+  ( RawConfig(..)
+  , RawPhysical(..)
+  , RawPhysicalActionStep(..)
+  , RawPhysicalStep(..)
+  )
+import LayoutLens.Data.Vec2
+  ( ScalePreservingTransform
+  , Vec2
+  , composeScalePreservingTransforms
+  , normalizeScalePreservingTransform
+  )
 
-derive instance Eq LayerVisualPosition
-derive instance Generic LayerVisualPosition _
+-- {{{ Physical layouts
+newtype PhysicalKey = PhysicalKey
+  { transform :: ScalePreservingTransform
+  , size :: Vec2
+  }
 
-instance Debug LayerVisualPosition where
+newtype PhysicalLayout = PhysicalLayout (Array PhysicalKey)
+
+type PhysicalExecutionStep = { block :: Array PhysicalKey, keys :: Array PhysicalKey }
+
+transformKey :: ScalePreservingTransform -> PhysicalKey -> PhysicalKey
+transformKey transform (PhysicalKey key) = PhysicalKey
+  { size: key.size
+  , transform: composeScalePreservingTransforms key.transform transform
+  }
+
+buildPhysical :: RawPhysical -> PhysicalLayout
+buildPhysical (RawPhysical steps) = PhysicalLayout $ _.keys =<< final
+  where
+  final :: Array PhysicalExecutionStep
+  final = Array.scanl (loop <<< _.block) initial steps
+
+  initial :: PhysicalExecutionStep
+  initial = { block: [], keys: [] }
+
+  execStep :: Array PhysicalKey -> RawPhysicalActionStep -> Array PhysicalKey
+  execStep block = case _ of
+    Point { size, transform } -> pure $ PhysicalKey
+      { size
+      , transform: normalizeScalePreservingTransform transform
+      }
+    Place transform -> block <#> transformKey (normalizeScalePreservingTransform transform)
+
+  loop :: Array PhysicalKey -> RawPhysicalStep -> PhysicalExecutionStep
+  loop block = case _ of
+    Block actions -> { block: actions >>= execStep block, keys: [] }
+    PhysicalAction action -> { block, keys: execStep block action }
+
+-- }}}
+-- {{{ Config
+newtype LensConfig = LensConfig
+  { physical :: PhysicalLayout
+  , actions :: HashMap String Action
+  , sections :: Array ConfigSection
+  }
+
+buildConfig :: RawConfig -> LensConfig
+buildConfig (RawConfig config) = LensConfig
+  { physical: buildPhysical config.physical
+  , actions: config.actions
+  , sections: config.sections
+  }
+
+-- }}}
+
+derive instance Eq PhysicalKey
+derive instance Eq PhysicalLayout
+derive instance Eq LensConfig
+derive instance Generic PhysicalKey _
+derive instance Generic PhysicalLayout _
+derive instance Generic LensConfig _
+
+instance Debug PhysicalKey where
   debug = genericDebug
 
-instance Show LayerVisualPosition where
-  show = genericShow
+instance Debug PhysicalLayout where
+  debug = genericDebug
 
-instance Hashable LayerVisualPosition where
-  hash Center = 0
-  hash TopLeft = 1
-  hash TopRight = 2
-  hash BottomLeft = 3
-  hash BottomRight = 4
+instance Debug LensConfig where
+  debug = genericDebug
