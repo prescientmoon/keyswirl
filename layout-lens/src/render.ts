@@ -65,6 +65,7 @@ function renderKey(
 ) {
   const withPadding = applyKeyPadding(visual, measurements);
   const center = keyCenter(visual);
+  const keySize = measurements.keySize - 2 * measurements.keyPadding;
 
   const textOverlays = flags.text
     ? [
@@ -82,8 +83,8 @@ function renderKey(
         tag(
           "text",
           {
-            x: withPadding.position[0] + withPadding.size[0] / 6,
-            y: withPadding.position[1] + withPadding.size[1] / 6,
+            x: withPadding.position[0] + keySize / 10,
+            y: withPadding.position[1] + keySize / 6,
             fill: textColor(colorscheme, key.tlLayer, colorscheme.tlLayerColor),
             "font-size": "66%",
             ...textAttribs,
@@ -94,8 +95,8 @@ function renderKey(
         tag(
           "text",
           {
-            x: withPadding.position[0] + (9 * withPadding.size[0]) / 10,
-            y: withPadding.position[1] + withPadding.size[1] / 6,
+            x: withPadding.position[0] + (9 * keySize) / 10,
+            y: withPadding.position[1] + keySize / 6,
             fill: textColor(colorscheme, key.trLayer, colorscheme.trLayerColor),
             "font-size": "66%",
             ...textAttribs,
@@ -106,8 +107,8 @@ function renderKey(
         tag(
           "text",
           {
-            x: withPadding.position[0] + withPadding.size[0] / 10,
-            y: withPadding.position[1] + (5 * withPadding.size[1]) / 6,
+            x: withPadding.position[0] + keySize / 10,
+            y: withPadding.position[1] + (5 * keySize) / 6,
             fill: textColor(colorscheme, key.blLayer, colorscheme.blLayerColor),
             "font-size": "66%",
             ...textAttribs,
