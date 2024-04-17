@@ -36,7 +36,7 @@ type PhysicalExecutionStep = { block :: Array PhysicalKey, keys :: Array Physica
 transformKey :: ScalePreservingTransform -> PhysicalKey -> PhysicalKey
 transformKey transform (PhysicalKey key) = PhysicalKey
   { size: key.size
-  , transform: composeScalePreservingTransforms key.transform transform
+  , transform: composeScalePreservingTransforms transform key.transform
   }
 
 buildPhysical :: RawPhysical -> PhysicalLayout

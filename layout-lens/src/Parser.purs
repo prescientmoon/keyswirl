@@ -90,6 +90,7 @@ name = ows *> P.try do
     , "section"
     , "layer"
     , "block"
+    , "pre"
     , "end"
     , "point"
     , "place"
@@ -151,7 +152,12 @@ physical = do
       angle <- radians
       around <- P.option position vec2
       pure $ angle /\ around
-    pure $ Place $ RawScalePreservingTransform { position, rotateBy, rotateAround }
+    pure $ Place $
+      RawScalePreservingTransform
+        { position
+        , rotateBy
+        , rotateAround
+        }
 
   point :: Parser RawPhysicalActionStep
   point = do
@@ -163,7 +169,11 @@ physical = do
     let rotateAround = position
     let
       point a b c d = Point
-        { transform: RawScalePreservingTransform { position: a, rotateBy: b, rotateAround: c }
+        { transform: RawScalePreservingTransform
+            { position: a
+            , rotateBy: b
+            , rotateAround: c
+            }
         , size: d
         }
     case arguments of

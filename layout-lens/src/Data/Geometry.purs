@@ -3,19 +3,21 @@ module LayoutLens.Data.Geometry where
 import LayoutLens.Prelude
 
 import Data.Array as Array
+import LayoutLens.Data.Vec2 as V
 import LayoutLens.Data.Vec2
   ( AABB(..)
   , Polygon(..)
-  , ScalePreservingTransform
   , Vec2(..)
   , aabbToPolygon
-  , applyScalePreservingTransform
+  , applyTransform
+  , boundingBox
   , mapPoints
+  , tTranslate
   , vinv
   , vscale
   )
 
-data Attribute = Fill Color | Stroke Color
+data Attribute = Fill Color | Stroke Color | StrokeWidth Number
 type Attributes = Array Attribute
 type GenericAttributes = Array (String /\ String)
 
@@ -31,28 +33,30 @@ data PathStep
   | Close
 
 data Geometry
-  = Transform ScalePreservingTransform Geometry
+  = Transform V.Transform Geometry
   | Many (Array Geometry)
   | Text GenericAttributes Attributes String
   | Rect AABB Attributes
   | Path (Array PathStep) Attributes
+  | Invisible Geometry
 
 -- Approximate the size of some geometry by fitting a polygon around it
-boundingPolygon :: Geometry -> Polygon
+boundingPolygon :: Geometry -> Maybe Polygon
 boundingPolygon = case _ of
-  Rect aabb _ -> aabbToPolygon aabb
-  Text _ _ _ -> mempty
+  Rect aabb _ -> pure $ aabbToPolygon aabb
+  Text _ _ _ -> Nothing
   Many array -> foldMap boundingPolygon array
-  Transform t g -> mapPoints (applyScalePreservingTransform t) $ boundingPolygon g
+  Invisible g -> boundingPolygon g
+  Transform t g -> mapPoints (applyTransform t) <$> boundingPolygon g
   Path steps _ -> foldMap snd $ Array.scanl (points <<< fst) mempty steps
     where
-    points :: Vec2 -> PathStep -> Vec2 /\ Polygon
+    points :: Vec2 -> PathStep -> Vec2 /\ Maybe Polygon
     points prev = case _ of
-      Close -> prev /\ Polygon []
-      MoveTo a -> a /\ Polygon [ a ]
-      LineTo a -> a /\ Polygon [ a ]
+      Close -> prev /\ Nothing
+      MoveTo a -> a /\ (pure $ Polygon $ pure a)
+      LineTo a -> a /\ (pure $ Polygon $ pure a)
       -- This is just an approximation where we fit an AABB around the circle.
-      Arc arc -> arc.to /\ aabbToPolygon aabb
+      Arc arc -> arc.to /\ pure (aabbToPolygon aabb)
         where
         aabb = AABB
           { position: center <> vinv diagonal
@@ -61,6 +65,21 @@ boundingPolygon = case _ of
 
         diagonal = Vec2 arc.radius arc.radius
         center = vscale 0.5 $ arc.to <> prev
+
+-- | Add padding around some geometry
+pad :: Vec2 -> Geometry -> Geometry
+pad padding geometry = case boundingBox <$> boundingPolygon geometry of
+  Just (AABB box) -> Many
+    [ Transform (tTranslate padding) geometry
+    , Invisible $ Rect
+        ( AABB
+            { position: box.position
+            , size: box.size <> vscale 2.0 padding
+            }
+        )
+        []
+    ]
+  Nothing -> geometry
 
 derive instance Eq Attribute
 derive instance Eq PathStep

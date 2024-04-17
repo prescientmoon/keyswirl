@@ -562,7 +562,7 @@ workspace:
   extra_packages:
     debugged:
       git: https://github.com/mateiadrielrafael/purescript-debugged.git
-      ref: 0d5a4149279129f10c8fe2a3ef280b9fde4d5116
+      ref: 70d4b2e19c8831753a62a4527b0c8c40a25b2a4e
 packages:
   aff:
     type: registry
@@ -694,7 +694,7 @@ packages:
   debugged:
     type: git
     url: https://github.com/mateiadrielrafael/purescript-debugged.git
-    rev: 0d5a4149279129f10c8fe2a3ef280b9fde4d5116
+    rev: 70d4b2e19c8831753a62a4527b0c8c40a25b2a4e
     dependencies:
       - arrays
       - bifunctors

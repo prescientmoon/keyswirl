@@ -26,6 +26,7 @@ module LayoutLens.Prelude
   , module Data.Monoid.Generic
   , module Data.String
   , module Data.List
+  , module Data.Array.NonEmpty
   , wrapInto
   , unimplemented
   , logPretty
@@ -62,6 +63,7 @@ import Effect.Class.Console (clear, group, groupCollapsed, groupEnd, grouped, in
 import Effect.Exception.Unsafe (unsafeThrow)
 import Prim.TypeError (class Warn, Text)
 import Safe.Coerce (class Coercible, coerce)
+import Data.Array.NonEmpty (NonEmptyArray)
 
 unimplemented :: forall a. Warn (Text "unimplemenet") => a
 unimplemented = unsafeThrow "unimplemented"

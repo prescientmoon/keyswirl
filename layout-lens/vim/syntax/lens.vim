@@ -1,12 +1,12 @@
-" if exists("b:current_syntax")
-"     finish
-" endif
+if exists("b:current_syntax")
+    finish
+endif
 
 set iskeyword+=-
 
 syntax keyword lensKeyword physical section layergroup layer chordgroup block end
 syntax keyword lensAction sticky-switch switch
-syntax keyword lensFunction columns place action key
+syntax keyword lensFunction columns place action key after before
 syntax keyword lensLayerName center topleft topright bottomleft bottomright
 
 syntax match lensComment "\v--.*$"
@@ -21,4 +21,4 @@ highlight link lensOperator Operator
 highlight link lensHexColor String
 highlight link lensFunction Function
 
-let b:current_syntax = "lens" 
+let b:current_syntax = "lens"

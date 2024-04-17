@@ -4,20 +4,24 @@ import LayoutLens.Prelude
 
 import Data.Array as Array
 import Data.String (Pattern(..))
-import LayoutLens.Data.Geometry (Geometry(..), Attribute(..), Attributes, GenericAttributes, PathStep(..))
-import LayoutLens.Data.Vec2 (AABB(..), ScalePreservingTransform(..), Vec2(..), radiansToDegrees, x, y)
+import LayoutLens.Data.Geometry (Attribute(..), Attributes, GenericAttributes, Geometry(..), PathStep(..), boundingPolygon)
+import LayoutLens.Data.Vec2 (AABB(..), Vec2(..), boundingBox, x, y)
+import LayoutLens.Data.Vec2 as V
 
 indent :: String -> String
 indent = split (Pattern "\n") >>> map ("  " <> _) >>> unlines
+
+printAttributes :: GenericAttributes -> String
+printAttributes attributes = joinWith " "
+  $ uncurry (\key value -> fold [ key, "=\"", value, "\"" ])
+  <$> attributes
 
 tag :: String -> GenericAttributes -> String -> String
 tag name attributes child = fold
   [ "<"
   , name
   , " "
-  , joinWith " "
-      $ uncurry (\key value -> fold [ key, "=\"", value, "\"" ])
-      <$> attributes
+  , printAttributes attributes
   , ">"
   , indent child
   , "</"
@@ -26,12 +30,19 @@ tag name attributes child = fold
   ]
 
 leaf :: String -> GenericAttributes -> String
-leaf name attributes = tag name attributes mempty
+leaf name attributes = fold
+  [ "<"
+  , name
+  , " "
+  , printAttributes attributes
+  , "/>"
+  ]
 
 printGeometryAttributes :: Attributes -> GenericAttributes
 printGeometryAttributes = map case _ of
   Fill color -> "fill" /\ toHexString color
   Stroke color -> "stroke" /\ toHexString color
+  StrokeWidth number -> "stroke-width" /\ show number
 
 px :: Number -> String
 px n = show n <> "px"
@@ -39,6 +50,7 @@ px n = show n <> "px"
 -- Render a geometry to svg
 renderGeometry :: Geometry -> String
 renderGeometry = case _ of
+  Invisible _ -> ""
   Many array -> unlines $ renderGeometry <$> array
 
   Rect (AABB aabb) proper ->
@@ -47,8 +59,8 @@ renderGeometry = case _ of
       <>
         [ "x" /\ show (x aabb.position)
         , "y" /\ show (y aabb.position)
-        , "width" /\ px (x aabb.size)
-        , "height" /\ px (y aabb.size)
+        , "width" /\ show (x aabb.size)
+        , "height" /\ show (y aabb.size)
         ]
 
   Path steps proper ->
@@ -78,12 +90,37 @@ renderGeometry = case _ of
       (generic <> printGeometryAttributes proper)
       string
 
-  Transform (ScalePreservingTransform transform) g ->
+  Transform (V.Transform transform) g ->
     tag "g"
-      [ "transform" /\ fold
-          [ "rotate("
-          , show $ radiansToDegrees transform.rotation
+      [ "transform" /\ joinWith " "
+          [ "matrix("
+          , show $ transform.scale * cos (unwrap transform.rotation)
+          , show $ transform.scale * sin (unwrap transform.rotation)
+          , show $ transform.scale * -sin (unwrap transform.rotation)
+          , show $ transform.scale * cos (unwrap transform.rotation)
+          , show $ x transform.position
+          , show $ y transform.position
           , ")"
           ]
       ]
       $ renderGeometry g
+
+-- | Adds the necessary boilerplate to store svg inside a file
+makeSvgDocument :: Geometry -> String
+makeSvgDocument geometry = tag "svg" attributes $ renderGeometry geometry
+  where
+  attributes =
+    [ "xmlns" /\ "http://www.w3.org/2000/svg"
+    , "xmlns:xlink" /\ "http://www.w3.org/1999/xlink"
+    ]
+      <>
+        case boundingBox <$> boundingPolygon geometry of
+          Nothing -> []
+          Just (AABB box) -> pure
+            $ "viewBox"
+            /\ joinWith " "
+              [ show $ x box.position
+              , show $ y box.position
+              , show $ x box.size
+              , show $ y box.size
+              ]
