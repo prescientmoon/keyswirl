@@ -1,0 +1,23 @@
+physical
+  block
+    key 0 1
+    key 1 0.5
+    key 2 0
+    key 3 0.5
+    key 4 1
+  end
+
+  block
+    place 0 0
+    place 7 0
+  end
+
+  place 0 2
+
+  block
+    key 0 0
+    key 1 0
+  end
+
+  place 3.5 4.5 0.2617993878 4 5
+  place 6.5 4.5 -0.2617993878 8 5

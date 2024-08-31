@@ -28,6 +28,7 @@
 #define COMBO_HOLD_TERM 30
 #define COMBO_ONLY_FROM_LAYER 0
 // }}}
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 
 // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_split_keyboard.md#handedness-by-eeprom
 #define EE_HANDS

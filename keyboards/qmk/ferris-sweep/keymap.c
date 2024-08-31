@@ -26,6 +26,10 @@ const uint16_t PROGMEM lgui_combo[] = { KC_R, KC_V, COMBO_END };
 const uint16_t PROGMEM rgui_combo[] = { KC_H, KC_I, COMBO_END };
 const uint16_t PROGMEM lcontrol_sft_combo[] = { KC_R, KC_S, KC_T, COMBO_END };
 const uint16_t PROGMEM rcontrol_sft_combo[] = { KC_N, KC_E, KC_I, COMBO_END };
+const uint16_t PROGMEM lalt_sft_combo[] = { KC_A, KC_R, KC_S, COMBO_END };
+const uint16_t PROGMEM ralt_sft_combo[] = { KC_E, KC_I, KC_O, COMBO_END };
+const uint16_t PROGMEM lcontrol_alt_sft_combo[] = { KC_A, KC_R, KC_S, KC_T, COMBO_END };
+const uint16_t PROGMEM rcontrol_alt_sft_combo[] = { KC_N, KC_E, KC_I, KC_O, COMBO_END };
 // }}}
 // {{{ Custom keymaps (bound by specific apps)
 const uint16_t PROGMEM normal_mode_combo[] = { KC_N, KC_E, COMBO_END };
@@ -64,6 +68,10 @@ combo_t key_combos[] = {
     COMBO(rgui_combo, KC_RGUI),
     COMBO(lcontrol_sft_combo, S(KC_LCTL)),
     COMBO(rcontrol_sft_combo, S(KC_RCTL)),
+    COMBO(lalt_sft_combo, S(KC_LALT)),
+    COMBO(ralt_sft_combo, S(KC_RALT)),
+    COMBO(lcontrol_alt_sft_combo, S(C(KC_LALT))),
+    COMBO(rcontrol_alt_sft_combo, S(C(KC_RALT))),
     // }}}
     // {{{ Custom keybinds (bound in software)
     COMBO(normal_mode_combo, KC_F10),
@@ -111,19 +119,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Blue layer
     [2] = LAYOUT_split_3x5_2(
-        // +       @          #       $          %       _          &          *       `      ~
-        S(KC_EQL), S(KC_2),   S(KC_3),S(KC_4),S(KC_5),   S(KC_MINS),S(KC_7),   S(KC_8),KC_GRV,S(KC_GRV),
-        // <       {          [       (       ?          |          -          /       =      :
-        S(KC_COMM),S(KC_LBRC),KC_LBRC,S(KC_9),S(KC_SLSH),S(KC_BSLS),KC_MINS,   KC_SLSH,KC_EQL,S(KC_SCLN),
-        // >       }          ]       )       !          ^          — em dash                 "
-        S(KC_DOT), S(KC_RBRC),KC_RBRC,S(KC_0),S(KC_1),   S(KC_6),   UC(0x2014),KC_NO,  KC_NO, S(KC_QUOT),
+        // +       @          #       $          %       _          &          *       `       ~
+        S(KC_EQL), S(KC_2),   S(KC_3),S(KC_4),S(KC_5),   S(KC_MINS),S(KC_7),   S(KC_8),KC_GRV, S(KC_GRV),
+        // <       {          [       (       ?          |          -          /       =       :
+        S(KC_COMM),S(KC_LBRC),KC_LBRC,S(KC_9),S(KC_SLSH),S(KC_BSLS),KC_MINS,   KC_SLSH,KC_EQL, S(KC_SCLN),
+        // >       }          ]       )       !          ^          — em dash                  "
+        S(KC_DOT), S(KC_RBRC),KC_RBRC,S(KC_0),S(KC_1),   S(KC_6),   UC(0x2014),KC_TRNS,KC_TRNS,S(KC_QUOT),
                                         TL_LOWR, KC_BSLS, KC_TRNS, KC_NO
     ),
     // Purple layer (blue + red)
     [3] = LAYOUT_split_3x5_2(
         KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,  CAPS, KC_COPY, KC_MNXT,KC_VOLU,KC_BRIU,
         KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,KC_NO, KC_PASTE,KC_MPLY,KC_VOLD,KC_BRID,
-        KC_F11,KC_F12,KC_NO, KC_NO, KC_NO, KC_NO, KC_CUT,  KC_MPRV,KC_MUTE,KC_NO  ,
+        KC_F11,KC_F12,KC_NO, KC_NO, KC_NO, KC_NO, KC_CUT,  KC_MPRV,KC_MUTE,CM_TOGG,
                              KC_NO, KC_NO, KC_NO, KC_NO
     ),
     // QWERTY chars
